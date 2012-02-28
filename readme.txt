@@ -6,12 +6,10 @@ Requires at least: 3.0
 Tested up to: 3.3.1
 Stable tag: 1.0
 
-This plugin is based on the work of many authors.
-
 == Description ==
 
 This plugin allows you to get the latest posts from the blogs in your network and display them in your site using shortcodes or a widget. 
-Based in the WPMU Recent Posts Widget by Angelo (http://bitfreedom.com/)
+Based in the WPMU Recent Posts Widget by Angelo (http://bitfreedom.com/). For further details please visit: http://en.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/ [English] and http://es.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/ [Español]
 
 This plugin works with Wordpress 3 Network (multisites)
 
