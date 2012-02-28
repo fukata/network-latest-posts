@@ -6,6 +6,8 @@ Requires at least: 3.0
 Tested up to: 3.3.1
 Stable tag: 1.0
 
+This plugin allows you to get the latest posts from the blogs in your network and display them in your site using shortcodes or a widget.
+
 == Description ==
 
 This plugin allows you to get the latest posts from the blogs in your network and display them in your site using shortcodes or a widget. 
