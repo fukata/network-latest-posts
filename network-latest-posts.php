@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/
 Description: This plugin allows you to list the latest posts from the blogs in your network and display them in your site using shortcodes or as a widget. Based in the WPMU Recent Posts Widget by Angelo (http://bitfreedom.com/)
-Version: 1.0
+Version: 1.1
 Author: L'Elite
 Author URI: https://laelite.info/
 */
@@ -29,32 +29,50 @@ $how_long: time frame to choose recent posts from (in days), set to 0 to disable
 $titleOnly: true (only title of post is displayed) OR false (title of post and name of blog are displayed)
 $begin_wrap: customise the start html code to adapt to different themes
 $end_wrap: customise the end html code to adapt to different themes
+$blog_id: allows you to retrieve the data for a specific blog
 
-Sample call: network_latest_posts(5, 30, true, '<li>', '</li>'); >> 5 most recent entries over the past 30 days, displaying titles only
+Sample call: network_latest_posts(5, 30, true, '<li>', '</li>', null); >> 5 most recent entries over the past 30 days, displaying titles only
 
-Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>']
+Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>' blogid=null thumbnail=false]
  * title = the section's title null by default
  * number = number of posts to display by blog 10 by default
  * days = time frame to choose recent posts from (in days) 0 by default
  * titleonly = if false it will display the title and the excerpt for each post true by default
  * wrapo = html opening tag to wrap the output (for styling purposes) null by default
  * wrapc = html closing tag to wrap the output (for styling purposes) null by default
+ * blogid = the id of the blog for which you want to display the latest posts null by default
+ * thumbnail = allows you to display the thumbnail (featured image) for each post it can be true or false (false by default)
 */
-function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin_wrap="\n<ul><li>", $end_wrap="</li></ul>") {
+function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin_wrap="\n<ul><li>", $end_wrap="</li></ul>", $blog_id='null', $thumbnail=false) {
 	global $wpdb;
 	global $table_prefix;
 	$counter = 0;
-	
 	// get a list of blogs in order of most recent update. show only public and nonarchived/spam/mature/deleted
 	if ($how_long > 0) {
-		$blogs = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs WHERE
-			public = '1' AND archived = '0' AND mature = '0' AND spam = '0' AND deleted = '0'
-			AND last_updated >= DATE_SUB(CURRENT_DATE(), INTERVAL $how_long DAY)
-			ORDER BY last_updated DESC");
+                // Select by blog id
+                if( !empty($blog_id) && $blog_id != 'null' ) {
+                    $blog_id = htmlspecialchars($blog_id);
+                    $blogs = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs WHERE
+                    public = '1' AND archived = '0' AND mature = '0' AND spam = '0' AND deleted = '0'
+                    AND blog_id = $blog_id AND last_updated >= DATE_SUB(CURRENT_DATE(), INTERVAL $how_long DAY)
+                    ORDER BY last_updated DESC");
+                } else {
+                    $blogs = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs WHERE
+                    public = '1' AND archived = '0' AND mature = '0' AND spam = '0' AND deleted = '0'
+                    AND last_updated >= DATE_SUB(CURRENT_DATE(), INTERVAL $how_long DAY)
+                    ORDER BY last_updated DESC");                    
+                }
 	} else {
-		$blogs = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs WHERE
-			public = '1' AND archived = '0' AND mature = '0' AND spam = '0' AND deleted = '0'
+                if( !empty($blog_id) && $blog_id != 'null' ) {
+                    $blog_id = htmlspecialchars($blog_id);
+                    $blogs = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs WHERE
+			public = '1' AND archived = '0' AND mature = '0' AND spam = '0' AND deleted = '0' AND blog_id = $blog_id
 			ORDER BY last_updated DESC");
+                } else {
+                    $blogs = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs WHERE
+			public = '1' AND archived = '0' AND mature = '0' AND spam = '0' AND deleted = '0'
+			ORDER BY last_updated DESC");                   
+                }
 	}
 
 	if ($blogs) {
@@ -95,16 +113,45 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                     $thispermalink = get_blog_permalink($blog, $thispost[$i]->ID);
                                     // If we want to show the excerpt, we do this
                                     if ($titleOnly == false || $titleOnly == 'false') {
-                                            echo $begin_wrap.'<div class="network-posts blog-'.$blog.'"><h1 class="network-posts-title"><a href="'
-                                            .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source">'.__('published in','trans-nlp').' <a href="'
+                                        // Widget list
+                                        if( preg_match("/\bul\b/",$begin_wrap) ) { 
+                                            echo $begin_wrap.'<div class="network-posts blog-'.$blog.'"><a href="'
+                                            .$thispermalink.'">'.$thispost[$i]->post_title.'</a><span class="network-posts-source">'.__('published in','trans-nlp').' <a href="'
                                             .$options[0]->option_value.'">'
                                             .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p></div>'.$end_wrap;
                                             $counter++;
+                                        // Shortcode
+                                        } else {
+                                            // Display thumbnail
+                                            if( $thumbnail ) {
+                                                echo $begin_wrap.'<div class="network-posts blog-'.$blog.'"><h1 class="network-posts-title"><a href="'
+                                                .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source">'.__('published in','trans-nlp').' <a href="'
+                                                .$options[0]->option_value.'">'
+                                                .$options[1]->option_value.'</a></span><a href="'
+                                                .$thispermalink.'">'.the_post_thumbnail_by_blog($blog,$thispost[$i]->ID).'</a> <p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p></div>'.$end_wrap;
+                                                $counter++;
+                                            // Without thumbnail
+                                            } else {
+                                                echo $begin_wrap.'<div class="network-posts blog-'.$blog.'"><h1 class="network-posts-title"><a href="'
+                                                .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source">'.__('published in','trans-nlp').' <a href="'
+                                                .$options[0]->option_value.'">'
+                                                .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p></div>'.$end_wrap;
+                                                $counter++;
+                                            }
+                                        }
                                     // Otherwise we just show the titles (useful when used as a widget)
                                     } else {
+                                        // Widget list
+                                        if( preg_match("/\bul\b/",$begin_wrap) ) { 
+                                            echo $begin_wrap.'<div class="network-posts blog'.$blog.'"><a href="'.$thispermalink
+                                            .'">'.$thispost[$i]->post_title.'</a></div>'.$end_wrap;
+                                            $counter++;
+                                        // Shortcode
+                                        } else {
                                             echo $begin_wrap.'<div class="network-posts blog'.$blog.'"><h1 class="network-posts-title"><a href="'.$thispermalink
                                             .'">'.$thispost[$i]->post_title.'</a></h1></div>'.$end_wrap;
                                             $counter++;
+                                        }
                                     }
                                 }
 			}
@@ -126,7 +173,8 @@ function network_latest_posts_control() {
 			'title' => __('Latest Posts','trans-nlp'),
 			'number' => '10',
 			'days' => '-1',
-                        'titleonly' => true
+                        'titleonly' => true,
+                        'blogid' => 'null'
 		);
 	}
         // Save changes
@@ -135,6 +183,7 @@ function network_latest_posts_control() {
 		$options['number'] = intval($_POST['network_latest_posts_number']);
 		$options['days'] = intval($_POST['network_latest_posts_days']);
                 $options['titleonly'] = htmlspecialchars($_POST['network_latest_posts_titleonly']);
+                $options['blogid'] = htmlspecialchars($_POST['network_latest_posts_blogid']);
                 // Update hook
 		update_option("network_latest_posts_widget", $options);
 	}
@@ -152,6 +201,22 @@ function network_latest_posts_control() {
         <select name="network_latest_posts_titleonly" id="network_latest_posts_titleonly">
             <option value="true" <?php if($options['titleonly'] == 'true'){ echo "selected='selected'"; } ?>><?php echo __('True','trans-nlp'); ?></option>
             <option value="false" <?php if($options['titleonly'] == 'false'){ echo "selected='selected'"; } ?>><?php echo __('False','trans-nlp'); ?></option>
+        </select>
+        <br /><label for="network_latest_posts_blogid"><?php echo __('Blog ID','trans-nlp'); ?>: </label>
+        <select name="network_latest_posts_blogid" id="network_latest_posts_blogid">
+            <option value="null" <?php if($options['blogid'] == 'null'){ echo "selected='selected'"; } ?>><?php echo __('Display All','trans-nlp'); ?></option>
+            <?php
+                global $wpdb;
+                $bids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs WHERE
+			public = '1' AND archived = '0' AND mature = '0' AND spam = '0' AND deleted = '0'
+			ORDER BY last_updated DESC");
+                
+                foreach ($bids as $tbid) {
+            ?>
+            <option value="<?php echo $tbid; ?>" <?php if($tbid == $options['blogid']){ echo "selected='selected'"; } ?>><?php echo $tbid; ?></option>
+            <?php
+                }
+            ?>
         </select>
 	<input type="hidden" id="network_latest_posts_submit" name="network_latest_posts_submit" value="1" />
 	</p>
@@ -171,13 +236,14 @@ function network_latest_posts_widget($args) {
 			'title' => __('Latest Posts','trans-nlp'),
 			'number' => '10',
 			'days' => '-1',
-                        'titleonly' => true
+                        'titleonly' => true,
+                        'blogid' => 'null'
 		);
 	}
         // Display the widget
 	echo $before_widget;
 	echo "$before_title $options[title] $after_title";
-	network_latest_posts($options['number'],$options['days'],$options['titleonly'],"\n<li>","</li>");
+	network_latest_posts($options['number'],$options['days'],$options['titleonly'],"\n<ul><li>","</li></ul>",$options['blogid']);
 	echo $after_widget;
 }
 
@@ -202,14 +268,16 @@ function network_latest_posts_shortcode($atts){
         'days' => '0',
         'titleonly' => true,
         'wrapo' => null,
-        'wrapc' => null
+        'wrapc' => null,
+        'blogid' => 'null',
+        'thumbnail' => false
     ), $atts));
     // Avoid direct output to control the display position
     ob_start();
     // Check if we have set a title
     if( !empty( $title ) ) { echo "<div class='network-latest-posts-sectitle'><h1>".$title."</h1></div>"; }
     // Get the posts
-    network_latest_posts($number,$days,$titleonly,$wrapo,$wrapc);
+    network_latest_posts($number,$days,$titleonly,$wrapo,$wrapc,$blogid,$thumbnail);
     $output_string=ob_get_contents();;
     ob_end_clean();
     // Put the content where we want
@@ -227,4 +295,56 @@ function network_latest_posts_uninstall(){
 }
 // Execute this stuff
 add_action("plugins_loaded","network_latest_posts_init");
+
+// Functions to retrieve the post's thumbnail inside WordPress Multi-site
+// This awesome piece of code was written by Curtiss
+// Found here: http://www.htmlcenter.com/blog/wordpress-multi-site-get-a-featured-image-from-another-blog/
+// I did some tweaks in order to adapt it to this plugin
+function get_the_post_thumbnail_by_blog($blog_id=NULL,$post_id=NULL,$size='thumbnail',$attrs=NULL) {
+    global $current_blog;
+    $sameblog = false;
+
+    if( empty( $blog_id ) || $blog_id == $current_blog->ID ) {
+            $blog_id = $current_blog->ID;
+            $sameblog = true;
+    }
+    if( empty( $post_id ) ) {
+            global $post;
+            $post_id = $post->ID;
+    }
+    if( $sameblog )
+            return get_the_post_thumbnail( $post_id, $size, $attrs );
+
+    if( !has_post_thumbnail_by_blog($blog_id,$post_id) )
+            return false;
+
+    global $wpdb;
+    $oldblog = $wpdb->set_blog_id( $blog_id );
+
+    $blogdetails = get_blog_details( $blog_id );
+    $thumbcode = str_replace( $current_blog->domain . $current_blog->path, $blogdetails->domain . $blogdetails->path, get_the_post_thumbnail( $post_id, $size, $attrs ) );
+
+    $wpdb->set_blog_id( $oldblog );
+    return $thumbcode;
+}
+function has_post_thumbnail_by_blog($blog_id=NULL,$post_id=NULL) {
+    if( empty( $blog_id ) ) {
+            global $current_blog;
+            $blog_id = $current_blog;
+    }
+    if( empty( $post_id ) ) {
+            global $post;
+            $post_id = $post->ID;
+    }
+
+    global $wpdb;
+    $oldblog = $wpdb->set_blog_id( $blog_id );
+
+    $thumbid = has_post_thumbnail( $post_id );
+    $wpdb->set_blog_id( $oldblog );
+    return ($thumbid !== false) ? true : false;
+}
+function the_post_thumbnail_by_blog($blog_id=NULL,$post_id=NULL,$size='thumbnail',$attrs=NULL) {
+    return get_the_post_thumbnail_by_blog($blog_id,$post_id,$size,$attrs);
+}
 ?>

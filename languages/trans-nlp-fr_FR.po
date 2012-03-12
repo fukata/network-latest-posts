@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Network Latest Posts in French\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-19 18:09+0100\n"
+"POT-Creation-Date: 2012-03-06 20:09+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jose Luis Sayago Rojas <jose.sayago@laelite.info>\n"
 "Language-Team: L'Elite <opensource@laelite.info>\n"
@@ -15,43 +15,47 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-SearchPath-0: /Users/kurosaki/Downloads/network-latest-posts\n"
 
-#: /Users/kurosaki/Downloads/network-latest-posts/network-latest-posts.php:99
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:118
 msgid "published in"
 msgstr "publi&eacute; sur"
 
-#: /Users/kurosaki/Downloads/network-latest-posts/network-latest-posts.php:126
-#: /Users/kurosaki/Downloads/network-latest-posts/network-latest-posts.php:171
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:145
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:203
 msgid "Latest Posts"
 msgstr "Derniers Articles"
 
-#: /Users/kurosaki/Downloads/network-latest-posts/network-latest-posts.php:145
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:166
 msgid "Title"
 msgstr "Titre"
 
-#: /Users/kurosaki/Downloads/network-latest-posts/network-latest-posts.php:147
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:168
 msgid "Number of posts to show"
 msgstr "Nombre d'articles &#224; afficher"
 
-#: /Users/kurosaki/Downloads/network-latest-posts/network-latest-posts.php:149
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:170
 msgid "Number of days to limit"
 msgstr "Nombre de jours &#224; afficher"
 
-#: /Users/kurosaki/Downloads/network-latest-posts/network-latest-posts.php:151
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:172
 msgid "Titles Only"
 msgstr "Titres Seulement"
 
-#: /Users/kurosaki/Downloads/network-latest-posts/network-latest-posts.php:153
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:174
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:179
 msgid "True"
 msgstr "Oui"
 
-#: /Users/kurosaki/Downloads/network-latest-posts/network-latest-posts.php:154
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:175
 msgid "False"
 msgstr "Non"
 
-#: /Users/kurosaki/Downloads/network-latest-posts/network-latest-posts.php:190
-#: /Users/kurosaki/Downloads/network-latest-posts/network-latest-posts.php:191
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:177
+msgid "Blog ID"
+msgstr "ID du Blog"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:223
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:224
 msgid "Network Latest Posts"
 msgstr "Derniers Articles du R&eacute;seau"
 
