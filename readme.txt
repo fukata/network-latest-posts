@@ -4,7 +4,7 @@ Donate link: https://laelite.info
 Tags: recent posts, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 1.2
+Stable tag: 1.2.1
 
 This plugin allows you to get the latest posts from the blogs in your network and display them in your site using shortcodes or a widget.
 
@@ -56,6 +56,9 @@ style for each block of posts inside a blog.
 * ignore_blog = allows you to ignore one or various blogs using their ID numbers
 
 == Changelog ==
+
+= 1.2.1 =
+* Bug fixed when calling the plugin's main function without parameters for wrapo and wrapc inside a template's page (Spotted by John Hawkins)
 
 = 1.2 =
 * Fixed the repeated `<ul></ul>` tags for the widget list

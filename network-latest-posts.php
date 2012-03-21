@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/
 Description: This plugin allows you to list the latest posts from the blogs in your network and display them in your site using shortcodes or as a widget. Based in the WPMU Recent Posts Widget by Angelo (http://bitfreedom.com/)
-Version: 1.2
+Version: 1.2.1
 Author: L'Elite
 Author URI: https://laelite.info/
 */
@@ -112,12 +112,12 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                 // Count how many blogs we've found
                 $nblogs = count($blogs);
                 // Lets dig into each blog
-		foreach ($blogs as $blog) {
+		foreach ($blogs as $blognlp) {
 			// we need _posts and _options tables for this to work
                         // Get the options table for each blog
-			$blogOptionsTable = $wpdb->base_prefix.$blog."_options";
+			$blogOptionsTable = $wpdb->base_prefix.$blognlp."_options";
                         // Get the posts table for each blog
-		    	$blogPostsTable = $wpdb->base_prefix.$blog."_posts";
+		    	$blogPostsTable = $wpdb->base_prefix.$blognlp."_posts";
                         // Get the saved options
 			$options = $wpdb->get_results("SELECT option_value FROM
 				$blogOptionsTable WHERE option_name IN ('siteurl','blogname') 
@@ -143,12 +143,12 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                 // the number of posts chosen for each of them
                                 for($i=0; $i < count($thispost); $i++) {
                                     // get permalink by ID.  check wp-includes/wpmu-functions.php
-                                    $thispermalink = get_blog_permalink($blog, $thispost[$i]->ID);
+                                    $thispermalink = get_blog_permalink($blognlp, $thispost[$i]->ID);
                                     // If we want to show the excerpt, we do this
                                     if ($titleOnly == false || $titleOnly == 'false') {
                                         // Widget list
-                                        if( preg_match("/\bli\b/",$begin_wrap) ) { 
-                                            echo $begin_wrap.'<div class="network-posts blog-'.$blog.'"><a href="'
+                                        if( ( !empty($begin_wrap) || $begin_wrap != '' ) && preg_match("/\bli\b/",$begin_wrap) && $thumbnail == false ) { 
+                                            echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><a href="'
                                             .$thispermalink.'">'.$thispost[$i]->post_title.'</a><span class="network-posts-source">'.__('published in','trans-nlp').' <a href="'
                                             .$options[0]->option_value.'">'
                                             .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p></div>'.$end_wrap;
@@ -156,14 +156,14 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                         } else {
                                             // Display thumbnail
                                             if( $thumbnail ) {
-                                                echo $begin_wrap.'<div class="network-posts blog-'.$blog.'"><h1 class="network-posts-title"><a href="'
+                                                echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><h1 class="network-posts-title"><a href="'
                                                 .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source">'.__('published in','trans-nlp').' <a href="'
                                                 .$options[0]->option_value.'">'
                                                 .$options[1]->option_value.'</a></span><a href="'
-                                                .$thispermalink.'">'.the_post_thumbnail_by_blog($blog,$thispost[$i]->ID).'</a> <p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p></div>'.$end_wrap;
+                                                .$thispermalink.'">'.the_post_thumbnail_by_blog($blognlp,$thispost[$i]->ID).'</a> <p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p></div>'.$end_wrap;
                                             // Without thumbnail
                                             } else {
-                                                echo $begin_wrap.'<div class="network-posts blog-'.$blog.'"><h1 class="network-posts-title"><a href="'
+                                                echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><h1 class="network-posts-title"><a href="'
                                                 .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source">'.__('published in','trans-nlp').' <a href="'
                                                 .$options[0]->option_value.'">'
                                                 .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p></div>'.$end_wrap;
@@ -173,11 +173,11 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                     } else {
                                         // Widget list
                                         if( preg_match("/\bli\b/",$begin_wrap) ) { 
-                                            echo $begin_wrap.'<div class="network-posts blog'.$blog.'"><a href="'.$thispermalink
+                                            echo $begin_wrap.'<div class="network-posts blog'.$blognlp.'"><a href="'.$thispermalink
                                             .'">'.$thispost[$i]->post_title.'</a></div>'.$end_wrap;
                                         // Shortcode
                                         } else {
-                                            echo $begin_wrap.'<div class="network-posts blog'.$blog.'"><h1 class="network-posts-title"><a href="'.$thispermalink
+                                            echo $begin_wrap.'<div class="network-posts blog'.$blognlp.'"><h1 class="network-posts-title"><a href="'.$thispermalink
                                             .'">'.$thispost[$i]->post_title.'</a></h1></div>'.$end_wrap;
                                         }
                                     }
@@ -187,7 +187,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
 			}
 			// don't go over the limit of blogs
 			if($counter >= $nblogs) {
-				break; 
+                            break; 
 			}
 		}
 	}
@@ -361,12 +361,12 @@ function get_the_post_thumbnail_by_blog($blog_id=NULL,$post_id=NULL,$size='thumb
             return false;
 
     global $wpdb;
-    $oldblog = $wpdb->set_blog_id( $blog_id );
 
+    switch_to_blog($blog_id);
     $blogdetails = get_blog_details( $blog_id );
     $thumbcode = str_replace( $current_blog->domain . $current_blog->path, $blogdetails->domain . $blogdetails->path, get_the_post_thumbnail( $post_id, $size, $attrs ) );
+    restore_current_blog();
 
-    $wpdb->set_blog_id( $oldblog );
     return $thumbcode;
 }
 function has_post_thumbnail_by_blog($blog_id=NULL,$post_id=NULL) {
@@ -380,10 +380,11 @@ function has_post_thumbnail_by_blog($blog_id=NULL,$post_id=NULL) {
     }
 
     global $wpdb;
-    $oldblog = $wpdb->set_blog_id( $blog_id );
 
+    switch_to_blog($blog_id);
     $thumbid = has_post_thumbnail( $post_id );
-    $wpdb->set_blog_id( $oldblog );
+    restore_current_blog();
+
     return ($thumbid !== false) ? true : false;
 }
 function the_post_thumbnail_by_blog($blog_id=NULL,$post_id=NULL,$size='thumbnail',$attrs=NULL) {
