@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Network Latest Posts in French\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-06 20:09+0100\n"
+"POT-Creation-Date: 2012-03-20 00:02+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jose Luis Sayago Rojas <jose.sayago@laelite.info>\n"
 "Language-Team: L'Elite <opensource@laelite.info>\n"
@@ -16,46 +16,59 @@ msgstr ""
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-Basepath: .\n"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:118
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:152
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:160
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:167
 msgid "published in"
 msgstr "publi&eacute; sur"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:145
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:203
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:203
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:274
 msgid "Latest Posts"
 msgstr "Derniers Articles"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:166
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:228
 msgid "Title"
 msgstr "Titre"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:168
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:230
 msgid "Number of posts to show"
 msgstr "Nombre d'articles &#224; afficher"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:170
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:232
 msgid "Number of days to limit"
 msgstr "Nombre de jours &#224; afficher"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:172
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:234
 msgid "Titles Only"
 msgstr "Titres Seulement"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:174
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:179
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:236
 msgid "True"
 msgstr "Oui"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:175
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:237
 msgid "False"
 msgstr "Non"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:177
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:239
 msgid "Blog ID"
 msgstr "ID du Blog"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:223
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:224
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:241
+msgid "Display All"
+msgstr "Afficher Tous"
+
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:255
+msgid "Custom Post Type"
+msgstr "Type d'Article"
+
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:257
+msgid "Blog(s) ID(s) to Ignore Separate by Commas"
+msgstr "ID du/des Blog(s) à Ignorer séparés par des virgules"
+
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:296
+#: /Applications/XAMPP/htdocs/wordpress/wp-content/plugins/network-latest-posts/network-latest-posts.php:297
 msgid "Network Latest Posts"
 msgstr "Derniers Articles du R&eacute;seau"
 
