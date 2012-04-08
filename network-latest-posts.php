@@ -169,9 +169,6 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                 }
                             }
                         }
-                        echo "<!--";
-                        echo print_r($catsa{$blognlp});
-                        echo "-->";
                         // Let's find the ID for the category(ies) or tag(s) 
                         if( count($cats{$blognlp}) == 1 ) {
                             $taxo = $wpdb->get_results("SELECT term_taxonomy_id FROM $blogTermTaxonomy WHERE $taxonomy AND term_id = ".$cats{$blognlp});
@@ -403,7 +400,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                                 .$options[0]->option_value.'">'
                                                 .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p>';
                                                 if( $i == (count($thispost)-1) && $paginate == true ) {
-                                                    echo '<div class="network-posts-pagination blog'.$blognlp.'">';
+                                                    echo '<div class="network-posts-pagination">';
                                                     echo paginate_links( array(
                                                         'base' => add_query_arg( 'pnum', '%#%' ),
                                                         'format' => '',
