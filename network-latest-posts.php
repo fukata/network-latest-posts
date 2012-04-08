@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/
 Description: This plugin allows you to list the latest posts from the blogs in your network and display them in your site using shortcodes or as a widget. Based in the WPMU Recent Posts Widget by Angelo (http://bitfreedom.com/)
-Version: 1.2.1
+Version: 2.0
 Author: L'Elite
 Author URI: https://laelite.info/
 */
@@ -33,10 +33,15 @@ $blog_id: allows you to retrieve the data for a specific blog
 $thumbnail: allows you to display the post's thumbnail (shortcode only)
 $cpt: allows you to display a custom post type (post, page, etc) (shortcode and widget)
 $ignore_blog: allows you to ignore one or various blogs using their ID numbers (shortcode and widget)
+$cat: allows you to display posts by one or more categories (separated by commas) (null by default)
+$tag: allows you to display posts by one or more tags (separated by commas) (null by default)
+$paginate: allows you to paginate the results, it will use the number parameter as the number of results to display by page 
+ * // If you paginate the widget results, you will have to tweak CSS to display the links correctly because of the nested lists
+ * // You've been warned ;)
 
 Sample call: network_latest_posts(5, 30, true, '<li>', '</li>'); >> 5 most recent entries over the past 30 days, displaying titles only
 
-Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>' blogid=null thumbnail=false cpt=post ignore_blog=null]
+Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>' blogid=null thumbnail=false cpt=post ignore_blog=null cat=null tag=null paginate=false]
  * title = the section's title null by default
  * number = number of posts to display by blog 10 by default
  * days = time frame to choose recent posts from (in days) 0 by default
@@ -46,7 +51,10 @@ Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=f
  * blogid = the id of the blog for which you want to display the latest posts null by default
  * thumbnail = allows you to display the thumbnail (featured image) for each post it can be true or false (false by default)
  * cpt = custom post type, it allows you to display a specific post type (post, page, etc) (post by default)
- * ignore_blog = this parameter allows you to ignore one or a list of IDs separated by commas (null by default) 
+ * ignore_blog = this parameter allows you to ignore one or a list of IDs separated by commas (null by default)
+ * cat = this parameter allows you to display posts by one or more categories (separated by commas) (null by default)
+ * tag = this parameter allows you to display posts by one or more tags (separated by commas) (null by default)
+ * paginate = this parameter allows you to paginate the results, it will use the number parameter as the number of results to display by page
 */
 /*
  * cpt & ignore_blog parameters were proposed by John Hawkins (9seeds.com)
@@ -54,11 +62,17 @@ Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=f
  * Thanks for the patches, I did some tweaks to your code but it's basically the same idea
  * I also could spot some bugs I didn't fix the last time I updated the plugin
  * and improved the Widget lists because the <ul></ul> tags where repeating, now it's finally fixed I think
+ * 
+ * Pagination feature proposed by Davo
+ * 
+ * Taxonomy filters (categories and tags) proposed by Jenny Beaumont
+ * 
  */
-function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin_wrap="\n<li>", $end_wrap="</li>", $blog_id='null', $thumbnail=false, $cpt="post", $ignore_blog='null') {
+function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin_wrap="\n<li>", $end_wrap="</li>", $blog_id='null', $thumbnail=false, $cpt="post", $ignore_blog='null', $cat='null', $tag='null',$paginate=false) {
 	global $wpdb;
 	global $table_prefix;
 	$counter = 0;
+        $hack_cont = 0;
         // Custom post type
         $cpt = htmlspecialchars($cpt);
         // Ignore blog or blogs
@@ -118,24 +132,208 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
 			$blogOptionsTable = $wpdb->base_prefix.$blognlp."_options";
                         // Get the posts table for each blog
 		    	$blogPostsTable = $wpdb->base_prefix.$blognlp."_posts";
+                        // Get the terms relationships table for each blog
+		    	$blogTermRelationship = $wpdb->base_prefix.$blognlp."_term_relationships";
+                        // Get the term taxonomy table for each blog
+		    	$blogTermTaxonomy = $wpdb->base_prefix.$blognlp."_term_taxonomy";
+                        // Get the terms table for each blog
+		    	$blogTerms = $wpdb->base_prefix.$blognlp."_terms";
+                        // --- Because the categories and tags are handled the same way by WP
+                        // --- I'm hacking the $cat variable so I can use it for both without
+                        // --- repeating the code
+                        if( !empty($cat) && $cat != 'null' && (empty($tag) || $tag == 'null') ) {         // Categories
+                            $cat_hack = $cat;
+                            $taxonomy = "taxonomy = 'category'";
+                        } elseif( !empty($tag) && $tag != 'null' && (empty($cat) || $cat == 'null') ) {   // Tags
+                            $cat_hack = $tag;
+                            $taxonomy = "taxonomy = 'post_tag'";
+                        } elseif( !empty($cat) && $cat != 'null' && !empty($tag) && $tag != 'null' ) {  // Categories & Tags
+                            $cat_hack = $cat.",".$tag;
+                            $taxonomy = "(taxonomy = 'category' OR taxonomy = 'post_tag')";
+                        }
+                        // --- Categories
+                        if( !empty($cat_hack) && $cat_hack != 'null' ) {
+                            if( !preg_match('/,/',$cat_hack) ) {
+                                $cat_hack = htmlspecialchars($cat_hack);
+                                // Get the category's ID
+                                $catid = $wpdb->get_results("SELECT term_id FROM $blogTerms WHERE slug = '$cat_hack'");
+                                $cats{$blognlp} = $catid[0]->term_id;
+                            } else {
+                                $cat_arr = explode(',',$cat_hack);
+                                for($x=0;$x<count($cat_arr);$x++){
+                                    $cat_ids = $wpdb->get_results("SELECT term_id FROM $blogTerms WHERE slug = '$cat_arr[$x]' ");
+                                    if( !empty($cat_ids[0]->term_id) ) {
+                                        // Get the categories' IDs
+                                        $catsa{$blognlp}[] = $cat_ids[0]->term_id;
+                                    }
+                                }
+                            }
+                        }
+                        echo "<!--";
+                        echo print_r($catsa{$blognlp});
+                        echo "-->";
+                        // Let's find the ID for the category(ies) or tag(s) 
+                        if( count($cats{$blognlp}) == 1 ) {
+                            $taxo = $wpdb->get_results("SELECT term_taxonomy_id FROM $blogTermTaxonomy WHERE $taxonomy AND term_id = ".$cats{$blognlp});
+                            $taxs{$blognlp} = $taxo[0]->term_taxonomy_id;
+                        } elseif( count($catsa{$blognlp}) >= 1 ) {
+                            for( $y = 0; $y < count($catsa{$blognlp}); $y++ ) {
+                                $tax_id = $wpdb->get_results("SELECT term_taxonomy_id FROM $blogTermTaxonomy WHERE $taxonomy AND term_id = ".$catsa{$blognlp}[$y]);
+                                if( !empty($tax_id[0]->term_taxonomy_id) ) {
+                                    $taxsa{$blognlp}[] = $tax_id[0]->term_taxonomy_id;
+                                }
+                            }
+                        }
+                        // Next, let's find how they are related to the posts
+                        if( count($taxs{$blognlp}) == 1 ) {
+                            $pids = $wpdb->get_results("SELECT object_id FROM $blogTermRelationship WHERE term_taxonomy_id = ".$taxs{$blognlp});
+                            $postids{$blognlp} = $pids[0]->object_id;
+                        } elseif( count($taxsa{$blognlp}) >= 1 ) {
+                            for( $w = 0; $w < count($taxsa{$blognlp}); $w++ ) {
+                                $p_id = $wpdb->get_results("SELECT object_id FROM $blogTermRelationship WHERE term_taxonomy_id = ".$taxsa{$blognlp}[$w]);
+                                if( !empty($p_id[0]->object_id) ) {
+                                    $postidsa{$blognlp}[] = $p_id[0]->object_id;
+                                }
+                            }
+                        }
+                        // Finally let's find the posts' IDs
+                        if( count($postids{$blognlp}) == 1 ) {
+                            $filter_cat = " AND ID = ".$postids{$blognlp};
+                            if(!empty($filter_cat)) {
+                                if( !preg_match('/\(/',$filter_cat) ) {
+                                    $needle = ' AND ';
+                                    $replacement = ' AND (';
+                                    $filter_cat = str_replace($needle, $replacement, $filter_cat);
+                                }
+                            }
+                        } elseif( count($postidsa{$blognlp}) >= 1 ) {
+                            for( $v = 0; $v < count($postidsa{$blognlp}); $v++ ) {
+                                if( $v == 0 && $hack_cont == 0 ) {
+                                    $filter_cat .= " AND ID = ".$postidsa{$blognlp}[$v];
+                                    $hack_cont++;
+                                } elseif( $hack_cont > 0 ) {
+                                    $filter_cat .= " OR ID = ".$postidsa{$blognlp}[$v];
+                                }
+                            }
+                            if(!empty($filter_cat)) {
+                                if( !preg_match('/\(/',$filter_cat) ) {
+                                    $needle = ' AND ';
+                                    $replacement = ' AND (';
+                                    $filter_cat = str_replace($needle, $replacement, $filter_cat);
+                                }
+                            }
+                        }
+                        // --- Categories\\
                         // Get the saved options
 			$options = $wpdb->get_results("SELECT option_value FROM
 				$blogOptionsTable WHERE option_name IN ('siteurl','blogname') 
 				ORDER BY option_name DESC");
 		        // we fetch the title, excerpt and ID for the latest post
 			if ($how_long > 0) {
-				$thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
-					FROM $blogPostsTable WHERE post_status = 'publish'
-					AND ID > 1
-					AND post_type = '$cpt'
-					AND post_date >= DATE_SUB(CURRENT_DATE(), INTERVAL $how_long DAY)
-					ORDER BY id DESC LIMIT 0,$how_many");
+                                if( !empty( $filter_cat ) && !empty($cat_hack) ) {
+                                    // Without pagination
+                                    if( !$paginate ) {
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                                FROM $blogPostsTable WHERE post_status = 'publish'
+                                                $filter_cat )
+                                                AND post_type = '$cpt'
+                                                AND post_date >= DATE_SUB(CURRENT_DATE(), INTERVAL $how_long DAY)
+                                                ORDER BY id DESC LIMIT 0,$how_many");
+                                    // Paginated results
+                                    } else {
+                                        $posts_per_page = $how_many;
+                                        $page = isset( $_GET['pnum'] ) ? abs( (int) $_GET['pnum'] ) : 1;
+                                        $total_records = $wpdb->get_var("SELECT COUNT(ID)
+                                                FROM $blogPostsTable WHERE post_status = 'publish'
+                                                $filter_cat )
+                                                AND post_type = '$cpt'
+                                                AND post_date >= DATE_SUB(CURRENT_DATE(), INTERVAL $how_long DAY)
+                                                ORDER BY id DESC");
+                                        $total = $total_records;
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                                FROM $blogPostsTable WHERE post_status = 'publish'
+                                                $filter_cat )
+                                                AND post_type = '$cpt'
+                                                AND post_date >= DATE_SUB(CURRENT_DATE(), INTERVAL $how_long DAY)
+                                                ORDER BY id DESC LIMIT ".(($page * $posts_per_page) - $posts_per_page) .",$posts_per_page");
+                                    }
+                                } elseif( empty( $filter_cat ) && empty($cat_hack) ) {
+                                    // Without pagination
+                                    if( !$paginate ) {
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                            FROM $blogPostsTable WHERE post_status = 'publish'
+                                            AND ID > 1
+                                            AND post_type = '$cpt'
+                                            AND post_date >= DATE_SUB(CURRENT_DATE(), INTERVAL $how_long DAY)
+                                            ORDER BY id DESC LIMIT 0,$how_many");
+                                    // Paginated results
+                                    } else {
+                                        $posts_per_page = $how_many;
+                                        $page = isset( $_GET['pnum'] ) ? abs( (int) $_GET['pnum'] ) : 1;
+                                        $total_records = $wpdb->get_var("SELECT COUNT(ID)
+                                                FROM $blogPostsTable WHERE post_status = 'publish'
+                                                AND ID > 1
+                                                AND post_type = '$cpt'
+                                                AND post_date >= DATE_SUB(CURRENT_DATE(), INTERVAL $how_long DAY)
+                                                ORDER BY id DESC");
+                                        $total = $total_records;
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                                FROM $blogPostsTable WHERE post_status = 'publish'
+                                                AND ID > 1
+                                                AND post_type = '$cpt'
+                                                AND post_date >= DATE_SUB(CURRENT_DATE(), INTERVAL $how_long DAY)
+                                                ORDER BY id DESC LIMIT ".(($page * $posts_per_page) - $posts_per_page) .",$posts_per_page");
+                                    }
+                                }
 			} else {
-				$thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
-					FROM $blogPostsTable WHERE post_status = 'publish'
-					AND ID > 1
-					AND post_type = '$cpt'
-					ORDER BY id DESC LIMIT 0,$how_many");
+                                if( !empty( $filter_cat ) && !empty($cat_hack) ) {
+                                    // Without pagination
+                                    if( !$paginate ) {
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                                FROM $blogPostsTable WHERE post_status = 'publish'
+                                                $filter_cat )
+                                                AND post_type = '$cpt'
+                                                ORDER BY id DESC LIMIT 0,$how_many");
+                                    // Paginated results
+                                    } else {
+                                        $posts_per_page = $how_many;
+                                        $page = isset( $_GET['pnum'] ) ? abs( (int) $_GET['pnum'] ) : 1;
+                                        $total_records = $wpdb->get_var("SELECT COUNT(ID)
+                                                FROM $blogPostsTable WHERE post_status = 'publish'
+                                                $filter_cat )
+                                                AND post_type = '$cpt'
+                                                ORDER BY id DESC");
+                                        $total = $total_records;
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                                FROM $blogPostsTable WHERE post_status = 'publish'
+                                                $filter_cat )
+                                                AND post_type = '$cpt'
+                                                ORDER BY id DESC LIMIT ".(($page * $posts_per_page) - $posts_per_page) .",$posts_per_page");
+                                    }
+                                } elseif( empty( $filter_cat ) && empty($cat_hack) ) {
+                                    // Without pagination
+                                    if( !$paginate ) {
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                                FROM $blogPostsTable WHERE post_status = 'publish'
+                                                AND ID > 1
+                                                AND post_type = '$cpt'
+                                                ORDER BY id DESC LIMIT 0,$how_many");
+                                    } else {
+                                        $posts_per_page = $how_many;
+                                        $page = isset( $_GET['pnum'] ) ? abs( (int) $_GET['pnum'] ) : 1;
+                                        $total_records = $wpdb->get_var("SELECT COUNT(ID)
+                                                FROM $blogPostsTable WHERE post_status = 'publish'
+                                                AND ID > 1
+                                                AND post_type = '$cpt'
+                                                ORDER BY id DESC");
+                                        $total = $total_records;
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                                FROM $blogPostsTable WHERE post_status = 'publish'
+                                                AND ID > 1
+                                                AND post_type = '$cpt'
+                                                ORDER BY id DESC LIMIT ".(($page * $posts_per_page) - $posts_per_page) .",$posts_per_page");
+                                    }
+                                }
 			}
 			// if it is found put it to the output
 			if($thispost) {
@@ -156,29 +354,166 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                         } else {
                                             // Display thumbnail
                                             if( $thumbnail ) {
+                                                if( $i == 0 ) {
+                                                    echo '<div id="wrapper-'.$blognlp.'">';
+                                                }
                                                 echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><h1 class="network-posts-title"><a href="'
                                                 .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source">'.__('published in','trans-nlp').' <a href="'
                                                 .$options[0]->option_value.'">'
                                                 .$options[1]->option_value.'</a></span><a href="'
-                                                .$thispermalink.'">'.the_post_thumbnail_by_blog($blognlp,$thispost[$i]->ID).'</a> <p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p></div>'.$end_wrap;
+                                                .$thispermalink.'">'.the_post_thumbnail_by_blog($blognlp,$thispost[$i]->ID).'</a> <p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p>';
+                                                if( $i == (count($thispost)-1) && $paginate == true ) {
+                                                    echo '<div class="network-posts-pagination">';
+                                                    echo paginate_links( array(
+                                                        'base' => add_query_arg( 'pnum', '%#%' ),
+                                                        'format' => '',
+                                                        'prev_text' => __('&laquo;'),
+                                                        'next_text' => __('&raquo;'),
+                                                        'total' => ceil($total / $posts_per_page),
+                                                        'current' => $page,
+                                                        'type' => 'list'
+                                                    ));
+                                                    echo '</div>';
+                                                    echo 
+                                                    '<script type="text/javascript" charset="utf-8">
+                                                        jQuery(document).ready(function(){
+
+                                                                jQuery(".blog-'.$blognlp.' .network-posts-pagination a").live("click", function(e){
+                                                                        e.preventDefault();
+                                                                        var link = jQuery(this).attr("href");
+                                                                        jQuery("#wrapper-'.$blognlp.'").html("<img src=\"'.plugins_url('/img/loader.gif', __FILE__) .'\" />");
+                                                                        jQuery("#wrapper-'.$blognlp.'").load(link+" .blog-'.$blognlp.'");
+
+                                                                });
+
+                                                        });
+                                                    </script>';
+                                                }
+                                                echo "</div>".$end_wrap;
+                                                if($i == (count($thispost)-1)){
+                                                    echo "</div>";
+                                                }
                                             // Without thumbnail
                                             } else {
+                                                if( $i == 0 ) {
+                                                    echo '<div id="wrapper-'.$blognlp.'">';
+                                                }
                                                 echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><h1 class="network-posts-title"><a href="'
                                                 .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source">'.__('published in','trans-nlp').' <a href="'
                                                 .$options[0]->option_value.'">'
-                                                .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p></div>'.$end_wrap;
+                                                .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p>';
+                                                if( $i == (count($thispost)-1) && $paginate == true ) {
+                                                    echo '<div class="network-posts-pagination blog'.$blognlp.'">';
+                                                    echo paginate_links( array(
+                                                        'base' => add_query_arg( 'pnum', '%#%' ),
+                                                        'format' => '',
+                                                        'prev_text' => __('&laquo;'),
+                                                        'next_text' => __('&raquo;'),
+                                                        'total' => ceil($total / $posts_per_page),
+                                                        'current' => $page,
+                                                        'type' => 'list'
+                                                    ));
+                                                    echo '</div>';
+                                                    echo 
+                                                    '<script type="text/javascript" charset="utf-8">
+                                                        jQuery(document).ready(function(){
+
+                                                                jQuery(".blog-'.$blognlp.' .network-posts-pagination a").live("click", function(e){
+                                                                        e.preventDefault();
+                                                                        var link = jQuery(this).attr("href");
+                                                                        jQuery("#wrapper-'.$blognlp.'").html("<img src=\"'.plugins_url('/img/loader.gif', __FILE__) .'\" />");
+                                                                        jQuery("#wrapper-'.$blognlp.'").load(link+" .blog-'.$blognlp.'");
+
+                                                                });
+
+                                                        });
+                                                    </script>';
+                                                }
+                                                echo "</div>".$end_wrap;
+                                                if($i == (count($thispost)-1)){
+                                                    echo "</div>";
+                                                }
                                             }
                                         }
                                     // Otherwise we just show the titles (useful when used as a widget)
                                     } else {
                                         // Widget list
+                                        if( $i == 0 ) {
+                                            echo '<div id="wrapperw-'.$blognlp.'">';
+                                        }
                                         if( preg_match("/\bli\b/",$begin_wrap) ) { 
-                                            echo $begin_wrap.'<div class="network-posts blog'.$blognlp.'"><a href="'.$thispermalink
-                                            .'">'.$thispost[$i]->post_title.'</a></div>'.$end_wrap;
+                                            echo $begin_wrap.'<div class="network-posts blogw-'.$blognlp.'"><a href="'.$thispermalink
+                                            .'">'.$thispost[$i]->post_title.'</a>';
+                                            if( $i == (count($thispost)-1) && $paginate == true ) {
+                                                echo '<div class="network-posts-pagination">';
+                                                echo paginate_links( array(
+                                                    'base' => add_query_arg( 'pnum', '%#%' ),
+                                                    'format' => '',
+                                                    'show_all' => false,
+                                                    'prev_text' => __('&laquo;'),
+                                                    'next_text' => __('&raquo;'),
+                                                    'total' => ceil($total / $posts_per_page),
+                                                    'current' => $page,
+                                                    'type' => 'list'
+                                                ));
+                                                echo '</div>';
+                                                echo 
+                                                '<script type="text/javascript" charset="utf-8">
+                                                    jQuery(document).ready(function(){
+
+                                                            jQuery(".blogw-'.$blognlp.' .network-posts-pagination a").live("click", function(e){
+                                                                    e.preventDefault();
+                                                                    var link = jQuery(this).attr("href");
+                                                                    jQuery("#wrapperw-'.$blognlp.'").html("<img src=\"'.plugins_url('/img/loader.gif', __FILE__) .'\" />");
+                                                                    jQuery("#wrapperw-'.$blognlp.'").load(link+" .blogw-'.$blognlp.'");
+
+                                                            });
+
+                                                    });
+                                                </script>';
+                                            }
+                                            echo '</div>'.$end_wrap;
+                                            if($i == (count($thispost)-1)){
+                                                echo "</div>";
+                                            }
                                         // Shortcode
                                         } else {
-                                            echo $begin_wrap.'<div class="network-posts blog'.$blognlp.'"><h1 class="network-posts-title"><a href="'.$thispermalink
-                                            .'">'.$thispost[$i]->post_title.'</a></h1></div>'.$end_wrap;
+                                            if( $i == 0 ) {
+                                                echo '<div id="wrapper-'.$blognlp.'">';
+                                            }
+                                            echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><h1 class="network-posts-title"><a href="'.$thispermalink
+                                            .'">'.$thispost[$i]->post_title.'</a></h1>';
+                                            if( $i == (count($thispost)-1) && $paginate == true ) {
+                                                echo '<div class="network-posts-pagination">';
+                                                echo paginate_links( array(
+                                                    'base' => add_query_arg( 'pnum', '%#%' ),
+                                                    'format' => '',
+                                                    'prev_text' => __('&laquo;'),
+                                                    'next_text' => __('&raquo;'),
+                                                    'total' => ceil($total / $posts_per_page),
+                                                    'current' => $page,
+                                                    'type' => 'list'
+                                                ));
+                                                echo '</div>';
+                                                echo 
+                                                '<script type="text/javascript" charset="utf-8">
+                                                    jQuery(document).ready(function(){
+
+                                                            jQuery(".blog-'.$blognlp.' .network-posts-pagination a").live("click", function(e){
+                                                                    e.preventDefault();
+                                                                    var link = jQuery(this).attr("href");
+                                                                    jQuery("#wrapper-'.$blognlp.'").html("<img src=\"'.plugins_url('/img/loader.gif', __FILE__) .'\" />");
+                                                                    jQuery("#wrapper-'.$blognlp.'").load(link+" .blog-'.$blognlp.'");
+
+                                                            });
+
+                                                    });
+                                                </script>';
+                                            }
+                                            echo '</div>'.$end_wrap;
+                                            if($i == (count($thispost)-1)){
+                                                echo "</div>";
+                                            }
                                         }
                                     }
                                 }
@@ -206,7 +541,10 @@ function network_latest_posts_control() {
                         'titleonly' => true,
                         'blogid' => 'null',
                         'cpt' => 'post',
-                        'ignore_blog' => 'null'
+                        'ignore_blog' => 'null',
+                        'cat' => 'null',
+                        'tag' => 'null',
+                        'paginate' => false
 		);
 	}
         // Save changes
@@ -218,6 +556,9 @@ function network_latest_posts_control() {
                 $options['blogid'] = htmlspecialchars($_POST['network_latest_posts_blogid']);
                 $options['cpt'] = htmlspecialchars($_POST['network_latest_posts_custompost']);
                 $options['ignore_blog'] = htmlspecialchars($_POST['network_latest_posts_ignoreblog']);
+                $options['cat'] = htmlspecialchars($_POST['network_latest_posts_cat']);
+                $options['tag'] = htmlspecialchars($_POST['network_latest_posts_tag']);
+                $options['paginate'] = htmlspecialchars($_POST['network_latest_posts_paginate']);
                 // Update hook
 		update_option("network_latest_posts_widget", $options);
 	}
@@ -256,6 +597,15 @@ function network_latest_posts_control() {
         <br /><input type="text" id="network_latest_posts_custompost" name="network_latest_posts_custompost" value="<?php echo $options['cpt'];?>" />
         <br /><label for="network_latest_posts_ignoreblog"><?php echo __('Blog(s) ID(s) to Ignore Separate by Commas','trans-nlp'); ?>: </label>
         <br /><input type="text" id="network_latest_posts_ignoreblog" name="network_latest_posts_ignoreblog" value="<?php echo $options['ignore_blog'];?>" />
+        <br /><label for="network_latest_posts_cat"><?php echo __('Category(ies) Slug(s) Separate by Commas','trans-nlp'); ?>: </label>
+        <br /><input type="text" id="network_latest_posts_cat" name="network_latest_posts_cat" value="<?php echo $options['cat'];?>" />
+        <br /><label for="network_latest_posts_tag"><?php echo __('Tag(s) Slug(s) Separate by Commas','trans-nlp'); ?>: </label>
+        <br /><input type="text" id="network_latest_posts_tag" name="network_latest_posts_tag" value="<?php echo $options['tag'];?>" />
+        <br /><label for="network_latest_posts_paginate"><?php echo __('Paginate Results','trans-nlp'); ?></label>
+        <select name="network_latest_posts_paginate" id="network_latest_posts_paginate">
+            <option value="false" <?php if($options['paginate'] == false){ echo "selected='selected'"; } ?>><?php echo __('No','trans-nlp'); ?></option>
+            <option value="true" <?php if($options['paginate'] == true){ echo "selected='selected'"; } ?>><?php echo __('Yes','trans-nlp'); ?></option>
+        </select>
 	<input type="hidden" id="network_latest_posts_submit" name="network_latest_posts_submit" value="1" />
 	</p>
 
@@ -277,13 +627,16 @@ function network_latest_posts_widget($args) {
                         'titleonly' => true,
                         'blogid' => 'null',
                         'cpt' => 'post',
-                        'ignore_blog' => 'null'
+                        'ignore_blog' => 'null',
+                        'cat' => 'null',
+                        'tag' => 'null',
+                        'paginate' => false
 		);
 	}
         // Display the widget
 	echo $before_widget;
 	echo "$before_title $options[title] $after_title <ul>";
-	network_latest_posts($options['number'],$options['days'],$options['titleonly'],"\n<li>","</li>",$options['blogid'],null,$options['cpt'],$options['ignore_blog']);
+	network_latest_posts($options['number'],$options['days'],$options['titleonly'],"\n<li>","</li>",$options['blogid'],null,$options['cpt'],$options['ignore_blog'],$options['cat'],$options['tag'],$options['paginate']);
 	echo "</ul>".$after_widget;
 }
 
@@ -296,6 +649,9 @@ function network_latest_posts_init() {
 	register_sidebar_widget(__("Network Latest Posts"),"network_latest_posts_widget");
 	register_widget_control(__("Network Latest Posts"),"network_latest_posts_control");
         register_uninstall_hook(__FILE__, 'network_latest_posts_uninstall');
+        wp_enqueue_script( 'jquery' );
+        wp_register_style( 'nlpcss', plugins_url('/css/nlp.css', __FILE__) );
+        wp_enqueue_style( 'nlpcss' );
         load_plugin_textdomain('trans-nlp', false, basename( dirname( __FILE__ ) ) . '/languages');
 }
 
@@ -312,14 +668,17 @@ function network_latest_posts_shortcode($atts){
         'blogid' => 'null',
         'thumbnail' => false,
         'cpt' => 'post',
-        'ignore_blog' => 'null'
+        'ignore_blog' => 'null',
+        'cat' => 'null',
+        'tag' => 'null',
+        'paginate' => false
     ), $atts));
     // Avoid direct output to control the display position
     ob_start();
     // Check if we have set a title
     if( !empty( $title ) ) { echo "<div class='network-latest-posts-sectitle'><h1>".$title."</h1></div>"; }
     // Get the posts
-    network_latest_posts($number,$days,$titleonly,$wrapo,$wrapc,$blogid,$thumbnail,$cpt,$ignore_blog);
+    network_latest_posts($number,$days,$titleonly,$wrapo,$wrapc,$blogid,$thumbnail,$cpt,$ignore_blog,$cat,$tag,$paginate);
     $output_string=ob_get_contents();;
     ob_end_clean();
     // Put the content where we want

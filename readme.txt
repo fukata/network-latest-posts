@@ -4,15 +4,14 @@ Donate link: https://laelite.info
 Tags: recent posts, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 1.2.1
+Stable tag: 2.0
 
 This plugin allows you to get the latest posts from the blogs in your network and display them in your site using shortcodes or a widget.
 
 == Description ==
 
 This plugin allows you to get the latest posts from the blogs in your network and display them in your site using shortcodes or a widget. 
-Based in the WPMU Recent Posts Widget by Angelo (http://bitfreedom.com/). For further details please visit: http://en.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/ [English] 
-http://es.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/ [Español] http://fr.8elite.com/2012/03/22/network-latest-posts-extension-pour-wordpress-3/ [Français]
+Based in the WPMU Recent Posts Widget by Angelo (http://bitfreedom.com/). For further details please visit: http://en.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/ [English] http://es.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/ [Espa√±ol] http://fr.8elite.com/2012/03/22/network-latest-posts-extension-pour-wordpress-3/ [Fran√ßais]
 
 This plugin works with Wordpress 3 Network (multisites)
 
@@ -30,6 +29,9 @@ This plugin works with Wordpress 3 Network (multisites)
 * Display latest posts by Blog ID
 * Display posts by custom type (post, page, etc)
 * Ignore Blog IDs
+* Filter by Categories (NEW)
+* Filter by Tags       (NEW)
+* Paginate results     (NEW)
 
 You can style the output using CSS, the list of classes used below:
 
@@ -38,12 +40,13 @@ You can style the output using CSS, the list of classes used below:
 * .network-posts-title (post's title)
 * .network-posts-source (where the post comes from)
 * .network-posts-excerpt (the post's excerpt)
+* .network-posts-pagination (pagination links)
 
 There's also a second class named added to the content wrapper "blog-X" where X is the ID of each blog so you can add a different 
 style for each block of posts inside a blog.
 
 = Shortcode Options =
-`[nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>' blogid=null thumbnail=false cpt=post ignore_blog=null]`
+`[nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>' blogid=null thumbnail=false cpt=post ignore_blog=null cat=null tag=null paginate=false]`
 
 * title = the section's title null by default
 * number = number of posts to display by blog 10 by default
@@ -55,11 +58,18 @@ style for each block of posts inside a blog.
 * thumbnail = allows you to display the thumbnail (featured image) for each post, it can be true or false (false by default)
 * cpt = allows you to display a custom post type (post, page, etc)
 * ignore_blog = allows you to ignore one or various blogs using their ID numbers
+* cat = this parameter allows you to display posts by one or more categories (separated by commas) (null by default)
+* tag = this parameter allows you to display posts by one or more tags (separated by commas) (null by default)
+* paginate = this parameter allows you to paginate the results, it will use the number parameter as the number of results to display by page
 
 == Changelog ==
 
-= 1.2.1 =
-* Bug fixed when calling the plugin's main function without parameters for wrapo and wrapc inside a template's page (Spotted by John Hawkins)
+= 2.0 =
+* NEW feature added `cat` which allows you to filter by one or more categories - Proposed by Jenny Beaumont
+* NEW feature added `tag` which allows you to filter by one or more tags - Proposed by Jenny Beaumont
+* NEW feature added `paginate` which allows you to paginate the results using the number parameter as the number of results to display by page
+* NEW CSS file added
+* NEW img folder added
 
 = 1.2 =
 * Fixed the repeated `<ul></ul>` tags for the widget list
@@ -95,3 +105,15 @@ Because I have 3 blogs and I needed a way to display the latest posts from them 
 = If I want you to add a new feature, will you do it? =
 I like new ideas, but I'm kind of busy finishing the second year of my master's degree so I can't promise I will add everything people proposes but
 I'll do my best to add the best ideas as soon as I have the time and as long as they don't break the actual state of the plugin.
+
+= What do I need in order to make this plugin work for me? =
+Technically nothing, but the new pagination feature uses jQuery to load the content without reloading the page. It's prettier that way but it's up
+to you.
+
+= I can't see the thumbnails =
+Your theme have to support thumbnails, just add this to the function.php inside your theme folder:
+`add_theme_support('post-thumbnails');`
+
+= My theme support thumbnails, but I can't see them =
+When creating a post or page make sure you set the Featured Image option, also check you're not using a plugin that changes the urls in your blog. If
+so, you'll have to hack the code please read this: http://wordpress.org/support/topic/plugin-network-latest-posts-problem-thumbnails
