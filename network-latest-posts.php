@@ -363,7 +363,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                                 .$options[1]->option_value.'</a></span><a href="'
                                                 .$thispermalink.'">'.the_post_thumbnail_by_blog($blognlp,$thispost[$i]->ID).'</a> <p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p>';
                                                 if( $i == (count($thispost)-1) && $paginate == true ) {
-                                                    echo '<div class="network-posts-pagination">';
+                                                    echo '<div class="network-posts-pagination blog-'.$blognlp.'">';
                                                     echo paginate_links( array(
                                                         'base' => add_query_arg( 'pnum', '%#%' ),
                                                         'format' => '',
@@ -403,7 +403,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                                 .$options[0]->option_value.'">'
                                                 .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p>';
                                                 if( $i == (count($thispost)-1) && $paginate == true ) {
-                                                    echo '<div class="network-posts-pagination blog'.$blognlp.'">';
+                                                    echo '<div class="network-posts-pagination blog-'.$blognlp.'">';
                                                     echo paginate_links( array(
                                                         'base' => add_query_arg( 'pnum', '%#%' ),
                                                         'format' => '',
@@ -445,7 +445,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                             echo $begin_wrap.'<div class="network-posts blogw-'.$blognlp.'"><a href="'.$thispermalink
                                             .'">'.$thispost[$i]->post_title.'</a>';
                                             if( $i == (count($thispost)-1) && $paginate == true ) {
-                                                echo '<div class="network-posts-pagination">';
+                                                echo '<div class="network-posts-pagination blog-'.$blognlp.'">';
                                                 echo paginate_links( array(
                                                     'base' => add_query_arg( 'pnum', '%#%' ),
                                                     'format' => '',
@@ -484,7 +484,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                             echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><h1 class="network-posts-title"><a href="'.$thispermalink
                                             .'">'.$thispost[$i]->post_title.'</a></h1>';
                                             if( $i == (count($thispost)-1) && $paginate == true ) {
-                                                echo '<div class="network-posts-pagination">';
+                                                echo '<div class="network-posts-pagination blog-'.$blognlp.'">';
                                                 echo paginate_links( array(
                                                     'base' => add_query_arg( 'pnum', '%#%' ),
                                                     'format' => '',
