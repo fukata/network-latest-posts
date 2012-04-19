@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/
 Description: This plugin allows you to list the latest posts from the blogs in your network and display them in your site using shortcodes or as a widget. Based in the WPMU Recent Posts Widget by Angelo (http://bitfreedom.com/)
-Version: 2.0
+Version: 2.0.1
 Author: L'Elite
 Author URI: https://laelite.info/
 */
@@ -344,7 +344,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                         // Widget list
                                         if( ( !empty($begin_wrap) || $begin_wrap != '' ) && preg_match("/\bli\b/",$begin_wrap) && $thumbnail == false ) { 
                                             echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><a href="'
-                                            .$thispermalink.'">'.$thispost[$i]->post_title.'</a><span class="network-posts-source">'.__('published in','trans-nlp').' <a href="'
+                                            .$thispermalink.'">'.$thispost[$i]->post_title.'</a><span class="network-posts-source"> '.__('published in','trans-nlp').' <a href="'
                                             .$options[0]->option_value.'">'
                                             .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p></div>'.$end_wrap;
                                         // Shortcode
@@ -355,7 +355,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                                     echo '<div id="wrapper-'.$blognlp.'">';
                                                 }
                                                 echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><h1 class="network-posts-title"><a href="'
-                                                .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source">'.__('published in','trans-nlp').' <a href="'
+                                                .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source"> '.__('published in','trans-nlp').' <a href="'
                                                 .$options[0]->option_value.'">'
                                                 .$options[1]->option_value.'</a></span><a href="'
                                                 .$thispermalink.'">'.the_post_thumbnail_by_blog($blognlp,$thispost[$i]->ID).'</a> <p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p>';
@@ -396,7 +396,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                                     echo '<div id="wrapper-'.$blognlp.'">';
                                                 }
                                                 echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><h1 class="network-posts-title"><a href="'
-                                                .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source">'.__('published in','trans-nlp').' <a href="'
+                                                .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source"> '.__('published in','trans-nlp').' <a href="'
                                                 .$options[0]->option_value.'">'
                                                 .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p>';
                                                 if( $i == (count($thispost)-1) && $paginate == true ) {

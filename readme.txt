@@ -4,7 +4,7 @@ Donate link: https://laelite.info
 Tags: recent posts, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 2.0
+Stable tag: 2.0.1
 
 This plugin allows you to get the latest posts from the blogs in your network and display them in your site using shortcodes or a widget.
 
@@ -63,6 +63,9 @@ style for each block of posts inside a blog.
 * paginate = this parameter allows you to paginate the results, it will use the number parameter as the number of results to display by page
 
 == Changelog ==
+
+= 2.0.1 =
+* Added missing spaces before "published in" string: Lines 347, 358 & 399 - Spotted by Josh Maxwell
 
 = 2.0 =
 * NEW feature added `cat` which allows you to filter by one or more categories - Proposed by Jenny Beaumont
