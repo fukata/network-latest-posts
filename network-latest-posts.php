@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/
 Description: This plugin allows you to list the latest posts from the blogs in your network and display them in your site using shortcodes or as a widget. Based in the WPMU Recent Posts Widget by Angelo (http://bitfreedom.com/)
-Version: 2.0.1
+Version: 2.0.2
 Author: L'Elite
 Author URI: https://laelite.info/
 */
@@ -184,18 +184,36 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                         // Next, let's find how they are related to the posts
                         if( count($taxs{$blognlp}) == 1 ) {
                             $pids = $wpdb->get_results("SELECT object_id FROM $blogTermRelationship WHERE term_taxonomy_id = ".$taxs{$blognlp});
-                            $postids{$blognlp} = $pids[0]->object_id;
+                            for( $w=0;$w<count($pids);$w++ ) {
+                                $postids{$blognlp}[] = $pids[$w]->object_id;
+                            }
                         } elseif( count($taxsa{$blognlp}) >= 1 ) {
                             for( $w = 0; $w < count($taxsa{$blognlp}); $w++ ) {
                                 $p_id = $wpdb->get_results("SELECT object_id FROM $blogTermRelationship WHERE term_taxonomy_id = ".$taxsa{$blognlp}[$w]);
-                                if( !empty($p_id[0]->object_id) ) {
-                                    $postidsa{$blognlp}[] = $p_id[0]->object_id;
+                                for( $q = 0; $q < count($p_id); $q++ ){
+                                    $postidsa{$blognlp}[] = $p_id[$q]->object_id;
                                 }
                             }
                         }
                         // Finally let's find the posts' IDs
                         if( count($postids{$blognlp}) == 1 ) {
                             $filter_cat = " AND ID = ".$postids{$blognlp};
+                            if(!empty($filter_cat)) {
+                                if( !preg_match('/\(/',$filter_cat) ) {
+                                    $needle = ' AND ';
+                                    $replacement = ' AND (';
+                                    $filter_cat = str_replace($needle, $replacement, $filter_cat);
+                                }
+                            }
+                        } elseif( count($postids{$blognlp}) > 1 ) {
+                            for( $v = 0; $v < count($postids{$blognlp}); $v++ ) {
+                                if( $v == 0 && $hack_cont == 0 ) {
+                                    $filter_cat .= " AND ID = ".$postids{$blognlp}[$v];
+                                    $hack_cont++;
+                                } elseif( $hack_cont > 0 ) {
+                                    $filter_cat .= " OR ID = ".$postids{$blognlp}[$v];
+                                }
+                            }
                             if(!empty($filter_cat)) {
                                 if( !preg_match('/\(/',$filter_cat) ) {
                                     $needle = ' AND ';
