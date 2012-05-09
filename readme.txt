@@ -4,7 +4,7 @@ Donate link: https://laelite.info
 Tags: recent posts, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 
 This plugin allows you to get the latest posts from the blogs in your network and display them in your site using shortcodes or a widget.
 
@@ -46,7 +46,7 @@ There's also a second class named added to the content wrapper "blog-X" where X 
 style for each block of posts inside a blog.
 
 = Shortcode Options =
-`[nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>' blogid=null thumbnail=false cpt=post ignore_blog=null cat=null tag=null paginate=false]`
+`[nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>' blogid=null thumbnail=false cpt=post ignore_blog=null cat=null tag=null paginate=false excerpt_length=null display_root=false]`
 
 * title = the section's title null by default
 * number = number of posts to display by blog 10 by default
@@ -61,8 +61,14 @@ style for each block of posts inside a blog.
 * cat = this parameter allows you to display posts by one or more categories (separated by commas) (null by default)
 * tag = this parameter allows you to display posts by one or more tags (separated by commas) (null by default)
 * paginate = this parameter allows you to paginate the results, it will use the number parameter as the number of results to display by page
+* excerpt_length = this parameter allows you to limit the length of the excerpt string, for example: set it to 200 to display 200 characters (null by default)
+* display_root: allows you to display the posts published in the main blog (root) possible values: true or false (false by default)
 
 == Changelog ==
+
+= 2.0.3 =
+* Excerpt Length proposed by Tim (trailsherpa.com)
+* It's possible now to display the posts published in the main blog (network root) using the display_root parameter
 
 = 2.0.2 =
 * Bug fix: When using only one category only one article from each blog was displayed. Now it displays the number specified with the `number` 

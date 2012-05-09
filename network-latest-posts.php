@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/
 Description: This plugin allows you to list the latest posts from the blogs in your network and display them in your site using shortcodes or as a widget. Based in the WPMU Recent Posts Widget by Angelo (http://bitfreedom.com/)
-Version: 2.0.2
+Version: 2.0.3
 Author: L'Elite
 Author URI: https://laelite.info/
 */
@@ -38,10 +38,12 @@ $tag: allows you to display posts by one or more tags (separated by commas) (nul
 $paginate: allows you to paginate the results, it will use the number parameter as the number of results to display by page 
  * // If you paginate the widget results, you will have to tweak CSS to display the links correctly because of the nested lists
  * // You've been warned ;)
+$excerpt_length: allows you to limit the length of the excerpt string, for example: set it to 200 to display 200 characters (null by default)
+$display_root: allows you to display the posts published in the main blog (root) (false by default)
 
 Sample call: network_latest_posts(5, 30, true, '<li>', '</li>'); >> 5 most recent entries over the past 30 days, displaying titles only
 
-Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>' blogid=null thumbnail=false cpt=post ignore_blog=null cat=null tag=null paginate=false]
+Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>' blogid=null thumbnail=false cpt=post ignore_blog=null cat=null tag=null paginate=false excerpt_length=null]
  * title = the section's title null by default
  * number = number of posts to display by blog 10 by default
  * days = time frame to choose recent posts from (in days) 0 by default
@@ -55,6 +57,8 @@ Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=f
  * cat = this parameter allows you to display posts by one or more categories (separated by commas) (null by default)
  * tag = this parameter allows you to display posts by one or more tags (separated by commas) (null by default)
  * paginate = this parameter allows you to paginate the results, it will use the number parameter as the number of results to display by page
+ * excerpt_length = this parameter allows you to limit the length of the excerpt string, for example: set it to 200 to display 200 characters (null by default)
+ * display_root: allows you to display the posts published in the main blog (root) possible values: true or false (false by default)
 */
 /*
  * cpt & ignore_blog parameters were proposed by John Hawkins (9seeds.com)
@@ -67,8 +71,10 @@ Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=f
  * 
  * Taxonomy filters (categories and tags) proposed by Jenny Beaumont
  * 
+ * Excerpt Length proposed by Tim (trailsherpa.com)
+ * 
  */
-function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin_wrap="\n<li>", $end_wrap="</li>", $blog_id='null', $thumbnail=false, $cpt="post", $ignore_blog='null', $cat='null', $tag='null',$paginate=false) {
+function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin_wrap="\n<li>", $end_wrap="</li>", $blog_id='null', $thumbnail=false, $cpt="post", $ignore_blog='null', $cat='null', $tag='null', $paginate=false, $excerpt_length='null', $display_root=false) {
 	global $wpdb;
 	global $table_prefix;
 	$counter = 0;
@@ -129,15 +135,39 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
 		foreach ($blogs as $blognlp) {
 			// we need _posts and _options tables for this to work
                         // Get the options table for each blog
-			$blogOptionsTable = $wpdb->base_prefix.$blognlp."_options";
-                        // Get the posts table for each blog
-		    	$blogPostsTable = $wpdb->base_prefix.$blognlp."_posts";
-                        // Get the terms relationships table for each blog
-		    	$blogTermRelationship = $wpdb->base_prefix.$blognlp."_term_relationships";
-                        // Get the term taxonomy table for each blog
-		    	$blogTermTaxonomy = $wpdb->base_prefix.$blognlp."_term_taxonomy";
-                        // Get the terms table for each blog
-		    	$blogTerms = $wpdb->base_prefix.$blognlp."_terms";
+                        if( $display_root == true ) {
+                            if( $blognlp == 1 ) {
+                                $blogOptionsTable = $wpdb->base_prefix."options";
+                                // Get the posts table for each blog
+                                $blogPostsTable = $wpdb->base_prefix."posts";
+                                // Get the terms relationships table for each blog
+                                $blogTermRelationship = $wpdb->base_prefix."term_relationships";
+                                // Get the term taxonomy table for each blog
+                                $blogTermTaxonomy = $wpdb->base_prefix."term_taxonomy";
+                                // Get the terms table for each blog
+                                $blogTerms = $wpdb->base_prefix."terms";
+                            } else {
+                                $blogOptionsTable = $wpdb->base_prefix.$blognlp."_options";
+                                // Get the posts table for each blog
+                                $blogPostsTable = $wpdb->base_prefix.$blognlp."_posts";
+                                // Get the terms relationships table for each blog
+                                $blogTermRelationship = $wpdb->base_prefix.$blognlp."_term_relationships";
+                                // Get the term taxonomy table for each blog
+                                $blogTermTaxonomy = $wpdb->base_prefix.$blognlp."_term_taxonomy";
+                                // Get the terms table for each blog
+                                $blogTerms = $wpdb->base_prefix.$blognlp."_terms";
+                            }
+                        } else {
+                            $blogOptionsTable = $wpdb->base_prefix.$blognlp."_options";
+                            // Get the posts table for each blog
+                            $blogPostsTable = $wpdb->base_prefix.$blognlp."_posts";
+                            // Get the terms relationships table for each blog
+                            $blogTermRelationship = $wpdb->base_prefix.$blognlp."_term_relationships";
+                            // Get the term taxonomy table for each blog
+                            $blogTermTaxonomy = $wpdb->base_prefix.$blognlp."_term_taxonomy";
+                            // Get the terms table for each blog
+                            $blogTerms = $wpdb->base_prefix.$blognlp."_terms";
+                        }
                         // --- Because the categories and tags are handled the same way by WP
                         // --- I'm hacking the $cat variable so I can use it for both without
                         // --- repeating the code
@@ -364,7 +394,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                             echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><a href="'
                                             .$thispermalink.'">'.$thispost[$i]->post_title.'</a><span class="network-posts-source"> '.__('published in','trans-nlp').' <a href="'
                                             .$options[0]->option_value.'">'
-                                            .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p></div>'.$end_wrap;
+                                            .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.custom_excerpt($excerpt_length, $thispost[$i]->post_excerpt, $thispermalink).'</p></div>'.$end_wrap;
                                         // Shortcode
                                         } else {
                                             // Display thumbnail
@@ -376,7 +406,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                                 .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source"> '.__('published in','trans-nlp').' <a href="'
                                                 .$options[0]->option_value.'">'
                                                 .$options[1]->option_value.'</a></span><a href="'
-                                                .$thispermalink.'">'.the_post_thumbnail_by_blog($blognlp,$thispost[$i]->ID).'</a> <p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p>';
+                                                .$thispermalink.'">'.the_post_thumbnail_by_blog($blognlp,$thispost[$i]->ID).'</a> <p class="network-posts-excerpt">'.custom_excerpt($excerpt_length, $thispost[$i]->post_excerpt, $thispermalink).'</p>';
                                                 if( $i == (count($thispost)-1) && $paginate == true ) {
                                                     echo '<div class="network-posts-pagination">';
                                                     echo paginate_links( array(
@@ -416,7 +446,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                                 echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><h1 class="network-posts-title"><a href="'
                                                 .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source"> '.__('published in','trans-nlp').' <a href="'
                                                 .$options[0]->option_value.'">'
-                                                .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.$thispost[$i]->post_excerpt.'</p>';
+                                                .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.custom_excerpt($excerpt_length, $thispost[$i]->post_excerpt, $thispermalink).'</p>';
                                                 if( $i == (count($thispost)-1) && $paginate == true ) {
                                                     echo '<div class="network-posts-pagination">';
                                                     echo paginate_links( array(
@@ -559,7 +589,9 @@ function network_latest_posts_control() {
                         'ignore_blog' => 'null',
                         'cat' => 'null',
                         'tag' => 'null',
-                        'paginate' => false
+                        'paginate' => false,
+                        'excerpt_length' => 'null',
+                        'display_root' => false
 		);
 	}
         // Save changes
@@ -574,6 +606,8 @@ function network_latest_posts_control() {
                 $options['cat'] = htmlspecialchars($_POST['network_latest_posts_cat']);
                 $options['tag'] = htmlspecialchars($_POST['network_latest_posts_tag']);
                 $options['paginate'] = htmlspecialchars($_POST['network_latest_posts_paginate']);
+                $options['excerpt_length'] = htmlspecialchars($_POST['network_latest_posts_excerptlength']);
+                $options['display_root'] = htmlspecialchars($_POST['network_latest_posts_displayroot']);
                 // Update hook
 		update_option("network_latest_posts_widget", $options);
 	}
@@ -621,6 +655,13 @@ function network_latest_posts_control() {
             <option value="false" <?php if($options['paginate'] == false){ echo "selected='selected'"; } ?>><?php echo __('No','trans-nlp'); ?></option>
             <option value="true" <?php if($options['paginate'] == true){ echo "selected='selected'"; } ?>><?php echo __('Yes','trans-nlp'); ?></option>
         </select>
+        <br /><label for="network_latest_posts_excerptlength"><?php echo __('Excerpt Length','trans-nlp'); ?>: </label>
+	<input type="text" size="3" id="network_latest_posts_excerptlength" name="network_latest_posts_excerptlength" value="<?php echo $options['excerpt_length'];?>" />
+        <br /><label for="network_latest_posts_displayroot"><?php echo __('Display Main Blog (Root)','trans-nlp'); ?></label>
+        <select name="network_latest_posts_paginate" id="network_latest_posts_paginate">
+            <option value="false" <?php if($options['display_root'] == false){ echo "selected='selected'"; } ?>><?php echo __('No','trans-nlp'); ?></option>
+            <option value="true" <?php if($options['display_root'] == true){ echo "selected='selected'"; } ?>><?php echo __('Yes','trans-nlp'); ?></option>
+        </select>
 	<input type="hidden" id="network_latest_posts_submit" name="network_latest_posts_submit" value="1" />
 	</p>
 
@@ -645,13 +686,15 @@ function network_latest_posts_widget($args) {
                         'ignore_blog' => 'null',
                         'cat' => 'null',
                         'tag' => 'null',
-                        'paginate' => false
+                        'paginate' => false,
+                        'excerpt_length' => 'null',
+                        'display_root' => false
 		);
 	}
         // Display the widget
 	echo $before_widget;
 	echo "$before_title $options[title] $after_title <ul>";
-	network_latest_posts($options['number'],$options['days'],$options['titleonly'],"\n<li>","</li>",$options['blogid'],null,$options['cpt'],$options['ignore_blog'],$options['cat'],$options['tag'],$options['paginate']);
+	network_latest_posts($options['number'],$options['days'],$options['titleonly'],"\n<li>","</li>",$options['blogid'],null,$options['cpt'],$options['ignore_blog'],$options['cat'],$options['tag'],$options['paginate'],$options['excerpt_length'],$options['display_root']);
 	echo "</ul>".$after_widget;
 }
 
@@ -686,14 +729,16 @@ function network_latest_posts_shortcode($atts){
         'ignore_blog' => 'null',
         'cat' => 'null',
         'tag' => 'null',
-        'paginate' => false
+        'paginate' => false,
+        'excerpt_length' => 'null',
+        'display_root' => false
     ), $atts));
     // Avoid direct output to control the display position
     ob_start();
     // Check if we have set a title
     if( !empty( $title ) ) { echo "<div class='network-latest-posts-sectitle'><h1>".$title."</h1></div>"; }
     // Get the posts
-    network_latest_posts($number,$days,$titleonly,$wrapo,$wrapc,$blogid,$thumbnail,$cpt,$ignore_blog,$cat,$tag,$paginate);
+    network_latest_posts($number,$days,$titleonly,$wrapo,$wrapc,$blogid,$thumbnail,$cpt,$ignore_blog,$cat,$tag,$paginate,$excerpt_length,$display_root);
     $output_string=ob_get_contents();;
     ob_end_clean();
     // Put the content where we want
@@ -763,5 +808,18 @@ function has_post_thumbnail_by_blog($blog_id=NULL,$post_id=NULL) {
 }
 function the_post_thumbnail_by_blog($blog_id=NULL,$post_id=NULL,$size='thumbnail',$attrs=NULL) {
     return get_the_post_thumbnail_by_blog($blog_id,$post_id,$size,$attrs);
+}
+// Limit excerpt's length
+function custom_excerpt($count,$content,$permalink){
+    if($count == 0 || $count == 'null') {
+        return $content;
+    } else {
+        $excerpt = $content;
+        $excerpt = strip_tags($excerpt);
+        $excerpt = substr($excerpt, 0, $count);
+        //$excerpt = $excerpt.'... <a href="'.$permalink.'"><img src="'.plugins_url('/img/plus.png', __FILE__) .'" /></a>';
+        $excerpt = $excerpt.'... <a href="'.$permalink.'">'.__('more').'</a>';
+        return $excerpt;
+    }
 }
 ?>
