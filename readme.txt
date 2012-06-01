@@ -4,7 +4,7 @@ Donate link: https://laelite.info
 Tags: recent posts, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 
 This plugin allows you to get the latest posts from the blogs in your network and display them in your site using shortcodes or a widget.
 
@@ -32,6 +32,9 @@ This plugin works with Wordpress 3 Network (multisites)
 * Filter by Categories (NEW)
 * Filter by Tags       (NEW)
 * Paginate results     (NEW)
+* Set the excerpt's length (NEW)
+* Generate excerpts automatically from the post's content (NEW)
+* Display the full meta (Author, Date & Time) (NEW)
 
 You can style the output using CSS, the list of classes used below:
 
@@ -46,7 +49,7 @@ There's also a second class named added to the content wrapper "blog-X" where X 
 style for each block of posts inside a blog.
 
 = Shortcode Options =
-`[nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>' blogid=null thumbnail=false cpt=post ignore_blog=null cat=null tag=null paginate=false excerpt_length=null display_root=false]`
+`[nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>' blogid=null thumbnail=false cpt=post ignore_blog=null cat=null tag=null paginate=false excerpt_length=null display_root=false auto_excerpt=false full_meta=false]`
 
 * title = the section's title null by default
 * number = number of posts to display by blog 10 by default
@@ -63,8 +66,14 @@ style for each block of posts inside a blog.
 * paginate = this parameter allows you to paginate the results, it will use the number parameter as the number of results to display by page
 * excerpt_length = this parameter allows you to limit the length of the excerpt string, for example: set it to 200 to display 200 characters (null by default)
 * display_root: allows you to display the posts published in the main blog (root) possible values: true or false (false by default)
+* auto_excerpt: will generate an excerpt for each article listed from the content of the post (false by default) you can use it in combination with excerpt length, if excerpt length is not used, it will generate a excerpt 150 chars/words long
+* full_meta: will display the author's display name, the date and time when the post was published
 
 == Changelog ==
+
+= 2.0.4 =
+* NEW feature added `auto_excerpt` will generate an excerpt from the post's content
+* NEW feature added `full_meta` will display the author's display name, the date and the time when the post was published
 
 = 2.0.3 =
 * Excerpt Length proposed by Tim (trailsherpa.com)
@@ -130,3 +139,6 @@ Your theme have to support thumbnails, just add this to the function.php inside 
 = My theme support thumbnails, but I can't see them =
 When creating a post or page make sure you set the Featured Image option, also check you're not using a plugin that changes the urls in your blog. If
 so, you'll have to hack the code please read this: http://wordpress.org/support/topic/plugin-network-latest-posts-problem-thumbnails
+
+= Why my excerpts are longer than I specified in `excerpt_length`? =
+If an image `[caption]` tag is found in the post's content, NLP interprets the shortcode to display the image, then it will display the text picking your specified value but in number of words not characters.
