@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/
 Description: This plugin allows you to list the latest posts from the blogs in your network and display them in your site using shortcodes or as a widget. Based in the WPMU Recent Posts Widget by Angelo (http://bitfreedom.com/)
-Version: 2.0.3
+Version: 2.0.4
 Author: L'Elite
 Author URI: https://laelite.info/
 */
@@ -40,10 +40,12 @@ $paginate: allows you to paginate the results, it will use the number parameter 
  * // You've been warned ;)
 $excerpt_length: allows you to limit the length of the excerpt string, for example: set it to 200 to display 200 characters (null by default)
 $display_root: allows you to display the posts published in the main blog (root) (false by default)
+$auto_excerpt: will generate an excerpt for each article listed from the content of the post (false by default)
+$full_meta: will display the author's display name, the date and time when the post was published
 
 Sample call: network_latest_posts(5, 30, true, '<li>', '</li>'); >> 5 most recent entries over the past 30 days, displaying titles only
 
-Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>' blogid=null thumbnail=false cpt=post ignore_blog=null cat=null tag=null paginate=false excerpt_length=null]
+Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=false wrapo='<div>' wrapc='</div>' blogid=null thumbnail=false cpt=post ignore_blog=null cat=null tag=null paginate=false excerpt_length=null display_root=false auto_excerpt=false full_meta=false]
  * title = the section's title null by default
  * number = number of posts to display by blog 10 by default
  * days = time frame to choose recent posts from (in days) 0 by default
@@ -59,6 +61,8 @@ Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=f
  * paginate = this parameter allows you to paginate the results, it will use the number parameter as the number of results to display by page
  * excerpt_length = this parameter allows you to limit the length of the excerpt string, for example: set it to 200 to display 200 characters (null by default)
  * display_root: allows you to display the posts published in the main blog (root) possible values: true or false (false by default)
+ * auto_excerpt: will generate an excerpt for each article listed from the content of the post, possible values true or false (false by default)
+ * full_meta: will display the author's display name, the date and time when the post was published, possible values true or false (false by default)
 */
 /*
  * cpt & ignore_blog parameters were proposed by John Hawkins (9seeds.com)
@@ -74,7 +78,7 @@ Sample Shortcode: [nlposts title='Latest Posts' number='2' days='30' titleonly=f
  * Excerpt Length proposed by Tim (trailsherpa.com)
  * 
  */
-function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin_wrap="\n<li>", $end_wrap="</li>", $blog_id='null', $thumbnail=false, $cpt="post", $ignore_blog='null', $cat='null', $tag='null', $paginate=false, $excerpt_length='null', $display_root=false) {
+function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin_wrap="\n<li>", $end_wrap="</li>", $blog_id='null', $thumbnail=false, $cpt="post", $ignore_blog='null', $cat='null', $tag='null', $paginate=false, $excerpt_length='null', $display_root=false, $auto_excerpt=false, $full_meta=false) {
 	global $wpdb;
 	global $table_prefix;
 	$counter = 0;
@@ -271,14 +275,14 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                         // --- Categories\\
                         // Get the saved options
 			$options = $wpdb->get_results("SELECT option_value FROM
-				$blogOptionsTable WHERE option_name IN ('siteurl','blogname') 
+				$blogOptionsTable WHERE option_name IN ('siteurl','blogname','links_updated_date_format') 
 				ORDER BY option_name DESC");
 		        // we fetch the title, excerpt and ID for the latest post
 			if ($how_long > 0) {
                                 if( !empty( $filter_cat ) && !empty($cat_hack) ) {
                                     // Without pagination
                                     if( !$paginate ) {
-                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt, post_content, post_author, post_date
                                                 FROM $blogPostsTable WHERE post_status = 'publish'
                                                 $filter_cat )
                                                 AND post_type = '$cpt'
@@ -295,7 +299,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                                 AND post_date >= DATE_SUB(CURRENT_DATE(), INTERVAL $how_long DAY)
                                                 ORDER BY id DESC");
                                         $total = $total_records;
-                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt, post_content, post_author, post_date
                                                 FROM $blogPostsTable WHERE post_status = 'publish'
                                                 $filter_cat )
                                                 AND post_type = '$cpt'
@@ -305,7 +309,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                 } elseif( empty( $filter_cat ) && empty($cat_hack) ) {
                                     // Without pagination
                                     if( !$paginate ) {
-                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt, post_content, post_author, post_date
                                             FROM $blogPostsTable WHERE post_status = 'publish'
                                             AND ID > 1
                                             AND post_type = '$cpt'
@@ -322,7 +326,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                                 AND post_date >= DATE_SUB(CURRENT_DATE(), INTERVAL $how_long DAY)
                                                 ORDER BY id DESC");
                                         $total = $total_records;
-                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt, post_content, post_author, post_date
                                                 FROM $blogPostsTable WHERE post_status = 'publish'
                                                 AND ID > 1
                                                 AND post_type = '$cpt'
@@ -334,7 +338,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                 if( !empty( $filter_cat ) && !empty($cat_hack) ) {
                                     // Without pagination
                                     if( !$paginate ) {
-                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt, post_content, post_author, post_date
                                                 FROM $blogPostsTable WHERE post_status = 'publish'
                                                 $filter_cat )
                                                 AND post_type = '$cpt'
@@ -349,7 +353,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                                 AND post_type = '$cpt'
                                                 ORDER BY id DESC");
                                         $total = $total_records;
-                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt, post_content, post_author, post_date
                                                 FROM $blogPostsTable WHERE post_status = 'publish'
                                                 $filter_cat )
                                                 AND post_type = '$cpt'
@@ -358,7 +362,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                 } elseif( empty( $filter_cat ) && empty($cat_hack) ) {
                                     // Without pagination
                                     if( !$paginate ) {
-                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt, post_content, post_author, post_date
                                                 FROM $blogPostsTable WHERE post_status = 'publish'
                                                 AND ID > 1
                                                 AND post_type = '$cpt'
@@ -372,7 +376,7 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                                 AND post_type = '$cpt'
                                                 ORDER BY id DESC");
                                         $total = $total_records;
-                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt
+                                        $thispost = $wpdb->get_results("SELECT ID, post_title, post_excerpt, post_content, post_author, post_date
                                                 FROM $blogPostsTable WHERE post_status = 'publish'
                                                 AND ID > 1
                                                 AND post_type = '$cpt'
@@ -394,7 +398,26 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                             echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><a href="'
                                             .$thispermalink.'">'.$thispost[$i]->post_title.'</a><span class="network-posts-source"> '.__('published in','trans-nlp').' <a href="'
                                             .$options[0]->option_value.'">'
-                                            .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.custom_excerpt($excerpt_length, $thispost[$i]->post_excerpt, $thispermalink).'</p></div>'.$end_wrap;
+                                            .$options[2]->option_value.'</a>';
+                                            // Full metadata
+                                            if( !empty($full_meta) && $full_meta == 'true' ){
+                                                $format = (string)$options[1]->option_value;
+                                                $dateobj = new DateTime(trim($thispost[$i]->post_date));
+                                                $datepost = $dateobj->format("$format");
+                                                echo ' ' . __('by','trans-nlp'). ' ' . get_the_author_meta( 'display_name' , $thispost[$i]->post_author ) . ' ' . __('on','trans-nlp') . ' ' . $datepost;
+                                            }
+                                            echo '</span><p class="network-posts-excerpt">';
+                                            if( $auto_excerpt == false ) {
+                                                echo custom_excerpt($excerpt_length, $thispost[$i]->post_excerpt, $thispermalink);
+                                            } else {
+                                                $auto_excerpt = auto_excerpt($thispost[$i]->post_content, $excerpt_length, $thispermalink);
+                                                if( preg_match( "/\[caption/", $auto_excerpt ) == true ) {
+                                                    echo do_shortcode($auto_excerpt);
+                                                } else {
+                                                    echo custom_excerpt($excerpt_length, $auto_excerpt, $thispermalink);
+                                                }
+                                            }
+                                            echo '</p></div>'.$end_wrap;
                                         // Shortcode
                                         } else {
                                             // Display thumbnail
@@ -402,11 +425,29 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                                 if( $i == 0 ) {
                                                     echo '<div id="wrapper-'.$blognlp.'">';
                                                 }
-                                                echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><h1 class="network-posts-title"><a href="'
-                                                .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source"> '.__('published in','trans-nlp').' <a href="'
+                                                echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><h1 class="network-posts-title"><a href="'.$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source"> '.__('published in','trans-nlp').' <a href="'
                                                 .$options[0]->option_value.'">'
-                                                .$options[1]->option_value.'</a></span><a href="'
-                                                .$thispermalink.'">'.the_post_thumbnail_by_blog($blognlp,$thispost[$i]->ID).'</a> <p class="network-posts-excerpt">'.custom_excerpt($excerpt_length, $thispost[$i]->post_excerpt, $thispermalink).'</p>';
+                                                .$options[2]->option_value.'</a>';
+                                                // Full metadata
+                                                if( !empty($full_meta) && $full_meta == 'true' ){
+                                                    $format = (string)$options[1]->option_value;
+                                                    $dateobj = new DateTime(trim($thispost[$i]->post_date));
+                                                    $datepost = $dateobj->format("$format");
+                                                    echo ' ' . __('by','trans-nlp'). ' ' . get_the_author_meta( 'display_name' , $thispost[$i]->post_author ) . ' ' . __('on','trans-nlp') . ' ' . $datepost;
+                                                }
+                                                echo '</span><a href="'
+                                                .$thispermalink.'">'.the_post_thumbnail_by_blog($blognlp,$thispost[$i]->ID).'</a> <p class="network-posts-excerpt">';
+                                                if( $auto_excerpt == false ) {
+                                                    echo custom_excerpt($excerpt_length, $thispost[$i]->post_excerpt, $thispermalink);
+                                                } else {
+                                                    $auto_excerpt = auto_excerpt($thispost[$i]->post_content, $excerpt_length, $thispermalink);
+                                                    if( preg_match( "/\[caption/", $auto_excerpt ) == true ) {
+                                                        echo do_shortcode($auto_excerpt);
+                                                    } else {
+                                                        echo custom_excerpt($excerpt_length, $auto_excerpt, $thispermalink);
+                                                    }
+                                                }
+                                                echo '</p>';
                                                 if( $i == (count($thispost)-1) && $paginate == true ) {
                                                     echo '<div class="network-posts-pagination">';
                                                     echo paginate_links( array(
@@ -443,10 +484,29 @@ function network_latest_posts($how_many=10, $how_long=0, $titleOnly=true, $begin
                                                 if( $i == 0 ) {
                                                     echo '<div id="wrapper-'.$blognlp.'">';
                                                 }
-                                                echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><h1 class="network-posts-title"><a href="'
-                                                .$thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source"> '.__('published in','trans-nlp').' <a href="'
+                                                echo $begin_wrap.'<div class="network-posts blog-'.$blognlp.'"><h1 class="network-posts-title"><a href="'.
+                                                $thispermalink.'">'.$thispost[$i]->post_title.'</a></h1><span class="network-posts-source"> '.__('published in','trans-nlp').' <a href="'
                                                 .$options[0]->option_value.'">'
-                                                .$options[1]->option_value.'</a></span><p class="network-posts-excerpt">'.custom_excerpt($excerpt_length, $thispost[$i]->post_excerpt, $thispermalink).'</p>';
+                                                .$options[2]->option_value.'</a>';
+                                                // Full metadata
+                                                if( !empty($full_meta) && $full_meta == 'true' ){
+                                                    $format = (string)$options[1]->option_value;
+                                                    $dateobj = new DateTime(trim($thispost[$i]->post_date));
+                                                    $datepost = $dateobj->format("$format");
+                                                    echo ' ' . __('by','trans-nlp'). ' ' . get_the_author_meta( 'display_name' , $thispost[$i]->post_author ) . ' ' . __('on','trans-nlp') . ' ' . $datepost;
+                                                }
+                                                echo '</span><p class="network-posts-excerpt">';
+                                                if( $auto_excerpt == false ) {
+                                                    echo custom_excerpt($excerpt_length, $thispost[$i]->post_excerpt, $thispermalink);
+                                                } else {
+                                                    $auto_excerpt = auto_excerpt($thispost[$i]->post_content, $excerpt_length, $thispermalink);
+                                                    if( preg_match( "/\[caption/", $auto_excerpt ) == true ) {
+                                                        echo do_shortcode($auto_excerpt);
+                                                    } else {
+                                                        echo custom_excerpt($excerpt_length, $auto_excerpt, $thispermalink);
+                                                    }
+                                                }
+                                                echo '</p>';
                                                 if( $i == (count($thispost)-1) && $paginate == true ) {
                                                     echo '<div class="network-posts-pagination">';
                                                     echo paginate_links( array(
@@ -591,7 +651,9 @@ function network_latest_posts_control() {
                         'tag' => 'null',
                         'paginate' => false,
                         'excerpt_length' => 'null',
-                        'display_root' => false
+                        'display_root' => false,
+                        'auto_excerpt' => false,
+                        'full_meta' => false
 		);
 	}
         // Save changes
@@ -608,6 +670,8 @@ function network_latest_posts_control() {
                 $options['paginate'] = htmlspecialchars($_POST['network_latest_posts_paginate']);
                 $options['excerpt_length'] = htmlspecialchars($_POST['network_latest_posts_excerptlength']);
                 $options['display_root'] = htmlspecialchars($_POST['network_latest_posts_displayroot']);
+                $options['auto_excerpt'] = htmlspecialchars($_POST['network_latest_posts_auto_excerpt']);
+                $options['full_meta'] = htmlspecialchars($_POST['network_latest_posts_full_meta']);
                 // Update hook
 		update_option("network_latest_posts_widget", $options);
 	}
@@ -615,6 +679,7 @@ function network_latest_posts_control() {
 ?>
 
 	<p>
+            <!-- <?php print_r($options); ?> -->
 	<label for="network_latest_posts_title"><?php echo __('Title','trans-nlp'); ?>: </label>
 	<br /><input type="text" id="network_latest_posts_title" name="network_latest_posts_title" value="<?php echo $options['title'];?>" />
 	<br /><label for="network_latest_posts_number"><?php echo __('Number of posts to show','trans-nlp'); ?>: </label>
@@ -652,15 +717,25 @@ function network_latest_posts_control() {
         <br /><input type="text" id="network_latest_posts_tag" name="network_latest_posts_tag" value="<?php echo $options['tag'];?>" />
         <br /><label for="network_latest_posts_paginate"><?php echo __('Paginate Results','trans-nlp'); ?></label>
         <select name="network_latest_posts_paginate" id="network_latest_posts_paginate">
-            <option value="false" <?php if($options['paginate'] == false){ echo "selected='selected'"; } ?>><?php echo __('No','trans-nlp'); ?></option>
-            <option value="true" <?php if($options['paginate'] == true){ echo "selected='selected'"; } ?>><?php echo __('Yes','trans-nlp'); ?></option>
+            <option value="false" <?php if($options['paginate'] == 'false'){ echo "selected='selected'"; } ?>><?php echo __('No','trans-nlp'); ?></option>
+            <option value="true" <?php if($options['paginate'] == 'true'){ echo "selected='selected'"; } ?>><?php echo __('Yes','trans-nlp'); ?></option>
         </select>
         <br /><label for="network_latest_posts_excerptlength"><?php echo __('Excerpt Length','trans-nlp'); ?>: </label>
 	<input type="text" size="3" id="network_latest_posts_excerptlength" name="network_latest_posts_excerptlength" value="<?php echo $options['excerpt_length'];?>" />
         <br /><label for="network_latest_posts_displayroot"><?php echo __('Display Main Blog (Root)','trans-nlp'); ?></label>
-        <select name="network_latest_posts_paginate" id="network_latest_posts_paginate">
-            <option value="false" <?php if($options['display_root'] == false){ echo "selected='selected'"; } ?>><?php echo __('No','trans-nlp'); ?></option>
-            <option value="true" <?php if($options['display_root'] == true){ echo "selected='selected'"; } ?>><?php echo __('Yes','trans-nlp'); ?></option>
+        <select name="network_latest_posts_displayroot" id="network_latest_posts_displayroot">
+            <option value="false" <?php if($options['display_root'] == 'false'){ echo "selected='selected'"; } ?>><?php echo __('No','trans-nlp'); ?></option>
+            <option value="true" <?php if($options['display_root'] == 'true'){ echo "selected='selected'"; } ?>><?php echo __('Yes','trans-nlp'); ?></option>
+        </select>
+        <br /><label for="network_latest_posts_auto_excerpt"><?php echo __('Auto-Excerpt','trans-nlp'); ?></label>
+        <select name="network_latest_posts_auto_excerpt" id="network_latest_posts_auto_excerpt">
+            <option value="false" <?php if($options['auto_excerpt'] == 'false'){ echo "selected='selected'"; } ?>><?php echo __('No','trans-nlp'); ?></option>
+            <option value="true" <?php if($options['auto_excerpt'] == 'true'){ echo "selected='selected'"; } ?>><?php echo __('Yes','trans-nlp'); ?></option>
+        </select>
+        <br /><label for="network_latest_posts_full_meta"><?php echo __('Full Metadata','trans-nlp'); ?></label>
+        <select name="network_latest_posts_full_meta" id="network_latest_posts_full_meta">
+            <option value="false" <?php if($options['full_meta'] == 'false'){ echo "selected='selected'"; } ?>><?php echo __('No','trans-nlp'); ?></option>
+            <option value="true" <?php if($options['full_meta'] == 'true'){ echo "selected='selected'"; } ?>><?php echo __('Yes','trans-nlp'); ?></option>
         </select>
 	<input type="hidden" id="network_latest_posts_submit" name="network_latest_posts_submit" value="1" />
 	</p>
@@ -688,13 +763,15 @@ function network_latest_posts_widget($args) {
                         'tag' => 'null',
                         'paginate' => false,
                         'excerpt_length' => 'null',
-                        'display_root' => false
+                        'display_root' => false,
+                        'auto_excerpt' => false,
+                        'full_meta' => false
 		);
 	}
         // Display the widget
 	echo $before_widget;
 	echo "$before_title $options[title] $after_title <ul>";
-	network_latest_posts($options['number'],$options['days'],$options['titleonly'],"\n<li>","</li>",$options['blogid'],null,$options['cpt'],$options['ignore_blog'],$options['cat'],$options['tag'],$options['paginate'],$options['excerpt_length'],$options['display_root']);
+	network_latest_posts($options['number'],$options['days'],$options['titleonly'],"\n<li>","</li>",$options['blogid'],null,$options['cpt'],$options['ignore_blog'],$options['cat'],$options['tag'],$options['paginate'],$options['excerpt_length'],$options['display_root'],$options['auto_excerpt'],$options['full_meta']);
 	echo "</ul>".$after_widget;
 }
 
@@ -731,14 +808,16 @@ function network_latest_posts_shortcode($atts){
         'tag' => 'null',
         'paginate' => false,
         'excerpt_length' => 'null',
-        'display_root' => false
+        'display_root' => false,
+        'auto_excerpt' => false,
+        'full_meta' => false
     ), $atts));
     // Avoid direct output to control the display position
     ob_start();
     // Check if we have set a title
     if( !empty( $title ) ) { echo "<div class='network-latest-posts-sectitle'><h1>".$title."</h1></div>"; }
     // Get the posts
-    network_latest_posts($number,$days,$titleonly,$wrapo,$wrapc,$blogid,$thumbnail,$cpt,$ignore_blog,$cat,$tag,$paginate,$excerpt_length,$display_root);
+    network_latest_posts($number,$days,$titleonly,$wrapo,$wrapc,$blogid,$thumbnail,$cpt,$ignore_blog,$cat,$tag,$paginate,$excerpt_length,$display_root,$auto_excerpt,$full_meta);
     $output_string=ob_get_contents();;
     ob_end_clean();
     // Put the content where we want
@@ -822,4 +901,20 @@ function custom_excerpt($count,$content,$permalink){
         return $excerpt;
     }
 }
+// Auto excerpt extraction
+function auto_excerpt($content,$excerpt_length, $permalink){
+    if( $excerpt_length == 'null' || empty($excerpt_length) || $excerpt_length == null ) { $excerpt_length = 150; }
+    $words = explode(' ', $content, $excerpt_length + 1);
+    if(count($words) > $excerpt_length) {
+        array_pop($words);
+        array_push($words, '...');
+        $content = implode(' ', $words);
+    }
+    $content = $content . '<a href="'.$permalink.'">'.__('more').'</a>';
+    return $content;
+}
+/*
+ * TODO
+ * - Listar posts por orden de encontrado
+ */
 ?>
