@@ -137,7 +137,7 @@ are passed. For more examples please visit the Network Latest Post website.
 * CSS style allows you to use your own css file to adapt the output to your active theme (when used it will unload the default styles)
 * Instance is used to include multiple instances in the same page as a widget or as a shortcode, fixing the pagination bug which didn't work when used multiple times.
 * Widget now includes multi-instance support extending the WP_Widget class, you can added as many times as you want to all your widgetized zones.
-* Shortcode button added the TinyMCE editor, now you just need to fill the form and it will insert the shortcode with the parameters into the post/page content.
+* Shortcode button added to the TinyMCE editor, now you just need to fill the form and it will insert the shortcode with the parameters into the post/page content.
 * Renamed some functions to avoid incompatibility with other plugins using default function names.
 * Main folders and sub-folder installations supported.
 
