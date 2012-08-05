@@ -11,7 +11,7 @@ This plugin allows you to get the latest posts from the blogs in your network an
 == Description ==
 
 This plugin get the latest posts from the blogs in your network and display them in your main site using shortcodes or a widget.
-For further details please visit: http://en.8elite.com/network-latest-posts [English] http://es.8elite.com/network-latest-posts [Espa–ol] http://fr.8elite.com/network-latest-posts [Franais]
+For further details please visit: http://en.8elite.com/network-latest-posts [English] http://es.8elite.com/network-latest-posts [Espanol] http://fr.8elite.com/network-latest-posts [Francais]
 
 This plugin works with Wordpress 3 Network (multisites)
 
@@ -27,38 +27,38 @@ This plugin works with Wordpress 3 Network (multisites)
 = CSS Classes =
 
 * Unordered List:
-* 'wrapper_o' => <ul class='nlposts-wrapper nlposts-ulist nav nav-tabs nav-stacked'>
-* 'wtitle_o' => <h2 class='nlposts-ulist-wtitle'>
-* 'item_o' => <li class='nlposts-ulist-litem'>
-* 'content_o' => <div class='nlposts-container nlposts-ulist-container $nlp_instance'>
-* 'meta_o' => <span class='nlposts-ulist-meta'>
-* 'thumbnail_o' => <ul class='nlposts-ulist-thumbnail thumbnails'>
-* 'thumbnail_io' => <li class='nlposts-ulist-thumbnail-litem span3'><div class='thumbnail'>
-* 'pagination_o' => <div class='nlposts-ulist-pagination pagination'>
-* 'title_o' => <h3 class='nlposts-ulist-title'>
-* 'excerpt_o' => <ul class='nlposts-ulist-excerpt'><li>
+* 'wrapper_o' => &lt;ul class='nlposts-wrapper nlposts-ulist nav nav-tabs nav-stacked'&gt;
+* 'wtitle_o' =&gt; &lt;h2 class='nlposts-ulist-wtitle'&gt;
+* 'item_o' =&gt; &lt;li class='nlposts-ulist-litem'&gt;
+* 'content_o' =&gt; &lt;div class='nlposts-container nlposts-ulist-container $nlp_instance'&gt;
+* 'meta_o' =&gt; &lt;span class='nlposts-ulist-meta'&gt;
+* 'thumbnail_o' =&gt; &lt;ul class='nlposts-ulist-thumbnail thumbnails'&gt;
+* 'thumbnail_io' =&gt; &lt;li class='nlposts-ulist-thumbnail-litem span3'&gt;&lt;div class='thumbnail'&gt;
+* 'pagination_o' =&gt; &lt;div class='nlposts-ulist-pagination pagination'&gt;
+* 'title_o' =&gt; &lt;h3 class='nlposts-ulist-title'&gt;
+* 'excerpt_o' =&gt; &lt;ul class='nlposts-ulist-excerpt'&gt;&lt;li&gt;
 * Ordered List:
-* 'wrapper_o' => <ol class='nlposts-wrapper nlposts-olist nav nav-tabs nav-stacked'>
-* 'wtitle_o' => <h2 class='nlposts-olist-wtitle'>
-* 'item_o' => <li class='nlposts-olist-litem'>
-* 'content_o' => <div class='nlposts-container nlposts-olist-container $nlp_instance'>
-* 'meta_o' => <span class='nlposts-olist-meta'>
-* 'thumbnail_o' => <ul class='nlposts-olist-thumbnail thumbnails'>
-* 'thumbnail_io' => <li class='nlposts-olist-thumbnail-litem span3'>
-* 'pagination_o' => <div class='nlposts-olist-pagination pagination'>
-* 'title_o' => <h3 class='nlposts-olist-title'>
-* 'excerpt_o' => <ul class='nlposts-olist-excerpt'><li>
+* 'wrapper_o' =&gt; &lt;ol class='nlposts-wrapper nlposts-olist nav nav-tabs nav-stacked'&gt;
+* 'wtitle_o' =&gt; &lt;h2 class='nlposts-olist-wtitle'&gt;
+* 'item_o' =&gt; &lt;li class='nlposts-olist-litem'&gt;
+* 'content_o' =&gt; &lt;div class='nlposts-container nlposts-olist-container $nlp_instance'&gt;
+* 'meta_o' =&gt; &lt;span class='nlposts-olist-meta'&gt;
+* 'thumbnail_o' =&gt; &lt;ul class='nlposts-olist-thumbnail thumbnails'&gt;
+* 'thumbnail_io' =&gt; &lt;li class='nlposts-olist-thumbnail-litem span3'&gt;
+* 'pagination_o' =&gt; &lt;div class='nlposts-olist-pagination pagination'&gt;
+* 'title_o' =&gt; &lt;h3 class='nlposts-olist-title'&gt;
+* 'excerpt_o' =&gt; &lt;ul class='nlposts-olist-excerpt'&gt;&lt;li&gt;
 * Block:
-* 'wrapper_o' => <div class='nlposts-wrapper nlposts-block container'>
-* 'wtitle_o' => <h2 class='nlposts-block-wtitle'>
-* 'item_o' => <div class='nlposts-block-item'>
-* 'content_o' => <div class='nlposts-container nlposts-block-container $nlp_instance'>
-* 'meta_o' => <span class='nlposts-block-meta'>
-* 'thumbnail_o' => <ul class='nlposts-block-thumbnail thumbnails'>
-* 'thumbnail_io' => <li class='nlposts-block-thumbnail-litem span3'>
-* 'pagination_o' => <div class='nlposts-block-pagination pagination'>
-* 'title_o' => <h3 class='nlposts-block-title'>
-* 'excerpt_o' => <div class='nlposts-block-excerpt'><p>
+* 'wrapper_o' =&gt; &lt;div class='nlposts-wrapper nlposts-block container'&gt;
+* 'wtitle_o' =&gt; &lt;h2 class='nlposts-block-wtitle'&gt;
+* 'item_o' =&gt; &lt;div class='nlposts-block-item'&gt;
+* 'content_o' =&gt; &lt;div class='nlposts-container nlposts-block-container $nlp_instance'&gt;
+* 'meta_o' =&gt; &lt;span class='nlposts-block-meta'&gt;
+* 'thumbnail_o' =&gt; &lt;ul class='nlposts-block-thumbnail thumbnails'&gt;
+* 'thumbnail_io' =&gt; &lt;li class='nlposts-block-thumbnail-litem span3'&gt;
+* 'pagination_o' =&gt; &lt;div class='nlposts-block-pagination pagination'&gt;
+* 'title_o' =&gt; &lt;h3 class='nlposts-block-title'&gt;
+* 'excerpt_o' =&gt; &lt;div class='nlposts-block-excerpt'&gt;&lt;p&gt;
 
 $nlp_instance is replaced by .nlp-instance-X where X is a number o the name of the instance passed via shortcode.
 
