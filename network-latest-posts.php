@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/2012/02/27/network-latest-posts-wordpress-3-plugin/
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.0
+Version: 3.0.1
 Author: L'Elite
 Author URI: https://laelite.info/
  */
@@ -1088,32 +1088,35 @@ function nlp_load_styles($css_style) {
     return;
 }
 
-// Load the widget
-add_action( 'widgets_init', function() {
+/* Load Widget
+ * using create_function to support PHP versions < 5.3
+ */
+add_action( 'widgets_init', create_function( '', '
     /* Check RTL
-     * This function can't be called from the network_latest_posts_init function
-     * due to a loading hierarchy issue, if used there it won't
+     * This function cannot be called from the network_latest_posts_init function
+     * due to a loading hierarchy issue, if used there it will not
      * recognize the is_rtl() WordPress function
      */
     if( is_rtl() ) {
         // Deregister the LTR style
-        wp_deregister_style('nlpcss');
+        wp_deregister_style("nlpcss");
         // Register the RTL style
-        wp_register_style( 'nlpcss-rtl', plugins_url('/css/default_style-rtl.css', __FILE__) );
+        wp_register_style( "nlpcss-rtl", plugins_url("/css/default_style-rtl.css", __FILE__) );
         // Load the style
-        wp_enqueue_style( 'nlpcss-rtl' );
+        wp_enqueue_style( "nlpcss-rtl" );
         // Tell WordPress this plugin is switching to RTL mode
         global $wp_locale, $wp_styles;
         /* Set the text direction to RTL
          * This two variables will tell load-styles.php
          * load the Dashboard in RTL instead of LTR mode
          */
-        $wp_locale->text_direction = 'rtl';
-        $wp_styles->text_direction = 'rtl';
+        $wp_locale->text_direction = "rtl";
+        $wp_styles->text_direction = "rtl";
     }
     // Load the class
-    return register_widget( 'NLposts_Widget' );
-});
+    return register_widget( "NLposts_Widget" );
+' ) );
+
 
 /* Uninstall function
  * Provides uninstall capabilities
