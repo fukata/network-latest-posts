@@ -1,10 +1,10 @@
 === Network Latest Posts ===
 Contributors: L'Elite
-Donate link: https://laelite.info
+Donate link: http://laelite.info
 Tags: recent posts, shortcode, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 
 This plugin allows you to get the latest posts from the blogs in your network and display them in your main site using shortcodes or a widget.
 
@@ -124,6 +124,10 @@ are passed. For more examples please visit the Network Latest Post website.
 
 == Changelog ==
 
+= 3.0.4 =
+* Adding Blog name to the meta info when using Widgets
+* Added shortcode form CSS styles
+
 = 3.0.3 =
 * Adding Blog name to the meta info
 
@@ -221,4 +225,4 @@ Your theme have to support thumbnails, just add this to the function.php inside 
 `add_theme_support('post-thumbnails');`
 
 = OMG this plugin is awesome! I want to buy you a coke and send you a message, where can I do it? =
-Please visit my website https://laelite.info if you want to support my work please consider making a donation, even 1$ can make a difference :)
+Please visit my website http://laelite.info if you want to support my work please consider making a donation, even 1$ can make a difference :)

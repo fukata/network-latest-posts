@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.0.3
+Version: 3.0.4
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -72,6 +72,7 @@ Author URI: http://laelite.info/
  *
  * -- Greggo
  * **** Missing meta-info spotted
+ * **** Missing site name Widget
  *
  * That's it, let the fun begin!
  *
@@ -680,6 +681,7 @@ function network_latest_posts( $parameters ) {
                         $format = (string)${'date_format_'.$all_blogkeys[$field->guid]};
                         $dateobj = new DateTime(trim($field->post_date));
                         $datepost = $dateobj->format("$format");
+                        $blog_name = '<a href="'.${'blog_url_'.$all_blogkeys[$field->guid]}.'">'.${'blog_name_'.$all_blogkeys[$field->guid]}."</a>";
                         // The network's root (main blog) is called 'blog',
                         // so we have to set this up because the url ignores the root's subdirectory
                         if( $all_blogkeys[$field->guid] == 1 ) {
@@ -690,7 +692,7 @@ function network_latest_posts( $parameters ) {
                             $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/author/'.$author->user_login;
                         }
                         // Print metainfo
-                        echo __('Published on') . ' ' . $datepost . ' ' . __('by') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
+                        echo $blog_name . ' - ' . __('Published on') . ' ' . $datepost . ' ' . __('by') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
                         // Close meta box
                         echo $html_tags['meta_c'];
                     }
@@ -730,6 +732,7 @@ function network_latest_posts( $parameters ) {
                         $format = (string)${'date_format_'.$all_blogkeys[$field->guid]};
                         $dateobj = new DateTime(trim($field->post_date));
                         $datepost = $dateobj->format("$format");
+                        $blog_name = '<a href="'.${'blog_url_'.$all_blogkeys[$field->guid]}.'">'.${'blog_name_'.$all_blogkeys[$field->guid]}."</a>";
                         // The network's root (main blog) is called 'blog',
                         // so we have to set this up because the url ignores the root's subdirectory
                         if( $all_blogkeys[$field->guid] == 1 ) {
@@ -740,7 +743,7 @@ function network_latest_posts( $parameters ) {
                             $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/author/'.$author->user_login;
                         }
                         // Print metainfo
-                        echo __('Published on') . ' ' . $datepost . ' ' . __('by') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
+                        echo $blog_name . ' - ' . __('Published on') . ' ' . $datepost . ' ' . __('by') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
                         // Close meta box
                         echo $html_tags['meta_c'];
                     }
@@ -1069,6 +1072,8 @@ function network_latest_posts_init() {
     register_sidebar_widget(__("Network Latest Posts"),"network_latest_posts_widget");
     register_widget_control(__("Network Latest Posts"),"network_latest_posts_control");
     register_uninstall_hook(__FILE__, 'network_latest_posts_uninstall');
+    wp_register_style('nlpcss-form', plugins_url('/css/form_style.css', __FILE__));
+    wp_enqueue_style('nlpcss-form');
     // Load plugins
     wp_enqueue_script('jquery');
     // Set the textdomain for translation purposes
