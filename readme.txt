@@ -124,6 +124,9 @@ are passed. For more examples please visit the Network Latest Post website.
 
 == Changelog ==
 
+= 3.0.2 =
+* Fixing call to the widget class from the shortcode form, the TinyMCE shortcode button should be working now
+
 = 3.0.1 =
 * Bug "Problem with 3.0, unexpected T_FUNCTION" Fixed, add_action on line 1092 modified to provide compatibility with PHP versions &lt; 5.3
 

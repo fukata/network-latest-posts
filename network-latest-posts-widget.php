@@ -1,9 +1,9 @@
 <?php
 /*
     Network Latest Posts Widget
-    Version 3.0
+    Version 3.0.2
     Author L'Elite
-    Author URI https://laelite.info/
+    Author URI http://laelite.info/
  */
 /*  Copyright 2012  L'Elite (email : opensource@laelite.info)
 

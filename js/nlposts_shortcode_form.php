@@ -3,7 +3,7 @@
     Network Latest Posts Shortcode Form
     Version 1.0
     Author L'Elite
-    Author URI https://laelite.info/
+    Author URI http://laelite.info/
  */
 /*  Copyright 2012  L'Elite (email : opensource@laelite.info)
 
@@ -47,7 +47,7 @@ function nlp_config_path()
 $wp_root_path = nlp_config_path();
 // Load WordPress functions & NLposts_Widget class
 require_once("$wp_root_path/wp-load.php");
-require_once("../nlposts-widget.php");
+require_once("../network-latest-posts-widget.php");
 // Widget object
 $widget_obj = new NLposts_Widget();
 // Default values
