@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Network Latest Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-04 05:39+0100\n"
+"POT-Creation-Date: 2012-08-08 08:16+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jose Luis Sayago Rojas <jose.sayago@laelite.info>\n"
 "Language-Team: L'Elite <opensource@laelite.info>\n"
@@ -11,355 +11,415 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-SearchPath-0: \n"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:70
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:72
 msgid "Network Latest Posts Widget"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:232
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:100
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:236
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:102
 msgid "Title"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:237
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:110
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:241
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:112
 msgid "Number of Posts by Blog"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:242
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:115
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:246
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:117
 msgid "Time Frame in Days"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:247
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:120
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:251
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:122
 msgid "Titles Only"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:251
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:254
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:442
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:445
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:465
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:468
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:491
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:494
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:527
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:530
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:124
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:127
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:309
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:312
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:332
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:335
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:358
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:361
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:394
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:397
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:255
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:258
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:465
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:468
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:488
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:491
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:514
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:517
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:550
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:553
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:126
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:129
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:330
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:333
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:353
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:356
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:379
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:382
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:415
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:418
 msgid "Yes"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:252
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:255
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:443
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:446
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:466
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:469
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:492
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:495
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:528
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:531
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:125
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:128
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:310
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:313
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:333
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:336
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:359
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:362
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:395
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:398
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:256
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:259
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:466
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:469
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:489
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:492
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:515
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:518
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:551
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:554
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:127
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:130
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:331
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:334
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:354
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:357
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:380
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:383
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:416
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:419
 msgid "No"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:260
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:133
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:264
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:135
 msgid "Display Type"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:266
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:272
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:278
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:284
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:139
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:145
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:151
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:157
-msgid "Unordered List"
-msgstr ""
-
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:267
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:273
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:279
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:285
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:140
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:146
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:152
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:158
-msgid "Ordered List"
-msgstr ""
-
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:268
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:274
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:280
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:286
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:270
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:276
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:282
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:288
 #: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:141
 #: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:147
 #: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:153
 #: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:159
+msgid "Unordered List"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:271
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:277
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:283
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:289
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:142
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:148
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:154
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:160
+msgid "Ordered List"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:272
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:278
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:284
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:290
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:143
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:149
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:155
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:161
 msgid "Blocks"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:292
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:165
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:297
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:168
+msgid "Display Blog"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:297
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:338
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:444
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:453
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:168
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:208
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:309
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:318
+msgid "or"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:297
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:338
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:168
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:208
+msgid "Blogs"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:299
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:170
 msgid "Display Blog(s)"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:313
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:315
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:186
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:188
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:321
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:323
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:192
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:194
 msgid "Display All"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:329
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:201
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:338
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:208
+msgid "Ignore Blog"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:340
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:210
 msgid "Ignore Blog(s)"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:350
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:352
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:222
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:224
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:362
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:364
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:232
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:234
 msgid "Nothing to Ignore"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:366
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:237
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:378
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:247
 msgid "Display Thumbnails"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:370
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:373
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:241
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:244
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:382
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:385
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:251
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:254
 msgid "Show"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:371
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:374
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:242
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:245
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:383
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:386
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:252
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:255
 msgid "Hide"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:379
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:250
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:391
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:260
 msgid "Thumbnail Size"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:380
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:251
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:392
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:261
 msgid "Width"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:382
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:253
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:396
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:265
 msgid "Height"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:386
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:257
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:401
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:270
 msgid "Thumbnail Replacement"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:392
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:398
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:404
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:410
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:262
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:267
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:272
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:277
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:407
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:413
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:419
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:425
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:275
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:280
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:285
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:290
 msgid "Placeholder"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:393
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:399
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:405
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:411
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:263
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:268
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:273
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:278
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:408
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:414
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:420
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:426
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:276
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:281
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:286
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:291
 msgid "Kittens"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:394
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:400
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:406
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:412
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:264
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:269
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:274
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:279
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:409
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:415
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:421
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:427
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:277
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:282
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:287
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:292
 msgid "Puppies"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:418
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:285
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:433
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:298
 msgid "Thumbnail Class"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:423
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:290
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:438
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:303
 msgid "Custom Post Type"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:428
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:295
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:444
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:309
+msgid "Category"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:444
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:309
+msgid "Categories"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:446
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:311
 msgid "Category(ies)"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:433
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:300
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:453
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:318
+msgid "Tag"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:453
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:318
+msgid "Tags"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:455
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:320
 msgid "Tag(s)"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:438
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:305
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:461
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:326
 msgid "Paginate Results"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:451
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:318
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:474
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:339
 msgid "Posts per Page"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:456
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:323
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:479
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:344
 msgid "Excerpt Length"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:461
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:328
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:484
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:349
 msgid "Auto-Excerpt"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:474
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:341
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:497
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:362
 msgid "Excerpt Trail"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:478
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:481
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:345
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:348
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:501
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:504
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:366
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:369
 msgid "Text"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:479
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:482
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:346
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:349
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:502
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:505
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:367
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:370
 msgid "Image"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:487
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:354
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:510
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:375
 msgid "Sort by Date"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:500
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:367
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:523
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:388
 msgid "Sorting Order"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:504
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:507
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:371
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:374
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:527
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:530
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:392
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:395
 msgid "Newest to Oldest"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:505
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:508
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:372
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:375
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:528
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:531
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:393
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:396
 msgid "Oldest to Newest"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:513
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:380
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:536
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:401
 msgid "Total Number of Posts"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:518
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:385
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:541
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:406
 msgid "Post Status"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:523
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:390
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:546
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:411
 msgid "Full Metadata"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts-widget.php:536
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:403
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:559
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:424
 msgid "Custom CSS Filename"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:461
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:512
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:651
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:701
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:564
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:429
+msgid "Custom CSS Class for the list wrapper"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts-widget.php:569
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:434
+msgid "Custom CSS Class for the block wrapper"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:509
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:561
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:701
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:752
 msgid "Published on"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:461
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:512
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:651
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:701
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:509
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:561
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:701
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:752
 msgid "by"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:548
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:597
 msgid "&laquo;"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:549
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:598
 msgid "&raquo;"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:820
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:824
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:828
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:860
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:864
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:868
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:866
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:870
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:874
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:898
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:902
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:906
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:938
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:942
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:946
 msgid "more"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:1000
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/nlposts.php:1001
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:1078
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/network-latest-posts.php:1079
 msgid "Network Latest Posts"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:105
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:107
 msgid "Instance Identifier"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:407
-msgid "Submit"
+#: /Applications/XAMPP/xamppfiles/htdocs/wordpress/wp-content/plugins/nlposts/js/nlposts_shortcode_form.php:438
+msgid "Insert Shortcode"
 msgstr ""

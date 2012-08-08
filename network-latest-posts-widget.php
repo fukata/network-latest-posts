@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Widget
-    Version 3.0.4
+    Version 3.0.5
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -55,7 +55,9 @@ class NLposts_Widget extends WP_Widget {
         'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older)
         'sorting_limit'    => NULL,          // Limit the number of sorted posts to display
         'post_status'      => 'publish',     // Post status (publish, new, pending, draft, auto-draft, future, private, inherit, trash)
-        'css_style'        => NULL,          // Customized CSS _filename_ (ex: custom_style)
+        'css_style'        => NULL,          // Custom CSS _filename_ (ex: custom_style)
+        'wrapper_list_css' => 'nav nav-tabs nav-stacked', // Custom CSS classes for the list wrapper
+        'wrapper_block_css'=> 'content',     // Custom CSS classes for the block wrapper
         'instance'         => NULL           // Instance identifier, used to uniquely differenciate each widget
     );
 
@@ -197,6 +199,8 @@ class NLposts_Widget extends WP_Widget {
         $instance['post_status']      = strip_tags($new_instance['post_status']);
         $instance['excerpt_trail']    = strip_tags($new_instance['excerpt_trail']);
         $instance['css_style']        = strip_tags($new_instance['css_style']);
+        $instance['wrapper_list_css'] = strip_tags($new_instance['wrapper_list_css']);
+        $instance['wrapper_block_css']= strip_tags($new_instance['wrapper_block_css']);
         // Width by default
         if( $instance['thumbnail_w'] == '0' ) { $instance['thumbnail_w'] = '80'; }
         // Height by default
@@ -555,6 +559,16 @@ class NLposts_Widget extends WP_Widget {
         $widget_form.= "<label for='".$this->get_field_id('css_style')."'>" . __('Custom CSS Filename','trans-nlp') . "</label>";
         $widget_form.= $br;
         $widget_form.= "<input type='text' id='".$this->get_field_id('css_style')."' name='".$this->get_field_name('css_style')."' value='$css_style' />";
+        // wrapper_list_css
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('wrapper_list_css')."'>" . __('Custom CSS Class for the list wrapper','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<input type='text' id='".$this->get_field_id('wrapper_list_css')."' name='".$this->get_field_name('wrapper_list_css')."' value='$wrapper_list_css' />";
+        // wrapper_block_css
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('wrapper_block_css')."'>" . __('Custom CSS Class for the block wrapper','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<input type='text' id='".$this->get_field_id('wrapper_block_css')."' name='".$this->get_field_name('wrapper_block_css')."' value='$wrapper_block_css' />";
         $widget_form.= $p_c;
         echo $widget_form;
     }

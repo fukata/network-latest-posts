@@ -4,7 +4,7 @@ Donate link: http://laelite.info
 Tags: recent posts, shortcode, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 3.0.4
+Stable tag: 3.0.5
 
 This plugin allows you to get the latest posts from the blogs in your network and display them in your main site using shortcodes or a widget.
 
@@ -27,7 +27,7 @@ This plugin works with Wordpress 3 Network (multisites)
 = CSS Classes =
 
 * Unordered List:
-* 'wrapper_o' => &lt;ul class='nlposts-wrapper nlposts-ulist nav nav-tabs nav-stacked'&gt;
+* 'wrapper_o' => &lt;ul class='nlposts-wrapper nlposts-ulist $wrapper_list_css'&gt;
 * 'wtitle_o' =&gt; &lt;h2 class='nlposts-ulist-wtitle'&gt;
 * 'item_o' =&gt; &lt;li class='nlposts-ulist-litem'&gt;
 * 'content_o' =&gt; &lt;div class='nlposts-container nlposts-ulist-container $nlp_instance'&gt;
@@ -38,7 +38,7 @@ This plugin works with Wordpress 3 Network (multisites)
 * 'title_o' =&gt; &lt;h3 class='nlposts-ulist-title'&gt;
 * 'excerpt_o' =&gt; &lt;ul class='nlposts-ulist-excerpt'&gt;&lt;li&gt;
 * Ordered List:
-* 'wrapper_o' =&gt; &lt;ol class='nlposts-wrapper nlposts-olist nav nav-tabs nav-stacked'&gt;
+* 'wrapper_o' =&gt; &lt;ol class='nlposts-wrapper nlposts-olist $wrapper_list_css'&gt;
 * 'wtitle_o' =&gt; &lt;h2 class='nlposts-olist-wtitle'&gt;
 * 'item_o' =&gt; &lt;li class='nlposts-olist-litem'&gt;
 * 'content_o' =&gt; &lt;div class='nlposts-container nlposts-olist-container $nlp_instance'&gt;
@@ -49,7 +49,7 @@ This plugin works with Wordpress 3 Network (multisites)
 * 'title_o' =&gt; &lt;h3 class='nlposts-olist-title'&gt;
 * 'excerpt_o' =&gt; &lt;ul class='nlposts-olist-excerpt'&gt;&lt;li&gt;
 * Block:
-* 'wrapper_o' =&gt; &lt;div class='nlposts-wrapper nlposts-block container'&gt;
+* 'wrapper_o' =&gt; &lt;div class='nlposts-wrapper nlposts-block $wrapper_block_css'&gt;
 * 'wtitle_o' =&gt; &lt;h2 class='nlposts-block-wtitle'&gt;
 * 'item_o' =&gt; &lt;div class='nlposts-block-item'&gt;
 * 'content_o' =&gt; &lt;div class='nlposts-container nlposts-block-container $nlp_instance'&gt;
@@ -60,7 +60,8 @@ This plugin works with Wordpress 3 Network (multisites)
 * 'title_o' =&gt; &lt;h3 class='nlposts-block-title'&gt;
 * 'excerpt_o' =&gt; &lt;div class='nlposts-block-excerpt'&gt;&lt;p&gt;
 
-$nlp_instance is replaced by .nlp-instance-X where X is a number o the name of the instance passed via shortcode.
+$nlp_instance is replaced by .nlp-instance-X where X is a number o the name of the instance passed via shortcode. $wrapper_list_css and $wrapper_block_css
+are replaced by the default values or those passed using the widget form or the shortcode.
 
 = Shortcode Options =
 
@@ -92,6 +93,8 @@ are passed. For more examples please visit the Network Latest Post website.
           sorting_limit=NULL
           post_status=publish
           css_style=NULL
+          wrapper_list_css='nav nav-tabs nav-stacked'
+          wrapper_block_css=content
           instance=NULL
 ]`
 
@@ -120,9 +123,15 @@ are passed. For more examples please visit the Network Latest Post website.
 * @sorting_limit      : Limit the number of posts to display. Ex: 5 means display 5 posts from all those found (even if 20 were found, only 5 will be displayed)
 * @post_status        : Specify the status of the posts you want to display: publish, new, pending, draft, auto-draft, future, private, inherit, trash
 * @css_style          : Use a custom CSS style instead of the one included by default, useful if you want to customize the front-end display: filename (without extension), this file must be located where your active theme CSS style is located, this parameter should be used only once by page (it will affect all shorcodes/widgets included in that page)
+* @wrapper_list_css   : Custom CSS classes for the list wrapper
+* @wrapper_block_css  : Custom CSS classes for the block wrapper
 * @instance           : This parameter is intended to differenciate each instance of the widget/shortcode/function you use, it's required in order for the asynchronous pagination links to work
 
 == Changelog ==
+
+= 3.0.5 =
+* Added wrapper_list_css & wrapper_block_css, these parameters permit to customize the CSS classes for the wrapper tag
+* Fixed minor bug in the Shortcode TinyMCE form which inserted the Submit button to the list of parameters
 
 = 3.0.4 =
 * Adding Blog name to the meta info when using Widgets

@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.0.4
+Version: 3.0.5
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -74,6 +74,10 @@ Author URI: http://laelite.info/
  * **** Missing meta-info spotted
  * **** Missing site name Widget
  *
+ * -- skepticblogsnet
+ * --- Functionalities proposed:
+ * ---- Override CSS classes for the wrapper tag
+ *
  * That's it, let the fun begin!
  *
  */
@@ -110,6 +114,8 @@ require_once dirname( __FILE__ ) . '/network-latest-posts-widget.php';
  * -- @sorting_limit      : Limit the number of posts to display. Ex: 5 means display 5 posts from all those found (even if 20 were found, only 5 will be displayed)
  * -- @post_status        : Specify the status of the posts you want to display: publish, new, pending, draft, auto-draft, future, private, inherit, trash
  * -- @css_style          : Use a custom CSS style instead of the one included by default, useful if you want to customize the front-end display: filename (without extension), this file must be located where your active theme CSS style is located
+ * -- @wrapper_list_css   : Custom CSS classes for the list wrapper
+ * -- @wrapper_block_css  : Custom CSS classes for the block wrapper
  * -- @instance           : This parameter is intended to differenciate each instance of the widget/shortcode/function you use, it's required in order for the asynchronous pagination links to work
  */
 function network_latest_posts( $parameters ) {
@@ -141,7 +147,9 @@ function network_latest_posts( $parameters ) {
         'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older)
         'sorting_limit'    => NULL,          // Limit the number of sorted posts to display
         'post_status'      => 'publish',     // Post status (publish, new, pending, draft, auto-draft, future, private, inherit, trash)
-        'css_style'        => NULL,          // Customized CSS _filename_ (ex: custom_style)
+        'css_style'        => NULL,          // Custom CSS _filename_ (ex: custom_style)
+        'wrapper_list_css' => 'nav nav-tabs nav-stacked', // Custom CSS classes for the list wrapper
+        'wrapper_block_css'=> 'content',     // Custom CSS classes for the block wrapper
         'instance'         => NULL           // Instance identifier, used to uniquely differenciate each shortcode or widget used
     );
     // Parse & merge parameters with the defaults
@@ -156,8 +164,8 @@ function network_latest_posts( $parameters ) {
     // If no instance was set, make one
     if( empty($instance) ) { $instance = 'default'; }
     // HTML Tags
-    $html_tags = nlp_display_type($display_type, $instance);
-    // If Customized CSS
+    $html_tags = nlp_display_type($display_type, $instance, $wrapper_list_css, $wrapper_block_css);
+    // If Custom CSS
     if( !empty($css_style) ) {
         // If RTL
         if( is_rtl() ) {
@@ -949,7 +957,7 @@ function nlp_auto_excerpt($content, $excerpt_length, $permalink, $excerpt_trail)
  * @display_type: ulist, olist, block, inline
  * return @html_tags
  */
-function nlp_display_type($display_type, $instance) {
+function nlp_display_type($display_type, $instance, $wrapper_list_css, $wrapper_block_css) {
     // Instances
     if( !empty($instance) ) { $nlp_instance = "nlp-instance-$instance"; }
     // Display Types
@@ -957,7 +965,7 @@ function nlp_display_type($display_type, $instance) {
         // Unordered list
         case "ulist":
             $html_tags = array(
-                'wrapper_o' => "<ul class='nlposts-wrapper nlposts-ulist nav nav-tabs nav-stacked'>",
+                'wrapper_o' => "<ul class='nlposts-wrapper nlposts-ulist $wrapper_list_css'>",
                 'wrapper_c' => "</ul>",
                 'wtitle_o' => "<h2 class='nlposts-ulist-wtitle'>",
                 'wtitle_c' => "</h2>",
@@ -982,7 +990,7 @@ function nlp_display_type($display_type, $instance) {
         // Ordered list
         case "olist":
             $html_tags = array(
-                'wrapper_o' => "<ol class='nlposts-wrapper nlposts-olist nav nav-tabs nav-stacked'>",
+                'wrapper_o' => "<ol class='nlposts-wrapper nlposts-olist $wrapper_list_css'>",
                 'wrapper_c' => "</ol>",
                 'wtitle_o' => "<h2 class='nlposts-olist-wtitle'>",
                 'wtitle_c' => "</h2>",
@@ -1007,7 +1015,7 @@ function nlp_display_type($display_type, $instance) {
         // Block
         case "block":
             $html_tags = array(
-                'wrapper_o' => "<div class='nlposts-wrapper nlposts-block container'>",
+                'wrapper_o' => "<div class='nlposts-wrapper nlposts-block $wrapper_block_css'>",
                 'wrapper_c' => "</div>",
                 'wtitle_o' => "<h2 class='nlposts-block-wtitle'>",
                 'wtitle_c' => "</h2>",
@@ -1032,7 +1040,7 @@ function nlp_display_type($display_type, $instance) {
         default:
             // Unordered list
             $html_tags = array(
-                'wrapper_o' => "<ul class='nlposts-wrapper nlposts-ulist nav nav-tabs nav-stacked'>",
+                'wrapper_o' => "<ul class='nlposts-wrapper nlposts-ulist $wrapper_list_css'>",
                 'wrapper_c' => "</ul>",
                 'wtitle_o' => "<h2 class='nlposts-ulist-wtitle'>",
                 'wtitle_c' => "</h2>",

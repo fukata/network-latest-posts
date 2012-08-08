@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Shortcode Form
-    Version 1.0
+    Version 1.1
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -76,7 +76,9 @@ $defaults = array(
     'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older)
     'sorting_limit'    => NULL,          // Limit the number of sorted posts to display
     'post_status'      => 'publish',     // Post status (publish, new, pending, draft, auto-draft, future, private, inherit, trash)
-    'css_style'        => NULL,          // Customized CSS _filename_ (ex: custom_style)
+    'css_style'        => NULL,          // Custom CSS _filename_ (ex: custom_style)
+    'wrapper_list_css' => 'nav nav-tabs nav-stacked', // Custom CSS classes for the list wrapper
+    'wrapper_block_css'=> 'content',     // Custom CSS classes for the block wrapper
     'instance'         => NULL           // Instance identifier, used to uniquely differenciate each shortcode used
 );
 // Set an array
@@ -422,6 +424,16 @@ $widget_form.= $br;
 $widget_form.= "<label for='css_style'>" . __('Custom CSS Filename','trans-nlp') . "</label>";
 $widget_form.= $br;
 $widget_form.= "<input type='text' id='css_style' name='css_style' value='$css_style' />";
+// wrapper_list_css
+$widget_form.= $br;
+$widget_form.= "<label for='wrapper_list_css'>" . __('Custom CSS Class for the list wrapper','trans-nlp') . "</label>";
+$widget_form.= $br;
+$widget_form.= "<input type='text' id='wrapper_list_css' name='wrapper_list_css' value='$wrapper_list_css' />";
+// wrapper_block_css
+$widget_form.= $br;
+$widget_form.= "<label for='wrapper_block_css'>" . __('Custom CSS Class for the block wrapper','trans-nlp') . "</label>";
+$widget_form.= $br;
+$widget_form.= "<input type='text' id='wrapper_block_css' name='wrapper_block_css' value='$wrapper_block_css' />";
 $widget_form.= $br;
 $widget_form.= "<input type='button' id='nlposts_shortcode_submit' value='".__('Insert Shortcode','trans-nlp')."' />";
 $widget_form.= $p_c;
@@ -468,18 +480,22 @@ echo $widget_form;
         defaults['post_status'] = 'publish';
         defaults['excerpt_trail'] = 'text';
         defaults['css_style'] = null;
+        defaults['wrapper_list_css'] = 'nav nav-tabs nav-stacked';
+        defaults['wrapper_block_css'] = 'content';
         defaults['instance'] = null;
         // Set the thumbnail size
         if( values.thumbnail_w && values.thumbnail_h ) {
             var thumbnail_wh = values.thumbnail_w+'x'+values.thumbnail_h;
             values['thumbnail_wh'] = thumbnail_wh;
         }
+        // Clear the submit button so the shortcode doesn't take its value
+        values['nlposts_shortcode_submit'] = null;
         // Build the shortcode
         var nlp_shortcode = '[nlposts';
         // Get the settings and values
         for( settings in values ) {
             // If they're not empty or null
-            if( values[settings] && values[settings] != 'null' && values[settings] != 'Submit') {
+            if( values[settings] && values[settings] != 'null') {
                 // And they're not the default values
                 if( values[settings] != defaults[settings] ) {
                     // Count words
