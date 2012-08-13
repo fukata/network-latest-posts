@@ -487,6 +487,8 @@ echo $widget_form;
         if( values.thumbnail_w && values.thumbnail_h ) {
             var thumbnail_wh = values.thumbnail_w+'x'+values.thumbnail_h;
             values['thumbnail_wh'] = thumbnail_wh;
+            values['thumbnail_w'] = 'null';
+            values['thumbnail_h'] = 'null';
         }
         // Clear the submit button so the shortcode doesn't take its value
         values['nlposts_shortcode_submit'] = null;
@@ -499,7 +501,7 @@ echo $widget_form;
                 // And they're not the default values
                 if( values[settings] != defaults[settings] ) {
                     // Count words
-                    if( nlp_countWords(values[settings]) > 1 ) {
+                    if( nlp_countWords(String(values[settings])) > 1 ) {
                         // If more than 1 or a big single string, add quotes to the key=value
                         nlp_shortcode += ' '+settings +'="'+ values[settings]+'"';
                     } else {

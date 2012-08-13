@@ -4,7 +4,7 @@ Donate link: http://laelite.info
 Tags: recent posts, shortcode, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 3.0.5
+Stable tag: 3.0.6
 
 This plugin allows you to get the latest posts from the blogs in your network and display them in your main site using shortcodes or a widget.
 
@@ -128,6 +128,9 @@ are passed. For more examples please visit the Network Latest Post website.
 * @instance           : This parameter is intended to differenciate each instance of the widget/shortcode/function you use, it's required in order for the asynchronous pagination links to work
 
 == Changelog ==
+
+= 3.0.6 =
+* Fixed Shortcode's JavaScript function when used through the TinyMCE editor, there was a problem when using multiple categories or tags. It also inserted the thumbnail_w & thumbnail_h which aren't needed.
 
 = 3.0.5 =
 * Added wrapper_list_css & wrapper_block_css, these parameters permit to customize the CSS classes for the wrapper tag
