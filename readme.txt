@@ -4,7 +4,7 @@ Donate link: http://laelite.info
 Tags: recent posts, shortcode, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 3.0.7
+Stable tag: 3.0.8
 
 This plugin allows you to get the latest posts from the blogs in your network and display them in your main site using shortcodes or a widget.
 
@@ -128,6 +128,9 @@ are passed. For more examples please visit the Network Latest Post website.
 * @instance           : This parameter is intended to differenciate each instance of the widget/shortcode/function you use, it's required in order for the asynchronous pagination links to work
 
 == Changelog ==
+
+= 3.0.8 =
+* Adding translation domain to the full meta strings.
 
 = 3.0.7 =
 * Fixed excerpt functions, the excerpt_length parameter wasn't pulling the right number of words, if not specified 55 words will be used by default (WordPress defaults)

@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.0.7
+Version: 3.0.8
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -508,7 +508,7 @@ function network_latest_posts( $parameters ) {
                             $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/author/'.$author->user_login;
                         }
                         // Print metainfo
-                        echo $blog_name . ' - ' . __('Published on') . ' ' . $datepost . ' ' . __('by') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
+                        echo $blog_name . ' - ' . __('Published on','trans-nlp') . ' ' . $datepost . ' ' . __('by','trans-nlp') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
                         // Close meta box
                         echo $html_tags['meta_c'];
                     }
@@ -558,7 +558,7 @@ function network_latest_posts( $parameters ) {
                             $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/author/'.$author->user_login;
                         }
                         // Print metainfo
-                        echo $blog_name . ' - ' . __('Published on') . ' ' . $datepost . ' ' . __('by') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
+                        echo $blog_name . ' - ' . __('Published on','trans-nlp') . ' ' . $datepost . ' ' . __('by','trans-nlp') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
                         // Close meta box
                         echo $html_tags['meta_c'];
                     }
@@ -592,8 +592,8 @@ function network_latest_posts( $parameters ) {
             echo paginate_links( array(
                 'base' => add_query_arg( 'pag', '%#%' ),
                 'format' => '',
-                'prev_text' => __('&laquo;'),
-                'next_text' => __('&raquo;'),
+                'prev_text' => __('&laquo;','trans-nlp'),
+                'next_text' => __('&raquo;','trans-nlp'),
                 'total' => $total,
                 'current' => $pag,
                 'type' => 'list'
@@ -696,7 +696,7 @@ function network_latest_posts( $parameters ) {
                             $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/author/'.$author->user_login;
                         }
                         // Print metainfo
-                        echo $blog_name . ' - ' . __('Published on') . ' ' . $datepost . ' ' . __('by') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
+                        echo $blog_name . ' - ' . __('Published on','trans-nlp') . ' ' . $datepost . ' ' . __('by','trans-nlp') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
                         // Close meta box
                         echo $html_tags['meta_c'];
                     }
@@ -746,7 +746,7 @@ function network_latest_posts( $parameters ) {
                             $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/author/'.$author->user_login;
                         }
                         // Print metainfo
-                        echo $blog_name . ' - ' . __('Published on') . ' ' . $datepost . ' ' . __('by') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
+                        echo $blog_name . ' - ' . __('Published on','trans-nlp') . ' ' . $datepost . ' ' . __('by','trans-nlp') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
                         // Close meta box
                         echo $html_tags['meta_c'];
                     }
@@ -1037,8 +1037,8 @@ function network_latest_posts_init() {
     if ( !function_exists('register_sidebar_widget') || !function_exists('register_widget_control') )
         return;
     // Register functions
-    register_sidebar_widget(__("Network Latest Posts"),"network_latest_posts_widget");
-    register_widget_control(__("Network Latest Posts"),"network_latest_posts_control");
+    register_sidebar_widget(__("Network Latest Posts",'trans-nlp'),"network_latest_posts_widget");
+    register_widget_control(__("Network Latest Posts",'trans-nlp'),"network_latest_posts_control");
     register_uninstall_hook(__FILE__, 'network_latest_posts_uninstall');
     wp_register_style('nlpcss-form', plugins_url('/css/form_style.css', __FILE__));
     wp_enqueue_style('nlpcss-form');
