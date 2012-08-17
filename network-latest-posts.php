@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.0.6
+Version: 3.0.7
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -523,9 +523,7 @@ function network_latest_posts( $parameters ) {
                         // Extract excerpt from content
                         } else {
                             // Get the excerpt
-                            $auto_excerpt = nlp_auto_excerpt($field->post_content, $excerpt_length, $all_permalinks[$field->guid],$excerpt_trail);
-                            // Print out the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $auto_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -575,9 +573,7 @@ function network_latest_posts( $parameters ) {
                         // Extract excerpt from content
                         } else {
                             // Get the excerpt
-                            $auto_excerpt = nlp_auto_excerpt($field->post_content, $excerpt_length, $all_permalinks[$field->guid],$excerpt_trail);
-                            // Print out the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $auto_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -715,8 +711,7 @@ function network_latest_posts( $parameters ) {
                         // Extract excerpt from content
                         } else {
                             // Get the excerpt
-                            $auto_excerpt = nlp_auto_excerpt($field->post_content, $excerpt_length, $all_permalinks[$field->guid],$excerpt_trail);
-                            echo nlp_custom_excerpt($excerpt_length, $auto_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -766,8 +761,7 @@ function network_latest_posts( $parameters ) {
                         // Extract excerpt from content
                         } else {
                             // Get the excerpt
-                            $auto_excerpt = nlp_auto_excerpt($field->post_content, $excerpt_length, $all_permalinks[$field->guid],$excerpt_trail);
-                            echo nlp_custom_excerpt($excerpt_length, $auto_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -847,70 +841,36 @@ add_shortcode('nlposts','network_latest_posts_shortcode');
  * return customized @excerpt
  */
 function nlp_custom_excerpt($count, $content, $permalink, $excerpt_trail){
-    // Return the content unchanged
-    if($count == 0 || $count == 'null') {
-        // Clean the content
-        $content = strip_tags($content);
-        // Get the words
-        $words = explode(' ', $content);
-        // Pop everything
-        array_pop($words);
-        // Add trailing dots
-        array_push($words, '...');
-        // Add white spaces
-        $content = implode(' ', $words);
-        // Strip shortcodes
-        $content = strip_tags(strip_shortcodes($content));
-        // Add the trail
-        switch( $excerpt_trail ) {
-            // Text
-            case 'text':
-                $content = $content.'<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
-                break;
-            // Image
-            case 'image':
-                $content = $content.'<a href="'.$permalink.'"><img src="'.plugins_url('/img/excerpt_trail.png', __FILE__) .'" alt="'.__('more','trans-nlp').'" title="'.__('more','trans-nlp').'" /></a>';
-                break;
-            // Text by default
-            default:
-                $content = $content.'<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
-                break;
-        }
-        return $content;
-    // Customize the excerpt
-    } else {
-        // Clean the content
-        $content = strip_tags($content);
-        // Extract the contet
-        $content = substr($content, 0, $count);
-        // Get the words
-        $words = explode(' ', $content);
-        // Pop everything
-        array_pop($words);
-        // Add trailing dots
-        array_push($words, '...');
-        // Add white spaces
-        $content = implode(' ', $words);
-        // Strip shortcodes
-        $content = strip_tags(strip_shortcodes($content));
-        // Add the trail
-        switch( $excerpt_trail ) {
-            // Text
-            case 'text':
-                $content = $content.'<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
-                break;
-            // Image
-            case 'image':
-                $content = $content.'<a href="'.$permalink.'"><img src="'.plugins_url('/img/excerpt_trail.png', __FILE__) .'" alt="'.__('more','trans-nlp').'" title="'.__('more','trans-nlp').'" /></a>';
-                break;
-            // Text by default
-            default:
-                $content = $content.'<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
-                break;
-        }
-        // Return the excerpt
-        return $content;
+    if($count == 0 || $count == 'null') { $count = 55; }
+    // Clean the content
+    $content = strip_tags($content);
+    // Get the words
+    $words = explode(' ', $content, $count + 1);
+    // Pop everything
+    array_pop($words);
+    // Add trailing dots
+    array_push($words, '...');
+    // Add white spaces
+    $content = implode(' ', $words);
+    // Strip shortcodes
+    $content = strip_tags(strip_shortcodes($content));
+    // Add the trail
+    switch( $excerpt_trail ) {
+        // Text
+        case 'text':
+            $content = $content.'<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
+            break;
+        // Image
+        case 'image':
+            $content = $content.'<a href="'.$permalink.'"><img src="'.plugins_url('/img/excerpt_trail.png', __FILE__) .'" alt="'.__('more','trans-nlp').'" title="'.__('more','trans-nlp').'" /></a>';
+            break;
+        // Text by default
+        default:
+            $content = $content.'<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
+            break;
     }
+    // Return the excerpt
+    return $content;
 }
 
 /* Auto excerpt extraction
@@ -920,8 +880,8 @@ function nlp_custom_excerpt($count, $content, $permalink, $excerpt_trail){
  * return auto-generated @content
  */
 function nlp_auto_excerpt($content, $excerpt_length, $permalink, $excerpt_trail){
-    // If excerpt_length wasn't specified, set 40 characters/words by default
-    if( $excerpt_length == 'null' || empty($excerpt_length) || $excerpt_length == null ) { $excerpt_length = 40; }
+    // If excerpt_length wasn't specified, set 55 characters/words by default
+    if( $excerpt_length == 'null' || empty($excerpt_length) || $excerpt_length == null ) { $excerpt_length = 55; } else { $excerpt_length = (int)$excerpt_length; }
     // Explode white spaces
     $words = explode(' ', $content, $excerpt_length + 1);
     // Count words
