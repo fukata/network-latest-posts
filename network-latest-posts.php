@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.0.8
+Version: 3.0.9
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -77,6 +77,9 @@ Author URI: http://laelite.info/
  * -- skepticblogsnet
  * --- Functionalities proposed:
  * ---- Override CSS classes for the wrapper tag
+ *
+ * -- Ricardoweb
+ * --- Bug spotted $post_type should be $custom_post_type
  *
  * That's it, let the fun begin!
  *
@@ -302,7 +305,7 @@ function network_latest_posts( $parameters ) {
                     ),
                     'numberposts' => $number_posts,
                     'post_status' => $post_status,
-                    'post_type' => $post_type
+                    'post_type' => $custom_post_type
                 );
             }
             // Categories only
@@ -317,7 +320,7 @@ function network_latest_posts( $parameters ) {
                     ),
                     'numberposts' => $number_posts,
                     'post_status' => $post_status,
-                    'post_type' => $post_type
+                    'post_type' => $custom_post_type
                 );
             }
             // Tags only
@@ -332,7 +335,7 @@ function network_latest_posts( $parameters ) {
                     ),
                     'numberposts' => $number_posts,
                     'post_status' => $post_status,
-                    'post_type' => $post_type
+                    'post_type' => $custom_post_type
                 );
             }
             // Everything by Default
@@ -341,7 +344,7 @@ function network_latest_posts( $parameters ) {
                 $args = array(
                     'numberposts' => $number_posts,
                     'post_status' => $post_status,
-                    'post_type' => $post_type
+                    'post_type' => $custom_post_type
                 );
             }
             // Switch to the blog
