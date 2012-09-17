@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.1.1
+Version: 3.1.2
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -1057,8 +1057,8 @@ function network_latest_posts_init() {
     if ( !function_exists('register_sidebar_widget') || !function_exists('register_widget_control') )
         return;
     // Register functions
-    wp_register_sidebar_widget(0,__("Network Latest Posts",'trans-nlp'),"network_latest_posts_widget");
-    wp_register_widget_control(0,__("Network Latest Posts",'trans-nlp'),"network_latest_posts_control");
+    wp_register_sidebar_widget('nlposts-sb-widget',__("Network Latest Posts",'trans-nlp'),"network_latest_posts_widget");
+    wp_register_widget_control('nlposts-control',__("Network Latest Posts",'trans-nlp'),"network_latest_posts_control");
     register_uninstall_hook(__FILE__, 'network_latest_posts_uninstall');
     wp_register_style('nlpcss-form', plugins_url('/css/form_style.css', __FILE__));
     wp_enqueue_style('nlpcss-form');

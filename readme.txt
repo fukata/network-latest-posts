@@ -4,7 +4,7 @@ Donate link: http://laelite.info
 Tags: recent posts, shortcode, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 
 This plugin allows you to pull all the recent posts from the blogs in your WordPress network and display them in your main site (or internal sites)
 
@@ -128,6 +128,9 @@ are passed. For more examples please visit the Network Latest Post website.
 * @instance           : This parameter is intended to differenciate each instance of the widget/shortcode/function you use, it's required in order for the asynchronous pagination links to work
 
 == Changelog ==
+
+= 3.1.2 =
+* Register ids changed to better identify NLPosts
 
 = 3.1.1 =
 * Patch for fixing `wp_register_sidebar_widget` and `wp_register_widget_control` thanks to cyberdemon8
