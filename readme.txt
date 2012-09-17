@@ -4,13 +4,13 @@ Donate link: http://laelite.info
 Tags: recent posts, shortcode, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 3.0.9
+Stable tag: 3.1
 
-This plugin allows you to get the latest posts from the blogs in your network and display them in your main site using shortcodes or a widget.
+This plugin allows you to pull all the recent posts from the blogs in your WordPress network and display them in your main site (or internal sites) using shortcodes or widgets.
 
 == Description ==
 
-This plugin get the latest posts from the blogs in your network and display them in your main site using shortcodes or a widget.
+This plugin pull the recent posts from all the blogs in your network and displays them in your main site (or any internal site) using shortcodes or widgets.
 For further details please visit: http://en.8elite.com/network-latest-posts [English] http://es.8elite.com/network-latest-posts [Espanol] http://fr.8elite.com/network-latest-posts [Francais]
 
 This plugin works with Wordpress 3 Network (multisites)
@@ -128,6 +128,10 @@ are passed. For more examples please visit the Network Latest Post website.
 * @instance           : This parameter is intended to differenciate each instance of the widget/shortcode/function you use, it's required in order for the asynchronous pagination links to work
 
 == Changelog ==
+
+= 3.1 =
+* It's now possible to specify multiple custom types (comma separated)
+* Two deprecated functions `register_sidebar_widget` and `register_widget_control` were updated to add the new prefix `wp_` used since WordPress version 2.8
 
 = 3.0.9 =
 * Custom post type variable fixed, it was using post_type instead of custom_post_type thanks to ricardoweb for spotting this
