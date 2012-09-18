@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Shortcode Form
-    Version 1.1
+    Version 1.2
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -79,7 +79,8 @@ $defaults = array(
     'css_style'        => NULL,          // Custom CSS _filename_ (ex: custom_style)
     'wrapper_list_css' => 'nav nav-tabs nav-stacked', // Custom CSS classes for the list wrapper
     'wrapper_block_css'=> 'content',     // Custom CSS classes for the block wrapper
-    'instance'         => NULL           // Instance identifier, used to uniquely differenciate each shortcode used
+    'instance'         => NULL,          // Instance identifier, used to uniquely differenciate each shortcode used
+    'random'           => FALSE          // Pull random posts
 );
 // Set an array
 $settings = array();
@@ -434,6 +435,19 @@ $widget_form.= $br;
 $widget_form.= "<label for='wrapper_block_css'>" . __('Custom CSS Class for the block wrapper','trans-nlp') . "</label>";
 $widget_form.= $br;
 $widget_form.= "<input type='text' id='wrapper_block_css' name='wrapper_block_css' value='$wrapper_block_css' />";
+// Random posts
+$widget_form.= $br;
+$widget_form.= "<label for='random'>" . __('Random Posts','trans-nlp') . "</label>";
+$widget_form.= $br;
+$widget_form.= "<select id='random' name='random'>";
+if( $random == 'true' ) {
+    $widget_form.= "<option value='true' selected='selected'>" . __('Yes','trans-nlp') . "</option>";
+    $widget_form.= "<option value='false'>" . __('No','trans-nlp') . "</option>";
+} else {
+    $widget_form.= "<option value='true'>" . __('Yes','trans-nlp') . "</option>";
+    $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
+}
+$widget_form.= "</select>";
 $widget_form.= $br;
 $widget_form.= "<input type='button' id='nlposts_shortcode_submit' value='".__('Insert Shortcode','trans-nlp')."' />";
 $widget_form.= $p_c;

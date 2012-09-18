@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Widget
-    Version 3.0.5
+    Version 3.1.3
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -58,7 +58,8 @@ class NLposts_Widget extends WP_Widget {
         'css_style'        => NULL,          // Custom CSS _filename_ (ex: custom_style)
         'wrapper_list_css' => 'nav nav-tabs nav-stacked', // Custom CSS classes for the list wrapper
         'wrapper_block_css'=> 'content',     // Custom CSS classes for the block wrapper
-        'instance'         => NULL           // Instance identifier, used to uniquely differenciate each widget
+        'instance'         => NULL,          // Instance identifier, used to uniquely differenciate each widget
+        'random'           => FALSE
     );
 
     /*
@@ -201,6 +202,7 @@ class NLposts_Widget extends WP_Widget {
         $instance['css_style']        = strip_tags($new_instance['css_style']);
         $instance['wrapper_list_css'] = strip_tags($new_instance['wrapper_list_css']);
         $instance['wrapper_block_css']= strip_tags($new_instance['wrapper_block_css']);
+        $instance['random']           = strip_tags($new_instance['random']);
         // Width by default
         if( $instance['thumbnail_w'] == '0' ) { $instance['thumbnail_w'] = '80'; }
         // Height by default
@@ -552,6 +554,19 @@ class NLposts_Widget extends WP_Widget {
         } else {
             $widget_form.= "<option value='true'>" . __('Yes','trans-nlp') . "</option>";
             $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
+        }
+        $widget_form.= "</select>";
+        $widget_form.= $br;
+        // Pull random posts
+        $widget_form.= "<label for='".$this->get_field_id('random')."'>". __('Random Posts','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<select id='".$this->get_field_id('random')."' name='".$this->get_field_name('random')."'>";
+        if( $random == 'true' ) {
+            $widget_form.="<option value='true' selected='selected'>Yes</option>";
+            $widget_form.="<option value='false'>No</option>";
+        } else {
+            $widget_form.="<option value='true'>Yes</option>";
+            $widget_form.="<option value='false' selected='selected'>No</option>";
         }
         $widget_form.= "</select>";
         // css_style

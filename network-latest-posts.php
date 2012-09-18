@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.1.2
+Version: 3.1.3
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -90,6 +90,10 @@ Author URI: http://laelite.info/
  * -- cyberdemon8
  * --- Patched for wp_register_sidebar_widget & wp_register_widget_control
  *
+ * -- Kobus
+ * --- Functionalitie proposed:
+ * ---- Random posts
+ *
  * That's it, let the fun begin!
  *
  */
@@ -129,6 +133,7 @@ require_once dirname( __FILE__ ) . '/network-latest-posts-widget.php';
  * -- @wrapper_list_css   : Custom CSS classes for the list wrapper
  * -- @wrapper_block_css  : Custom CSS classes for the block wrapper
  * -- @instance           : This parameter is intended to differenciate each instance of the widget/shortcode/function you use, it's required in order for the asynchronous pagination links to work
+ * -- @random             : Pull random posts (possible values: true or false, false by default)
  */
 function network_latest_posts( $parameters ) {
     // Global variables
@@ -162,7 +167,8 @@ function network_latest_posts( $parameters ) {
         'css_style'        => NULL,          // Custom CSS _filename_ (ex: custom_style)
         'wrapper_list_css' => 'nav nav-tabs nav-stacked', // Custom CSS classes for the list wrapper
         'wrapper_block_css'=> 'content',     // Custom CSS classes for the block wrapper
-        'instance'         => NULL           // Instance identifier, used to uniquely differenciate each shortcode or widget used
+        'instance'         => NULL,          // Instance identifier, used to uniquely differenciate each shortcode or widget used
+        'random'           => FALSE          // Pull random posts (true or false)
     );
     // Parse & merge parameters with the defaults
     $settings = wp_parse_args( $parameters, $defaults );
@@ -304,6 +310,8 @@ function network_latest_posts( $parameters ) {
             ${'blog_url_'.$blog_key} = get_blog_option($blog_key,'siteurl');
             ${'blog_name_'.$blog_key} = get_blog_option($blog_key,'blogname');
             ${'date_format_'.$blog_key} = get_blog_option($blog_key,'date_format');
+            // Orderby
+            if( $random == 'true' ) { $orderby = 'rand'; } else { $orderby = 'post_date'; }
             // Categories or Tags
             if( !empty($category) && !empty($tag) ) {
                 $args = array(
@@ -322,7 +330,8 @@ function network_latest_posts( $parameters ) {
                     ),
                     'numberposts' => $number_posts,
                     'post_status' => $post_status,
-                    'post_type' => $custom_post_type
+                    'post_type' => $custom_post_type,
+                    'orderby' => $orderby
                 );
             }
             // Categories only
@@ -337,7 +346,8 @@ function network_latest_posts( $parameters ) {
                     ),
                     'numberposts' => $number_posts,
                     'post_status' => $post_status,
-                    'post_type' => $custom_post_type
+                    'post_type' => $custom_post_type,
+                    'orderby' => $orderby
                 );
             }
             // Tags only
@@ -352,7 +362,8 @@ function network_latest_posts( $parameters ) {
                     ),
                     'numberposts' => $number_posts,
                     'post_status' => $post_status,
-                    'post_type' => $custom_post_type
+                    'post_type' => $custom_post_type,
+                    'orderby' => $orderby
                 );
             }
             // Everything by Default
@@ -361,7 +372,8 @@ function network_latest_posts( $parameters ) {
                 $args = array(
                     'numberposts' => $number_posts,
                     'post_status' => $post_status,
-                    'post_type' => $custom_post_type
+                    'post_type' => $custom_post_type,
+                    'orderby' => $orderby
                 );
             }
             // Switch to the blog
