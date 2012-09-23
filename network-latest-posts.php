@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.1.3
+Version: 3.1.4
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -1071,9 +1071,9 @@ function network_latest_posts_init() {
     // Register functions
     wp_register_sidebar_widget('nlposts-sb-widget',__("Network Latest Posts",'trans-nlp'),"network_latest_posts_widget");
     wp_register_widget_control('nlposts-control',__("Network Latest Posts",'trans-nlp'),"network_latest_posts_control");
-    register_uninstall_hook(__FILE__, 'network_latest_posts_uninstall');
     wp_register_style('nlpcss-form', plugins_url('/css/form_style.css', __FILE__));
     wp_enqueue_style('nlpcss-form');
+    register_uninstall_hook(__FILE__, 'network_latest_posts_uninstall');
     // Load plugins
     wp_enqueue_script('jquery');
     // Set the textdomain for translation purposes
@@ -1160,11 +1160,10 @@ function nlp_shortcode_plugin($plugin_array) {
    $plugin_array['nlposts'] = plugin_dir_url(__FILE__) .'js/nlp_tinymce_button.js';
    return $plugin_array;
 }
-
+// Run this stuff
+add_action("wp_enqueue_scripts","network_latest_posts_init");
 // Hook the shortcode button into TinyMCE
 add_action('init', 'nlp_shortcode_button');
 // Load styles
 add_action('wp_head','nlp_load_styles',10,1);
-// Run this stuff
-add_action("plugins_loaded","network_latest_posts_init");
 ?>
