@@ -1160,10 +1160,10 @@ function nlp_shortcode_plugin($plugin_array) {
    $plugin_array['nlposts'] = plugin_dir_url(__FILE__) .'js/nlp_tinymce_button.js';
    return $plugin_array;
 }
-// Run this stuff
-add_action("wp_enqueue_scripts","network_latest_posts_init");
 // Hook the shortcode button into TinyMCE
 add_action('init', 'nlp_shortcode_button');
 // Load styles
 add_action('wp_head','nlp_load_styles',10,1);
+// Run this stuff
+add_action("admin_enqueue_scripts","network_latest_posts_init");
 ?>
