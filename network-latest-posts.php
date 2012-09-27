@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.1.5
+Version: 3.1.6
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -93,6 +93,10 @@ Author URI: http://laelite.info/
  * -- Kobus
  * --- Functionalitie proposed:
  * ---- Random posts
+ *
+ * -- Aircut
+ * --- Spotted an issue with Visual Composer plugin, their shortcodes were not being
+ *     stripped out from excerpts
  *
  * That's it, let the fun begin!
  *
@@ -874,7 +878,19 @@ add_shortcode('nlposts','network_latest_posts_shortcode');
  */
 function nlp_custom_excerpt($count, $content, $permalink, $excerpt_trail){
     if($count == 0 || $count == 'null') { $count = 55; }
-    // Clean the content
+    /* Strip shortcodes
+     * Due to an incompatibility issue between Visual Composer
+     * and WordPress strip_shortcodes hook, I'm stripping
+     * shortcodes using regex. (27-09-2012)
+     *
+     * $content = strip_tags(strip_shortcodes($content));
+     *
+     * replaced by
+     *
+     * $content = preg_replace("/\[(.*?)\]/i", '', $content);
+     * $content = strip_tags($content);
+     */
+    $content = preg_replace("/\[(.*?)\]/i", '', $content);
     $content = strip_tags($content);
     // Get the words
     $words = explode(' ', $content, $count + 1);
@@ -884,8 +900,6 @@ function nlp_custom_excerpt($count, $content, $permalink, $excerpt_trail){
     array_push($words, '...');
     // Add white spaces
     $content = implode(' ', $words);
-    // Strip shortcodes
-    $content = strip_tags(strip_shortcodes($content));
     // Add the trail
     switch( $excerpt_trail ) {
         // Text
@@ -899,45 +913,6 @@ function nlp_custom_excerpt($count, $content, $permalink, $excerpt_trail){
         // Text by default
         default:
             $content = $content.'<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
-            break;
-    }
-    // Return the excerpt
-    return $content;
-}
-
-/* Auto excerpt extraction
- * @content: Post content
- * @excerpt_length: Number of characters/words
- * @permalink: Link to the post
- * return auto-generated @content
- */
-function nlp_auto_excerpt($content, $excerpt_length, $permalink, $excerpt_trail){
-    // If excerpt_length wasn't specified, set 55 characters/words by default
-    if( $excerpt_length == 'null' || empty($excerpt_length) || $excerpt_length == null ) { $excerpt_length = 55; } else { $excerpt_length = (int)$excerpt_length; }
-    // Explode white spaces
-    $words = explode(' ', $content, $excerpt_length + 1);
-    // Count words
-    if(count($words) > $excerpt_length) {
-        // Pop the content
-        array_pop($words);
-        // Add white spaces
-        $content = implode(' ', $words);
-    }
-    // Strip shortcodes
-    $content = strip_tags(strip_shortcodes($content));
-    // Add the trail
-    switch( $excerpt_trail ) {
-        // Text
-        case 'text':
-            $content = $content.'...<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
-            break;
-        // Image
-        case 'image':
-            $content = $content.'...<a href="'.$permalink.'"><img src="'.plugins_url('/img/excerpt_trail.png', __FILE__) .'" alt="'.__('more','trans-nlp').'" title="'.__('more','trans-nlp').'" /></a>';
-            break;
-        // Text by default
-        default:
-            $content = $content.'...<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
             break;
     }
     // Return the excerpt

@@ -4,7 +4,7 @@ Donate link: http://laelite.info
 Tags: recent posts, shortcode, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 3.1.5
+Stable tag: 3.1.6
 
 This plugin allows you to pull all the recent posts from the blogs in your WordPress network and display them in your main site (or internal sites)
 
@@ -130,6 +130,9 @@ are passed. For more examples please visit the Network Latest Post website.
 * @random             : Pull random articles
 
 == Changelog ==
+
+= 3.1.6 =
+* Due to an incompatibility issue between the Visual Composer plugin and the WordPress hook strip_shortcodes, NLposts is using regex now.
 
 = 3.1.5 =
 * Replacing `wp_enqueue_scripts` by `admin_enqueue_scripts` to solve styling issues in the TinyMCE button
@@ -267,4 +270,5 @@ Your theme have to support thumbnails, just add this to the function.php inside 
 `add_theme_support('post-thumbnails');`
 
 = OMG this plugin is awesome! I want to buy you a coke and send you a message, where can I do it? =
-Please visit my website http://laelite.info if you want to support my work please consider making a donation, even 1$ can make a difference :)
+Please visit my website http://laelite.info if you want to support my work please consider making a donation, even $1 can help me pay my web server. If you have no money, then you can write something nice
+about me, why would you recommend my work to potential customers and send it to me using the email address available at my website :)
