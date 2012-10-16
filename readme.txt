@@ -11,9 +11,9 @@ This plugin allows you to pull all the recent posts from the blogs in your WordP
 == Description ==
 
 This plugin pull the recent posts from all the blogs in your network and displays them in your main site (or any internal site) using shortcodes or widgets.
-For further details please visit: http://en.8elite.com/network-latest-posts [English] http://es.8elite.com/network-latest-posts [Espanol] http://fr.8elite.com/network-latest-posts [Francais]
+For further details please visit: http://en.8elite.com/network-latest-posts [English] http://es.8elite.com/network-latest-posts [Espanol] http://fr.8elite.com/network-latest-posts [Francais].
 
-This plugin works with Wordpress 3 Network (multisites)
+This plugin works with Wordpress 3 Network (multisites) Looking for single install versions? http://single-latest-posts.laelitenetwork.com
 
 == Installation ==
 
@@ -275,3 +275,6 @@ Your theme have to support thumbnails, just add this to the function.php inside 
 = OMG this plugin is awesome! I want to buy you a coke and send you a message, where can I do it? =
 Please visit my website http://laelite.info if you want to support my work please consider making a donation, even $1 can help me pay my web server. If you have no money, then you can write something nice
 about me, why would you recommend my work to potential customers and send it to me using the email address available at my website :)
+
+= Is there a plugin like this for single WordPress installations? =
+Yes, I'm finishing a version for single installations, check this out http://single-latest-posts.laelitenetwork.com
