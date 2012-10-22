@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.2
+Version: 3.2.1
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -105,6 +105,9 @@ Author URI: http://laelite.info/
  * -- aaronbennett2097
  * --- Functionalities proposed:
  * ----- Thumbnails from Custom Fields
+ *
+ * -- kkalvaa
+ * --- Spotted auto_excerpt bug
  *
  * That's it, let the fun begin!
  *
@@ -577,7 +580,7 @@ function network_latest_posts( $parameters ) {
                         // Open excerpt wrapper
                         echo $html_tags['excerpt_o'];
                         // Custom Excerpt
-                        if( $auto_excerpt == FALSE ) {
+                        if( $auto_excerpt != 'true' ) {
                             // Print out the excerpt
                             echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
                         // Extract excerpt from content
@@ -627,7 +630,7 @@ function network_latest_posts( $parameters ) {
                         // Open excerpt wrapper
                         echo $html_tags['excerpt_o'];
                         // Custom Excerpt
-                        if( $auto_excerpt == FALSE ) {
+                        if( $auto_excerpt != 'true' ) {
                             // Print out the excerpt
                             echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
                         // Extract excerpt from content
@@ -776,7 +779,7 @@ function network_latest_posts( $parameters ) {
                         // Open excerpt wrapper
                         echo $html_tags['excerpt_o'];
                         // Custom Excerpt
-                        if( $auto_excerpt == FALSE ) {
+                        if( $auto_excerpt != 'true' ) {
                             // Print out the excerpt
                             echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
                         // Extract excerpt from content
@@ -826,7 +829,7 @@ function network_latest_posts( $parameters ) {
                         // Open excerpt wrapper
                         echo $html_tags['excerpt_o'];
                         // Custom Excerpt
-                        if( $auto_excerpt == FALSE ) {
+                        if( $auto_excerpt != 'true' ) {
                             // Print out the excerpt
                             echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
                         // Extract excerpt from content
