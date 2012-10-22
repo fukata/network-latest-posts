@@ -4,7 +4,7 @@ Donate link: http://laelite.info
 Tags: recent posts, shortcode, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 3.1.7
+Stable tag: 3.2
 
 This plugin allows you to pull all the recent posts from the blogs in your WordPress network and display them in your main site (or internal sites)
 
@@ -79,6 +79,8 @@ are passed. For more examples please visit the Network Latest Post website.
           thumbnail_wh=80x80
           thumbnail_class=NULL
           thumbnail_filler=placeholder
+          thumbnail_custom=FALSE
+          thumbnail_field=NULL
           custom_post_type=post
           category=NULL
           tag=NULL
@@ -110,6 +112,8 @@ are passed. For more examples please visit the Network Latest Post website.
 * @thumbnail_wh       : Thumbnails size, width and height in pixels, while using the shortcode or a function this parameter must be passed like: '80x80'
 * @thumbnail_class    : Thumbnail class, set a custom class (alignleft, alignright, center, etc)
 * @thumbnail_filler   : Placeholder to use if the post's thumbnail couldn't be found, options: placeholder, kittens, puppies (what?.. I can be funny sometimes)
+* @thumbnail_custom   : Pull thumbnails from custom fields (true or false), thumbnail parameter must be true
+* @thumbnail_field    : Custom field which contains the custom thumbnail URL
 * @custom_post_type   : Specify a custom post type: post, page or something-you-invented
 * @category           : Category or categories you want to display. Ex: cats,dogs means, retrieve posts containing the categories cats or dogs
 * @tag                : Same as categoy WordPress treats both taxonomies the same way; by the way, you can pass one or many (separated by commas)
@@ -130,6 +134,9 @@ are passed. For more examples please visit the Network Latest Post website.
 * @random             : Pull random articles
 
 == Changelog ==
+
+= 3.2 =
+* NEW Feature added Custom Thumbnail `thumbnail_custom`, `thumbnail_field` which allows you to specify custom fields for thumbnails
 
 = 3.1.7 =
 * Fixing a bug when placed before comments forms.

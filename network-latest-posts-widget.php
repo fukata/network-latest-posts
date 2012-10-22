@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Widget
-    Version 3.1.3
+    Version 3.2
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -42,6 +42,8 @@ class NLposts_Widget extends WP_Widget {
         'thumbnail_wh'     => '80x80',       // Thumbnail Width & Height in pixels
         'thumbnail_class'  => NULL,          // Thumbnail CSS class
         'thumbnail_filler' => 'placeholder', // Replacement image for posts without thumbnail (placeholder, kittens, puppies)
+        'thumbnail_custom' => FALSE,         // Pull thumbnails from custom fields
+        'thumbnail_field'  => NULL,          // Custom field containing image url
         'custom_post_type' => 'post',        // Type of posts to display
         'category'         => NULL,          // Category(ies) to display
         'tag'              => NULL,          // Tag(s) to display
@@ -186,6 +188,8 @@ class NLposts_Widget extends WP_Widget {
         $instance['thumbnail_h']      = (int)$new_instance['thumbnail_h'];
         $instance['thumbnail_class']  = strip_tags($new_instance['thumbnail_class']);
         $instance['thumbnail_filler'] = strip_tags($new_instance['thumbnail_filler']);
+        $instance['thumbnail_custom'] = strip_tags($new_instance['thumbnail_custom']);
+        $instance['thumbnail_field']  = strip_tags($new_instance['thumbnail_field']);
         $instance['custom_post_type'] = strip_tags($new_instance['custom_post_type']);
         $instance['category']         = strip_tags($new_instance['category']);
         $instance['tag']              = strip_tags($new_instance['tag']);
@@ -435,6 +439,24 @@ class NLposts_Widget extends WP_Widget {
         $widget_form.= "<label for='".$this->get_field_id('thumbnail_class')."'>" . __('Thumbnail Class','trans-nlp') . "</label>";
         $widget_form.= $br;
         $widget_form.= "<input type='text' id='".$this->get_field_id('thumbnail_class')."' name='".$this->get_field_name('thumbnail_class')."' value='$thumbnail_class' />";
+        // thumbnail_custom
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('thumbnail_custom')."'>" . __('Custom Thumbnail','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<select id='".$this->get_field_id('thumbnail_custom')."' name='".$this->get_field_name('thumbnail_custom')."'>";
+        if( $thumbnail_custom == 'true' ) {
+            $widget_form.= "<option value='true' selected='selected'>" . __('Yes','trans-nlp') . "</option>";
+            $widget_form.= "<option value='false'>" . __('No','trans-nlp') . "</option>";
+        } else {
+            $widget_form.= "<option value='true'>" . __('Yes','trans-nlp') . "</option>";
+            $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
+        }
+        $widget_form.= "</select>";
+        // thumbnail_field
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('thumbnail_field')."'>" . __('Thumbnail Custom Field','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<input type='text' id='".$this->get_field_id('thumbnail_field')."' name='".$this->get_field_name('thumbnail_field')."' value='$thumbnail_field' />";
         // custom_post_type
         $widget_form.= $br;
         $widget_form.= "<label for='".$this->get_field_id('custom_post_type')."'>" . __('Custom Post Type','trans-nlp') . "</label>";

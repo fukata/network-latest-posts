@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.1.7
+Version: 3.2
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -91,12 +91,20 @@ Author URI: http://laelite.info/
  * --- Patched for wp_register_sidebar_widget & wp_register_widget_control
  *
  * -- Kobus
- * --- Functionalitie proposed:
+ * --- Functionalities proposed:
  * ---- Random posts
  *
  * -- Aircut
  * --- Spotted an issue with Visual Composer plugin, their shortcodes were not being
  *     stripped out from excerpts
+ *
+ * -- Snapalot
+ * --- Spotted an issue when placing NLPosts right before comments section, comments were
+ *     added to different posts
+ *
+ * -- aaronbennett2097
+ * --- Functionalities proposed:
+ * ----- Thumbnails from Custom Fields
  *
  * That's it, let the fun begin!
  *
@@ -120,6 +128,8 @@ require_once dirname( __FILE__ ) . '/network-latest-posts-widget.php';
  * -- @thumbnail_wh       : Thumbnails size, width and height in pixels, while using the shortcode or a function this parameter must be passed like: '80x80'
  * -- @thumbnail_class    : Thumbnail class, set a custom class (alignleft, alignright, center, etc)
  * -- @thumbnail_filler   : Placeholder to use if the post's thumbnail couldn't be found, options: placeholder, kittens, puppies (what?.. I can be funny sometimes)
+ * -- @thumbnail_custom   : Pull thumbnails from custom fields
+ * -- @thumbnail_field    : Specify the custom field for thumbnail URL
  * -- @custom_post_type   : Specify a custom post type: post, page or something-you-invented
  * -- @category           : Category or categories you want to display. Ex: cats,dogs means, retrieve posts containing the categories cats or dogs
  * -- @tag                : Same as categoy WordPress treats both taxonomies the same way; by the way, you can pass one or many (separated by commas)
@@ -142,6 +152,7 @@ require_once dirname( __FILE__ ) . '/network-latest-posts-widget.php';
 function network_latest_posts( $parameters ) {
     // Global variables
     global $wpdb;
+    //global $nlp_time_frame;
     // Default values
     $defaults = array(
         'title'            => NULL,          // Widget title
@@ -155,6 +166,8 @@ function network_latest_posts( $parameters ) {
         'thumbnail_wh'     => '80x80',       // Thumbnail Width & Height in pixels
         'thumbnail_class'  => NULL,          // Thumbnail CSS class
         'thumbnail_filler' => 'placeholder', // Replacement image for posts without thumbnail (placeholder, kittens, puppies)
+        'thumbnail_custom' => FALSE,         // Pull thumbnails from custom fields
+        'thumbnail_field'  => NULL,          // Custom field containing image url
         'custom_post_type' => 'post',        // Type of posts to display
         'category'         => NULL,          // Category(ies) to display
         'tag'              => NULL,          // Tag(s) to display
@@ -489,8 +502,19 @@ function network_latest_posts( $parameters ) {
                     // Put the dimensions into an array
                     $thumbnail_size = str_replace('x',',',$thumbnail_wh);
                     $thumbnail_size = explode(',',$thumbnail_size);
-                    // Get the thumbnail
-                    $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class));
+                    if( $thumnail_custom != 'true' && $thumbnail_field == NULL ) {
+                        // Get the thumbnail
+                        $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class));
+                    } else {
+                        $thumbnail_custom_field = get_post_meta($field->ID, $thumbnail_field, true);
+                        if( !empty( $thumbnail_custom_field ) ) {
+                            // Get custom thumbnail
+                            $thumb_html = "<img src='".$thumbnail_custom_field."' width='".$thumbnail_size[0]."' height='".$thumbnail_size[1]." />";
+                        } else {
+                            // Get the regular thumbnail
+                            $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class));
+                        }
+                    }
                     // If there is a thumbnail
                     if( !empty($thumb_html) ) {
                         // Display the thumbnail
@@ -677,8 +701,19 @@ function network_latest_posts( $parameters ) {
                     // Put the dimensions into an array
                     $thumbnail_size = str_replace('x',',',$thumbnail_wh);
                     $thumbnail_size = explode(',',$thumbnail_size);
-                    // Get the thumbnail
-                    $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' => $thumbnail_class));
+                    if( $thumnail_custom != 'true' && $thumbnail_field == NULL ) {
+                        // Get the thumbnail
+                        $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class));
+                    } else {
+                        $thumbnail_custom_field = get_post_meta($field->ID, $thumbnail_field, true);
+                        if( !empty( $thumbnail_custom_field ) ) {
+                            // Get custom thumbnail
+                            $thumb_html = "<img src='".$thumbnail_custom_field."' width='".$thumbnail_size[0]."' height='".$thumbnail_size[1]." />";
+                        } else {
+                            // Get the regular thumbnail
+                            $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class));
+                        }
+                    }
                     // If there is a thumbnail
                     if( !empty($thumb_html) ) {
                         // Display the thumbnail

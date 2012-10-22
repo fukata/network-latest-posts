@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Shortcode Form
-    Version 1.2
+    Version 2.0
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -63,6 +63,8 @@ $defaults = array(
     'thumbnail_wh'     => '80x80',       // Thumbnail Width & Height in pixels
     'thumbnail_class'  => NULL,          // Thumbnail CSS class
     'thumbnail_filler' => 'placeholder', // Replacement image for posts without thumbnail (placeholder, kittens, puppies)
+    'thumbnail_custom' => FALSE,         // Pull thumbnails from custom fields
+    'thumbnail_field'  => NULL,          // Custom field containing image url
     'custom_post_type' => 'post',        // Type of posts to display
     'category'         => NULL,          // Category(ies) to display
     'tag'              => NULL,          // Tag(s) to display
@@ -91,7 +93,7 @@ extract( $settings );
 // Get blog ids
 global $wpdb;
 $blog_ids = $wpdb->get_results("SELECT blog_id FROM $wpdb->blogs WHERE
-    public = '1' AND archived = '0' AND mature = '0' AND spam = '0' AND deleted = '0'
+    public = 1 AND archived = 0 AND mature = 0 AND spam = 0 AND deleted = 0
         ORDER BY last_updated DESC");
 // Basic HTML Tags
 $br = "<br />";
@@ -299,6 +301,24 @@ $widget_form.= $br;
 $widget_form.= "<label for='thumbnail_class'>" . __('Thumbnail Class','trans-nlp') . "</label>";
 $widget_form.= $br;
 $widget_form.= "<input type='text' id='thumbnail_class' name='thumbnail_class' value='$thumbnail_class' />";
+// thumbnail_custom
+$widget_form.= $br;
+$widget_form.= "<label for='thumbnail_custom'>" . __('Custom Thumbnails','trans-nlp') . "</label>";
+$widget_form.= $br;
+$widget_form.= "<select id='thumbnail_custom' name='thumbnail_custom'>";
+if( $thumbnail_custom == 'true' ) {
+    $widget_form.= "<option value='true' selected='selected'>" . __('Yes','trans-nlp') . "</option>";
+    $widget_form.= "<option value='false'>" . __('No','trans-nlp') . "</option>";
+} else {
+    $widget_form.= "<option value='true'>" . __('Yes','trans-nlp') . "</option>";
+    $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
+}
+$widget_form.= "</select>";
+// thumbnail_field
+$widget_form.= $br;
+$widget_form.= "<label for='thumbnail_field'>" . __('Thumbnail Custom Field','trans-nlp') . "</label>";
+$widget_form.= $br;
+$widget_form.= "<input type='text' id='thumbnail_field' name='thumbnail_field' value='$thumbnail_field' />";
 // custom_post_type
 $widget_form.= $br;
 $widget_form.= "<label for='custom_post_type'>" . __('Custom Post Type','trans-nlp') . "</label>";
@@ -480,6 +500,8 @@ echo $widget_form;
         defaults['thumbnail_wh'] = '80x80';
         defaults['thumbnail_class'] = null;
         defaults['thumbnail_filler'] = 'placeholder';
+        defaults['thumbnail_custom'] = 'false';
+        defaults['thumbnail_field'] = null;
         defaults['custom_post_type'] = 'post';
         defaults['category'] = null;
         defaults['tag'] = null;
@@ -497,6 +519,7 @@ echo $widget_form;
         defaults['wrapper_list_css'] = 'nav nav-tabs nav-stacked';
         defaults['wrapper_block_css'] = 'content';
         defaults['instance'] = null;
+        defaults['random'] = 'false';
         // Set the thumbnail size
         if( values.thumbnail_w && values.thumbnail_h ) {
             var thumbnail_wh = values.thumbnail_w+'x'+values.thumbnail_h;
@@ -511,7 +534,7 @@ echo $widget_form;
         // Get the settings and values
         for( settings in values ) {
             // If they're not empty or null
-            if( values[settings] && values[settings] != 'null') {
+            if( values[settings] && values[settings] != 'null' ) {
                 // And they're not the default values
                 if( values[settings] != defaults[settings] ) {
                     // Count words
