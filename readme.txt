@@ -284,4 +284,4 @@ Please visit my website http://laelite.info if you want to support my work pleas
 about me, why would you recommend my work to potential customers and send it to me using the email address available at my website :)
 
 = Is there a plugin like this for single WordPress installations? =
-Yes, I'm finishing a version for single installations, check this out http://single-latest-posts.laelitenetwork.com
+Yes, I've released a version for single installations, check it out http://single-latest-posts.laelitenetwork.com
