@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Widget
-    Version 3.2
+    Version 3.3
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -54,7 +54,8 @@ class NLposts_Widget extends WP_Widget {
         'excerpt_trail'    => 'text',        // Excerpt's trailing element: text, image
         'full_meta'        => FALSE,         // Display full metadata
         'sort_by_date'     => FALSE,         // Display the latest posts first regardless of the blog they come from
-        'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older)
+        'sort_by_blog'     => FALSE,         // Sort by blog ID
+        'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older), asc / desc for blog IDs
         'sorting_limit'    => NULL,          // Limit the number of sorted posts to display
         'post_status'      => 'publish',     // Post status (publish, new, pending, draft, auto-draft, future, private, inherit, trash)
         'css_style'        => NULL,          // Custom CSS _filename_ (ex: custom_style)
@@ -199,6 +200,7 @@ class NLposts_Widget extends WP_Widget {
         $instance['auto_excerpt']     = strip_tags($new_instance['auto_excerpt']);
         $instance['full_meta']        = strip_tags($new_instance['full_meta']);
         $instance['sort_by_date']     = strip_tags($new_instance['sort_by_date']);
+        $instance['sort_by_blog']     = strip_tags($new_instance['sort_by_blog']);
         $instance['sorting_order']    = strip_tags($new_instance['sorting_order']);
         $instance['sorting_limit']    = (int)$new_instance['sorting_limit'];
         $instance['post_status']      = strip_tags($new_instance['post_status']);
@@ -542,17 +544,47 @@ class NLposts_Widget extends WP_Widget {
             $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
         }
         $widget_form.= "</select>";
+        // sort_by_blog
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('sort_by_blog')."'>" . __('Sort by Blog ID','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<select id='".$this->get_field_id('sort_by_blog')."' name='".$this->get_field_name('sort_by_blog')."'>";
+        if( $sort_by_blog == 'true' ) {
+            $widget_form.= "<option value='true' selected='selected'>" . __('Yes','trans-nlp') . "</option>";
+            $widget_form.= "<option value='false'>" . __('No','trans-nlp') . "</option>";
+        } else {
+            $widget_form.= "<option value='true'>" . __('Yes','trans-nlp') . "</option>";
+            $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
+        }
+        $widget_form.= "</select>";
         // sorting_order
         $widget_form.= $br;
         $widget_form.= "<label for='".$this->get_field_id('sorting_order')."'>" . __('Sorting Order','trans-nlp') . "</label>";
         $widget_form.= $br;
         $widget_form.= "<select id='".$this->get_field_id('sorting_order')."' name='".$this->get_field_name('sorting_order')."'>";
-        if( $sorting_order == 'newer' || empty($sorting_order) ) {
-            $widget_form.= "<option value='newer' selected='selected'>" . __('Newest to Oldest','trans-nlp') . "</option>";
-            $widget_form.= "<option value='older'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+        if( $sort_by_date == 'true' ) {
+            if( $sorting_order == 'newer' || empty($sorting_order) ) {
+                $widget_form.= "<option value='newer' selected='selected'>" . __('Newest to Oldest','trans-nlp') . "</option>";
+                $widget_form.= "<option value='older'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+            } else {
+                $widget_form.= "<option value='newer'>" . __('Newest to Oldest','trans-nlp') . "</option>";
+                $widget_form.= "<option value='older' selected='selected'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+            }
         } else {
             $widget_form.= "<option value='newer'>" . __('Newest to Oldest','trans-nlp') . "</option>";
-            $widget_form.= "<option value='older' selected='selected'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+            $widget_form.= "<option value='older'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+        }
+        if( $sort_by_blog == 'true' ) {
+            if( $sorting_order == 'asc' || empty($sorting_order) ) {
+                $widget_form.= "<option value='asc' selected='selected'>" . __('Ascendant','trans-nlp') . "</option>";
+                $widget_form.= "<option value='desc'>" . __('Descendant','trans-nlp') . "</option>";
+            } else {
+                $widget_form.= "<option value='asc'>" . __('Ascendant','trans-nlp') . "</option>";
+                $widget_form.= "<option value='desc' selected='selected'>" . __('Descendant','trans-nlp') . "</option>";
+            }
+        } else {
+            $widget_form.= "<option value='asc'>" . __('Ascendant','trans-nlp') . "</option>";
+            $widget_form.= "<option value='desc'>" . __('Descendant','trans-nlp') . "</option>";
         }
         $widget_form.= "</select>";
         // sorting_limit

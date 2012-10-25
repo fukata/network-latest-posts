@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.2.1
+Version: 3.3
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -143,7 +143,8 @@ require_once dirname( __FILE__ ) . '/network-latest-posts-widget.php';
  * -- @excerpt_trail      : Set the type of trail you want to append to the excerpts: text, image. The text will be _more_, the image is inside the plugin's img directory and it's called excerpt_trail.png
  * -- @full_meta          : Display the date and the author of the post, for the date/time each blog time format will be used
  * -- @sort_by_date       : Sorting capabilities, this will take all posts found (regardless their blogs) and sort them in order of recency, putting newest first
- * -- @sorting_order      : Specify the sorting order: 'newer' means from newest to oldest posts, 'older' means from oldest to newest
+ * -- @sort_by_blog       : Sort by blog ID
+ * -- @sorting_order      : Specify the sorting order: 'newer' means from newest to oldest posts, 'older' means from oldest to newest. Asc and desc for blog IDs
  * -- @sorting_limit      : Limit the number of posts to display. Ex: 5 means display 5 posts from all those found (even if 20 were found, only 5 will be displayed)
  * -- @post_status        : Specify the status of the posts you want to display: publish, new, pending, draft, auto-draft, future, private, inherit, trash
  * -- @css_style          : Use a custom CSS style instead of the one included by default, useful if you want to customize the front-end display: filename (without extension), this file must be located where your active theme CSS style is located
@@ -181,7 +182,8 @@ function network_latest_posts( $parameters ) {
         'excerpt_trail'    => 'text',        // Excerpt's trailing element: text, image
         'full_meta'        => FALSE,         // Display full metadata
         'sort_by_date'     => FALSE,         // Display the latest posts first regardless of the blog they come from
-        'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older)
+        'sort_by_blog'     => FALSE,         // Sort by Blog ID
+        'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older), asc / desc for blog ID
         'sorting_limit'    => NULL,          // Limit the number of sorted posts to display
         'post_status'      => 'publish',     // Post status (publish, new, pending, draft, auto-draft, future, private, inherit, trash)
         'css_style'        => NULL,          // Custom CSS _filename_ (ex: custom_style)
@@ -411,9 +413,15 @@ function network_latest_posts( $parameters ) {
             foreach( ${'posts_'.$blog_key} as $post ) {
                 // Access all post data
                 setup_postdata($post);
-                // Put everything inside another array using the modified date as
-                // the array keys
-                $all_posts[$post->post_modified] = $post;
+                // Sort by blog ID
+                if( $sort_by_blog ) {
+                    // Put inside another array and use blog ID as keys
+                    $all_posts[$blog_key.$post->post_modified] = $post;
+                } else {
+                    // Put everything inside another array using the modified date as
+                    // the array keys
+                    $all_posts[$post->post_modified] = $post;
+                }
                 // The guid is the only value which can differenciate a post from
                 // others in the whole network
                 $all_permalinks[$post->guid] = get_blog_permalink($blog_key, $post->ID);
@@ -458,6 +466,48 @@ function network_latest_posts( $parameters ) {
             } else {
                 // Sort the array
                 krsort($all_posts);
+                // Limit the number of posts
+                if( !empty($sorting_limit) ) {
+                    $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                }
+            }
+        }
+        // Sort by blog ID
+        if( $sort_by_blog ) {
+            // Sorting order (newer / older)
+            if( !empty($sorting_order) ) {
+                switch( $sorting_order ) {
+                    // Ascendant
+                    case "asc":
+                        // Sort the array
+                        ksort($all_posts);
+                        // Limit the number of posts
+                        if( !empty($sorting_limit) ) {
+                            $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                        }
+                        break;
+                    // Descendant
+                    case "desc":
+                        // Sort the array
+                        krsort($all_posts);
+                        // Limit the number of posts
+                        if( !empty($sorting_limit) ) {
+                            $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                        }
+                        break;
+                    // Newest to oldest by default
+                    default:
+                        // Sort the array
+                        krsort($all_posts);
+                        // Limit the number of posts
+                        if( !empty($sorting_limit) ) {
+                            $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                        }
+                        break;
+                }
+            } else {
+                // Sort the array
+                ksort($all_posts);
                 // Limit the number of posts
                 if( !empty($sorting_limit) ) {
                     $all_posts = array_slice($all_posts,0,$sorting_limit,true);

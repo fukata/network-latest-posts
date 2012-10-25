@@ -4,7 +4,7 @@ Donate link: http://laelite.info
 Tags: recent posts, shortcode, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 3.2.1
+Stable tag: 3.3
 
 This plugin allows you to pull all the recent posts from the blogs in your WordPress network and display them in your main site (or internal sites)
 
@@ -91,6 +91,7 @@ are passed. For more examples please visit the Network Latest Post website.
           excerpt_trail=text
           full_meta=FALSE
           sort_by_date=FALSE
+          sort_by_blog=FALSE
           sorting_order=NULL
           sorting_limit=NULL
           post_status=publish
@@ -124,7 +125,8 @@ are passed. For more examples please visit the Network Latest Post website.
 * @excerpt_trail      : Set the type of trail you want to append to the excerpts: text, image. The text will be _more_, the image is inside the plugin's img directory and it's called excerpt_trail.png
 * @full_meta          : Display the date and the author of the post, for the date/time each blog time format will be used
 * @sort_by_date       : Sorting capabilities, this will take all posts found (regardless their blogs) and sort them in order of recency, putting newest first
-* @sorting_order      : Specify the sorting order: 'newer' means from newest to oldest posts, 'older' means from oldest to newest
+* @sort_by_blog       : Sort by blog ID
+* @sorting_order      : Specify the sorting order: 'newer' means from newest to oldest posts, 'older' means from oldest to newest. asc/desc are used when blog ID is true
 * @sorting_limit      : Limit the number of posts to display. Ex: 5 means display 5 posts from all those found (even if 20 were found, only 5 will be displayed)
 * @post_status        : Specify the status of the posts you want to display: publish, new, pending, draft, auto-draft, future, private, inherit, trash
 * @css_style          : Use a custom CSS style instead of the one included by default, useful if you want to customize the front-end display: filename (without extension), this file must be located where your active theme CSS style is located, this parameter should be used only once by page (it will affect all shorcodes/widgets included in that page)
@@ -134,6 +136,9 @@ are passed. For more examples please visit the Network Latest Post website.
 * @random             : Pull random articles
 
 == Changelog ==
+
+= 3.3 =
+* NEW Feature: order by blog ID. Now you can sort by blog ID using sort_by_blog=true and sorting_order=asc or sorting_order=desc
 
 = 3.2.1 =
 * Bug fixed. Excerpts were being taken from content only and not from excerpts fields

@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Shortcode Form
-    Version 2.0
+    Version 3.0
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -75,7 +75,8 @@ $defaults = array(
     'excerpt_trail'    => 'text',        // Excerpt's trailing element: text, image
     'full_meta'        => FALSE,         // Display full metadata
     'sort_by_date'     => FALSE,         // Display the latest posts first regardless of the blog they come from
-    'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older)
+    'sort_by_blog'     => FALSE,         // Sort by blog ID
+    'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older), asc/desc for blog ID
     'sorting_limit'    => NULL,          // Limit the number of sorted posts to display
     'post_status'      => 'publish',     // Post status (publish, new, pending, draft, auto-draft, future, private, inherit, trash)
     'css_style'        => NULL,          // Custom CSS _filename_ (ex: custom_style)
@@ -404,17 +405,47 @@ if( $sort_by_date == 'true' ) {
     $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
 }
 $widget_form.= "</select>";
+// sort_by_date
+$widget_form.= $br;
+$widget_form.= "<label for='sort_by_blog'>" . __('Sort by Blog ID','trans-nlp') . "</label>";
+$widget_form.= $br;
+$widget_form.= "<select id='sort_by_blog' name='sort_by_blog'>";
+if( $sort_by_blog == 'true' ) {
+    $widget_form.= "<option value='true' selected='selected'>" . __('Yes','trans-nlp') . "</option>";
+    $widget_form.= "<option value='false'>" . __('No','trans-nlp') . "</option>";
+} else {
+    $widget_form.= "<option value='true'>" . __('Yes','trans-nlp') . "</option>";
+    $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
+}
+$widget_form.= "</select>";
 // sorting_order
 $widget_form.= $br;
 $widget_form.= "<label for='sorting_order'>" . __('Sorting Order','trans-nlp') . "</label>";
 $widget_form.= $br;
 $widget_form.= "<select id='sorting_order' name='sorting_order'>";
-if( $sorting_order == 'newer' || empty($sorting_order) ) {
-    $widget_form.= "<option value='newer' selected='selected'>" . __('Newest to Oldest','trans-nlp') . "</option>";
-    $widget_form.= "<option value='older'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+if( $sort_by_date == 'true' ) {
+    if( $sorting_order == 'newer' || empty($sorting_order) ) {
+        $widget_form.= "<option value='newer' selected='selected'>" . __('Newest to Oldest','trans-nlp') . "</option>";
+        $widget_form.= "<option value='older'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+    } else {
+        $widget_form.= "<option value='newer'>" . __('Newest to Oldest','trans-nlp') . "</option>";
+        $widget_form.= "<option value='older' selected='selected'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+    }
 } else {
     $widget_form.= "<option value='newer'>" . __('Newest to Oldest','trans-nlp') . "</option>";
     $widget_form.= "<option value='older' selected='selected'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+}
+if( $sort_by_blog == 'true' ) {
+    if( $sorting_order == 'asc' || empty($sorting_order) ) {
+        $widget_form.= "<option value='asc' selected='selected'>" . __('Ascendant','trans-nlp') . "</option>";
+        $widget_form.= "<option value='desc'>" . __('Descendant','trans-nlp') . "</option>";
+    } else {
+        $widget_form.= "<option value='asc'>" . __('Ascendant','trans-nlp') . "</option>";
+        $widget_form.= "<option value='desc' selected='selected'>" . __('Descendant','trans-nlp') . "</option>";
+    }
+} else {
+    $widget_form.= "<option value='asc'>" . __('Ascendant','trans-nlp') . "</option>";
+    $widget_form.= "<option value='desc' selected='selected'>" . __('Descendant','trans-nlp') . "</option>";
 }
 $widget_form.= "</select>";
 // sorting_limit
@@ -511,7 +542,8 @@ echo $widget_form;
         defaults['auto_excerpt'] = 'false';
         defaults['full_meta'] = 'false';
         defaults['sort_by_date'] = 'false';
-        defaults['sorting_order'] = 'newer';
+        defaults['sort_by_blog'] = 'false';
+        defaults['sorting_order'] = 'desc';
         defaults['sorting_limit'] = null;
         defaults['post_status'] = 'publish';
         defaults['excerpt_trail'] = 'text';
