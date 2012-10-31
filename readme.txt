@@ -4,7 +4,7 @@ Donate link: http://laelite.info
 Tags: recent posts, shortcode, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 3.3
+Stable tag: 3.3.1
 
 This plugin allows you to pull all the recent posts from the blogs in your WordPress network and display them in your main site (or internal sites)
 
@@ -136,6 +136,9 @@ are passed. For more examples please visit the Network Latest Post website.
 * @random             : Pull random articles
 
 == Changelog ==
+
+= 3.3.1 =
+* Fixing Display Blogs and Ignore Blogs lists in the Shortcode form
 
 = 3.3 =
 * NEW Feature: order by blog ID. Now you can sort by blog ID using sort_by_blog=true and sorting_order=asc or sorting_order=desc

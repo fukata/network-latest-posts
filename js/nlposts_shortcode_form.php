@@ -94,7 +94,7 @@ extract( $settings );
 // Get blog ids
 global $wpdb;
 $blog_ids = $wpdb->get_results("SELECT blog_id FROM $wpdb->blogs WHERE
-    public = 1 AND archived = 0 AND mature = 0 AND spam = 0 AND deleted = 0
+    public = '1' AND archived = '0' AND mature = '0' AND spam = '0' AND deleted = '0'
         ORDER BY last_updated DESC");
 // Basic HTML Tags
 $br = "<br />";
@@ -197,6 +197,7 @@ if( empty($blog_id) || $blog_id == 'null' || in_array('null',$blog_id) ) {
 } else {
     $widget_form.= "<option value='null'>" . __('Display All','trans-nlp') . "</option>";
 }
+// Display the list of blogs
 foreach ($blog_ids as $single_id) {
     $blog_details = get_blog_details($single_id->blog_id);
     if( !empty($blog_id) && in_array($single_id->blog_id,$blog_id) ) {
@@ -237,6 +238,7 @@ if( empty($ignore_blog) || $ignore_blog == 'null' || in_array('null',$ignore_blo
 } else {
     $widget_form.= "<option value='null'>" . __('Nothing to Ignore','trans-nlp') . "</option>";
 }
+// Display the list of blogs
 foreach ($blog_ids as $ignore_id) {
     $blog_details = get_blog_details($ignore_id->blog_id);
     if( !empty($ignore_blog) && in_array($ignore_id->blog_id,$ignore_blog) ) {
