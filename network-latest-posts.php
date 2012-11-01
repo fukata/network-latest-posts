@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.3.1
+Version: 3.3.2
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -557,15 +557,15 @@ function network_latest_posts( $parameters ) {
                     $thumbnail_size = explode(',',$thumbnail_size);
                     if( $thumnail_custom != 'true' && $thumbnail_field == NULL ) {
                         // Get the thumbnail
-                        $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class));
+                        $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
                     } else {
                         $thumbnail_custom_field = get_post_meta($field->ID, $thumbnail_field, true);
                         if( !empty( $thumbnail_custom_field ) ) {
                             // Get custom thumbnail
-                            $thumb_html = "<img src='".$thumbnail_custom_field."' width='".$thumbnail_size[0]."' height='".$thumbnail_size[1]." />";
+                            $thumb_html = "<img src='".$thumbnail_custom_field."' width='".$thumbnail_size[0]."' height='".$thumbnail_size[1]." alt='".$field->post_title."' title='".$field->post_title."' />";
                         } else {
                             // Get the regular thumbnail
-                            $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class));
+                            $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
                         }
                     }
                     // If there is a thumbnail
@@ -756,15 +756,15 @@ function network_latest_posts( $parameters ) {
                     $thumbnail_size = explode(',',$thumbnail_size);
                     if( $thumnail_custom != 'true' && $thumbnail_field == NULL ) {
                         // Get the thumbnail
-                        $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class));
+                        $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
                     } else {
                         $thumbnail_custom_field = get_post_meta($field->ID, $thumbnail_field, true);
                         if( !empty( $thumbnail_custom_field ) ) {
                             // Get custom thumbnail
-                            $thumb_html = "<img src='".$thumbnail_custom_field."' width='".$thumbnail_size[0]."' height='".$thumbnail_size[1]." />";
+                            $thumb_html = "<img src='".$thumbnail_custom_field."' width='".$thumbnail_size[0]."' height='".$thumbnail_size[1]." alt='".$field->post_title."' title='".$field->post_title."' />";
                         } else {
                             // Get the regular thumbnail
-                            $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class));
+                            $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
                         }
                     }
                     // If there is a thumbnail
