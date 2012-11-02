@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Shortcode Form
-    Version 3.0
+    Version 3.4
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -83,7 +83,8 @@ $defaults = array(
     'wrapper_list_css' => 'nav nav-tabs nav-stacked', // Custom CSS classes for the list wrapper
     'wrapper_block_css'=> 'content',     // Custom CSS classes for the block wrapper
     'instance'         => NULL,          // Instance identifier, used to uniquely differenciate each shortcode used
-    'random'           => FALSE          // Pull random posts
+    'random'           => FALSE,         // Pull random posts
+    'post_ignore'      => NULL
 );
 // Set an array
 $settings = array();
@@ -116,6 +117,11 @@ $widget_form.= $br;
 $widget_form.= "<label for='number_posts'>" . __('Number of Posts by Blog','trans-nlp') . "</label>";
 $widget_form.= $br;
 $widget_form.= "<input type='text' size='3' id='number_posts' name='number_posts' value='$number_posts' />";
+$widget_form.= $br;
+// post_ignore
+$widget_form.= "<label for='post_ignore'>" . __('Post ID(s) to Ignore','trans-nlp') . "</label>";
+$widget_form.= $br;
+$widget_form.= "<input type='text' id='post_ignore' name='post_ignore' value='$post_ignore' />";
 $widget_form.= $br;
 // time_frame
 $widget_form.= "<label for='time_frame'>" . __('Time Frame in Days','trans-nlp') . "</label>";
@@ -554,6 +560,7 @@ echo $widget_form;
         defaults['wrapper_block_css'] = 'content';
         defaults['instance'] = null;
         defaults['random'] = 'false';
+        defaults['post_ignore'] = null;
         // Set the thumbnail size
         if( values.thumbnail_w && values.thumbnail_h ) {
             var thumbnail_wh = values.thumbnail_w+'x'+values.thumbnail_h;

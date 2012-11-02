@@ -4,7 +4,7 @@ Donate link: http://laelite.info
 Tags: recent posts, shortcode, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 3.3.2
+Stable tag: 3.4
 
 This plugin allows you to pull all the recent posts from the blogs in your WordPress network and display them in your main site (or internal sites)
 
@@ -98,8 +98,9 @@ are passed. For more examples please visit the Network Latest Post website.
           css_style=NULL
           wrapper_list_css='nav nav-tabs nav-stacked'
           wrapper_block_css=content
-          instance=NULL,
+          instance=NULL
           random=FALSE
+          post_ignore=NULL
 ]`
 
 * @title              : Widget/Shortcode main title (section title)
@@ -134,8 +135,12 @@ are passed. For more examples please visit the Network Latest Post website.
 * @wrapper_block_css  : Custom CSS classes for the block wrapper
 * @instance           : This parameter is intended to differenciate each instance of the widget/shortcode/function you use, it's required in order for the asynchronous pagination links to work
 * @random             : Pull random articles
+* @post_ignore        : Post ID(s) to ignore (default null) comma separated values ex: 1 or 1,2,3 > ignore posts ID 1 or 1,2,3 (post ID 1 = Hello World)
 
 == Changelog ==
+
+= 3.4 =
+* NEW Feature: Ignore posts by ID. Now you can ignore certain posts by their IDs ex: post_ignore=1 ignores all "Hello World" posts
 
 = 3.3.2 =
 * Added post title to alt and title tags for thumbnails
@@ -295,7 +300,7 @@ Your theme have to support thumbnails, just add this to the function.php inside 
 
 = OMG this plugin is awesome! I want to buy you a coke and send you a message, where can I do it? =
 Please visit my website http://laelite.info if you want to support my work please consider making a donation, even $1 can help me pay my web server. If you have no money, then you can write something nice
-about me, why would you recommend my work to potential customers and send it to me using the email address available at my website :)
+about me and my work, then send it to opensource[at]laelite.info
 
 = Is there a plugin like this for single WordPress installations? =
-Yes, I've released a version for single installations, check it out http://single-latest-posts.laelitenetwork.com
+Yes, I've released a version for single installations, check it out http://single-latest-posts.laelitenetwork.com, you can also download the lite version for FREE

@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.3.2
+Version: 3.4
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -109,6 +109,9 @@ Author URI: http://laelite.info/
  * -- kkalvaa
  * --- Spotted auto_excerpt bug
  *
+ * -- James
+ * --- Proposed ignore posts
+ *
  * That's it, let the fun begin!
  *
  */
@@ -152,6 +155,7 @@ require_once dirname( __FILE__ ) . '/network-latest-posts-widget.php';
  * -- @wrapper_block_css  : Custom CSS classes for the block wrapper
  * -- @instance           : This parameter is intended to differenciate each instance of the widget/shortcode/function you use, it's required in order for the asynchronous pagination links to work
  * -- @random             : Pull random posts (possible values: true or false, false by default)
+ * -- @post_ignore        : Post ID(s) to ignore (default null) comma separated values ex: 1 or 1,2,3 > ignore posts ID 1 or 1,2,3 (post ID 1 = Hello World)
  */
 function network_latest_posts( $parameters ) {
     // Global variables
@@ -190,7 +194,8 @@ function network_latest_posts( $parameters ) {
         'wrapper_list_css' => 'nav nav-tabs nav-stacked', // Custom CSS classes for the list wrapper
         'wrapper_block_css'=> 'content',     // Custom CSS classes for the block wrapper
         'instance'         => NULL,          // Instance identifier, used to uniquely differenciate each shortcode or widget used
-        'random'           => FALSE          // Pull random posts (true or false)
+        'random'           => FALSE,         // Pull random posts (true or false)
+        'post_ignore'      => NULL           // Post ID(s) to ignore
     );
     // Parse & merge parameters with the defaults
     $settings = wp_parse_args( $parameters, $defaults );
@@ -322,6 +327,16 @@ function network_latest_posts( $parameters ) {
                     $ignore ORDER BY last_updated DESC");
         }
     }
+    // Ignore one or many posts
+    // if the user passes one value
+    if( !preg_match("/,/",$post_ignore) ) {
+        // Always clean this stuff ;) (oh.. told you I'm a paranoid)
+        $post_ignore = array( 0 => (int)htmlspecialchars($post_ignore) );
+    // if the user passes more than one value separated by commas
+    } else {
+        // create an array
+        $post_ignore = explode(",",$post_ignore);
+    }
     // If it found something
     if( $blogs ) {
         // Count blogs found
@@ -415,12 +430,18 @@ function network_latest_posts( $parameters ) {
                 setup_postdata($post);
                 // Sort by blog ID
                 if( $sort_by_blog ) {
-                    // Put inside another array and use blog ID as keys
-                    $all_posts[$blog_key.$post->post_modified] = $post;
+                    // Ignore Posts
+                    if( !in_array( $post->ID, $post_ignore ) ) {
+                        // Put inside another array and use blog ID as keys
+                        $all_posts[$blog_key.$post->post_modified] = $post;
+                    }
                 } else {
-                    // Put everything inside another array using the modified date as
-                    // the array keys
-                    $all_posts[$post->post_modified] = $post;
+                    // Ignore Posts
+                    if( !in_array( $post->ID, $post_ignore ) ) {
+                        // Put everything inside another array using the modified date as
+                        // the array keys
+                        $all_posts[$post->post_modified] = $post;
+                    }
                 }
                 // The guid is the only value which can differenciate a post from
                 // others in the whole network

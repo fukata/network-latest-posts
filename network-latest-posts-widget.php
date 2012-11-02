@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Widget
-    Version 3.3
+    Version 3.4
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -62,7 +62,8 @@ class NLposts_Widget extends WP_Widget {
         'wrapper_list_css' => 'nav nav-tabs nav-stacked', // Custom CSS classes for the list wrapper
         'wrapper_block_css'=> 'content',     // Custom CSS classes for the block wrapper
         'instance'         => NULL,          // Instance identifier, used to uniquely differenciate each widget
-        'random'           => FALSE
+        'random'           => FALSE,
+        'post_ignore'      => NULL
     );
 
     /*
@@ -209,6 +210,7 @@ class NLposts_Widget extends WP_Widget {
         $instance['wrapper_list_css'] = strip_tags($new_instance['wrapper_list_css']);
         $instance['wrapper_block_css']= strip_tags($new_instance['wrapper_block_css']);
         $instance['random']           = strip_tags($new_instance['random']);
+        $instance['post_ignore']      = strip_tags($new_instance['post_ignore']);
         // Width by default
         if( $instance['thumbnail_w'] == '0' ) { $instance['thumbnail_w'] = '80'; }
         // Height by default
@@ -249,6 +251,11 @@ class NLposts_Widget extends WP_Widget {
         $widget_form.= "<label for='".$this->get_field_id('number_posts')."'>" . __('Number of Posts by Blog','trans-nlp') . "</label>";
         $widget_form.= $br;
         $widget_form.= "<input type='text' size='3' id='".$this->get_field_id('number_posts')."' name='".$this->get_field_name('number_posts')."' value='$number_posts' />";
+        $widget_form.= $br;
+        // post_ignore
+        $widget_form.= "<label for='".$this->get_field_id('post_ignore')."'>" . __('Post ID(s) to Ignore','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<input type='text' id='".$this->get_field_id('post_ignore')."' name='".$this->get_field_name('post_ignore')."' value='$post_ignore' />";
         $widget_form.= $br;
         // time_frame
         $widget_form.= "<label for='".$this->get_field_id('time_frame')."'>" . __('Time Frame in Days','trans-nlp') . "</label>";
