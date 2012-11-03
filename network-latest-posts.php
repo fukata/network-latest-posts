@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.4
+Version: 3.4.1
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -111,6 +111,9 @@ Author URI: http://laelite.info/
  *
  * -- James
  * --- Proposed ignore posts
+ *
+ * -- Anton Channing
+ * --- Spotted blog IDs were missing from element classes
  *
  * That's it, let the fun begin!
  *
@@ -564,7 +567,9 @@ function network_latest_posts( $parameters ) {
             // Print out the posts
             foreach( $pages[$pag-1] as $field ) {
                 // Open item box
-                echo $html_tags['item_o'];
+                $item_o = $html_tags['item_o'];
+                $item_o = str_replace("'>"," nlposts-siteid-".$all_blogkeys[$field->guid]."'>", $item_o);
+                echo $item_o;
                 // Thumbnails
                 if( $thumbnail === 'true' ) {
                     // Open thumbnail container
@@ -763,7 +768,9 @@ function network_latest_posts( $parameters ) {
             // Print out the posts
             foreach( $all_posts as $field ) {
                 // Open item box
-                echo $html_tags['item_o'];
+                $item_o = $html_tags['item_o'];
+                $item_o = str_replace("'>"," nlposts-siteid-".$all_blogkeys[$field->guid]."'>", $item_o);
+                echo $item_o;
                 // Thumbnails
                 if( $thumbnail === 'true' ) {
                     // Open thumbnail container
