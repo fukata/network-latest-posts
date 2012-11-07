@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.4.1
+Version: 3.4.2
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -581,7 +581,7 @@ function network_latest_posts( $parameters ) {
                     // Put the dimensions into an array
                     $thumbnail_size = str_replace('x',',',$thumbnail_wh);
                     $thumbnail_size = explode(',',$thumbnail_size);
-                    if( $thumnail_custom != 'true' && $thumbnail_field == NULL ) {
+                    if( $thumbnail_custom != 'true' && $thumbnail_field == NULL ) {
                         // Get the thumbnail
                         $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
                     } else {
@@ -782,7 +782,7 @@ function network_latest_posts( $parameters ) {
                     // Put the dimensions into an array
                     $thumbnail_size = str_replace('x',',',$thumbnail_wh);
                     $thumbnail_size = explode(',',$thumbnail_size);
-                    if( $thumnail_custom != 'true' && $thumbnail_field == NULL ) {
+                    if( $thumbnail_custom != 'true' && $thumbnail_field == NULL ) {
                         // Get the thumbnail
                         $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
                     } else {

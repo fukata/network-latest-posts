@@ -4,7 +4,7 @@ Donate link: http://laelite.info
 Tags: recent posts, shortcode, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 
 This plugin allows you to pull all the recent posts from the blogs in your WordPress network and display them in your main site (or internal sites)
 
@@ -138,6 +138,10 @@ are passed. For more examples please visit the Network Latest Post website.
 * @post_ignore        : Post ID(s) to ignore (default null) comma separated values ex: 1 or 1,2,3 > ignore posts ID 1 or 1,2,3 (post ID 1 = Hello World)
 
 == Changelog ==
+
+= 3.4.2 =
+* Fixing typo in $thumbnail_custom variable
+* Added German language provided by Claas Augner
 
 = 3.4.1 =
 * Added CSS class 'nlposts-siteid-x' to each element so they can be styled depending on which blog they were pulled from
