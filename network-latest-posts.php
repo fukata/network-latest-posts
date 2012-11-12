@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.4.3
+Version: 3.4.4
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -117,6 +117,10 @@ Author URI: http://laelite.info/
  *
  * -- Julien Dizdar
  * --- Spotted a bug in sorting parameters
+ *
+ * -- kkalvaa
+ * --- Spotted ignored strings by translation files, this problem was due to
+ * --- a loading hierarchy problem
  *
  * That's it, let the fun begin!
  *
@@ -1172,10 +1176,14 @@ function network_latest_posts_init() {
     register_uninstall_hook(__FILE__, 'network_latest_posts_uninstall');
     // Load plugins
     wp_enqueue_script('jquery');
+}
+/* 
+ * Load Languages
+ */
+function nlp_load_languages() {
     // Set the textdomain for translation purposes
     load_plugin_textdomain('trans-nlp', false, basename( dirname( __FILE__ ) ) . '/languages');
 }
-
 // Load CSS Styles
 function nlp_load_styles($css_style) {
     if( !empty($css_style) ) {
@@ -1262,4 +1270,6 @@ add_action('init', 'nlp_shortcode_button');
 add_action('wp_head','nlp_load_styles',10,1);
 // Run this stuff
 add_action("admin_enqueue_scripts","network_latest_posts_init");
+// Languages
+add_action('plugins_loaded', 'nlp_load_languages');
 ?>
