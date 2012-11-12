@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.4.2
+Version: 3.4.3
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -114,6 +114,9 @@ Author URI: http://laelite.info/
  *
  * -- Anton Channing
  * --- Spotted blog IDs were missing from element classes
+ *
+ * -- Julien Dizdar
+ * --- Spotted a bug in sorting parameters
  *
  * That's it, let the fun begin!
  *
@@ -432,7 +435,7 @@ function network_latest_posts( $parameters ) {
                 // Access all post data
                 setup_postdata($post);
                 // Sort by blog ID
-                if( $sort_by_blog ) {
+                if( $sort_by_blog == 'true' ) {
                     // Ignore Posts
                     if( !in_array( $post->ID, $post_ignore ) ) {
                         // Put inside another array and use blog ID as keys
@@ -455,7 +458,7 @@ function network_latest_posts( $parameters ) {
             restore_current_blog();
         }
         // Sort by date (regardless blog IDs)
-        if( $sort_by_date ) {
+        if( $sort_by_date == 'true' ) {
             // Sorting order (newer / older)
             if( !empty($sorting_order) ) {
                 switch( $sorting_order ) {
@@ -497,7 +500,7 @@ function network_latest_posts( $parameters ) {
             }
         }
         // Sort by blog ID
-        if( $sort_by_blog ) {
+        if( $sort_by_blog == 'true' ) {
             // Sorting order (newer / older)
             if( !empty($sorting_order) ) {
                 switch( $sorting_order ) {

@@ -48,22 +48,21 @@ class NLposts_Widget extends WP_Widget {
         'category'         => NULL,          // Category(ies) to display
         'tag'              => NULL,          // Tag(s) to display
         'paginate'         => FALSE,         // Paginate results
-        'posts_per_page'   => NULL,          // Number of posts per page (paginate needs to be active)
+        'posts_per_page'   => NULL,          // Number of posts per page (paginate must be activated)
         'excerpt_length'   => NULL,          // Excerpt's length
         'auto_excerpt'     => FALSE,         // Generate excerpt from content
         'excerpt_trail'    => 'text',        // Excerpt's trailing element: text, image
         'full_meta'        => FALSE,         // Display full metadata
         'sort_by_date'     => FALSE,         // Display the latest posts first regardless of the blog they come from
-        'sort_by_blog'     => FALSE,         // Sort by blog ID
-        'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older), asc / desc for blog IDs
+        'sort_by_blog'     => FALSE,         // Sort by Blog ID
+        'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older), asc / desc for blog ID
         'sorting_limit'    => NULL,          // Limit the number of sorted posts to display
         'post_status'      => 'publish',     // Post status (publish, new, pending, draft, auto-draft, future, private, inherit, trash)
         'css_style'        => NULL,          // Custom CSS _filename_ (ex: custom_style)
         'wrapper_list_css' => 'nav nav-tabs nav-stacked', // Custom CSS classes for the list wrapper
         'wrapper_block_css'=> 'content',     // Custom CSS classes for the block wrapper
-        'instance'         => NULL,          // Instance identifier, used to uniquely differenciate each widget
-        'random'           => FALSE,
-        'post_ignore'      => NULL
+        'random'           => FALSE,         // Pull random posts (true or false)
+        'post_ignore'      => NULL           // Post ID(s) to ignore
     );
 
     /*
