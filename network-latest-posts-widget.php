@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Widget
-    Version 3.4
+    Version 3.4.6
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -44,6 +44,7 @@ class NLposts_Widget extends WP_Widget {
         'thumbnail_filler' => 'placeholder', // Replacement image for posts without thumbnail (placeholder, kittens, puppies)
         'thumbnail_custom' => FALSE,         // Pull thumbnails from custom fields
         'thumbnail_field'  => NULL,          // Custom field containing image url
+        'thumbnail_url'    => NULL,          // Custom thumbnail URL
         'custom_post_type' => 'post',        // Type of posts to display
         'category'         => NULL,          // Category(ies) to display
         'tag'              => NULL,          // Tag(s) to display
@@ -191,6 +192,7 @@ class NLposts_Widget extends WP_Widget {
         $instance['thumbnail_filler'] = strip_tags($new_instance['thumbnail_filler']);
         $instance['thumbnail_custom'] = strip_tags($new_instance['thumbnail_custom']);
         $instance['thumbnail_field']  = strip_tags($new_instance['thumbnail_field']);
+        $instance['thumbnail_url']  = strip_tags($new_instance['thumbnail_url']);
         $instance['custom_post_type'] = strip_tags($new_instance['custom_post_type']);
         $instance['category']         = strip_tags($new_instance['category']);
         $instance['tag']              = strip_tags($new_instance['tag']);
@@ -421,27 +423,43 @@ class NLposts_Widget extends WP_Widget {
                 $widget_form.= "<option value='placeholder' selected='selected'>" . __('Placeholder','trans-nlp') . "</option>";
                 $widget_form.= "<option value='kittens'>" . __('Kittens','trans-nlp') . "</option>";
                 $widget_form.= "<option value='puppies'>" . __('Puppies','trans-nlp') . "</option>";
+                $widget_form.= "<option value='custom'>" . __('Custom', 'trans-nlp') . "</option>";
                 break;
             // Kittens
             case 'kittens':
                 $widget_form.= "<option value='placeholder'>" . __('Placeholder','trans-nlp') . "</option>";
                 $widget_form.= "<option value='kittens' selected='selected'>" . __('Kittens','trans-nlp') . "</option>";
                 $widget_form.= "<option value='puppies'>" . __('Puppies','trans-nlp') . "</option>";
+                $widget_form.= "<option value='custom'>" . __('Custom', 'trans-nlp') . "</option>";
                 break;
             // Puppies
             case 'puppies':
                 $widget_form.= "<option value='placeholder'>" . __('Placeholder','trans-nlp') . "</option>";
                 $widget_form.= "<option value='kittens'>" . __('Kittens','trans-nlp') . "</option>";
                 $widget_form.= "<option value='puppies' selected='selected'>" . __('Puppies','trans-nlp') . "</option>";
+                $widget_form.= "<option value='custom'>" . __('Custom', 'trans-nlp') . "</option>";
+                break;
+            // Custom
+            case 'custom':
+                $widget_form.= "<option value='placeholder'>" . __('Placeholder','trans-nlp') . "</option>";
+                $widget_form.= "<option value='kittens'>" . __('Kittens','trans-nlp') . "</option>";
+                $widget_form.= "<option value='puppies'>" . __('Puppies','trans-nlp') . "</option>";
+                $widget_form.= "<option value='custom' selected='selected'>" . __('Custom', 'trans-nlp') . "</option>";
                 break;
             // Boring by default ;)
             default:
                 $widget_form.= "<option value='placeholder' selected='selected'>" . __('Placeholder','trans-nlp') . "</option>";
                 $widget_form.= "<option value='kittens'>" . __('Kittens','trans-nlp') . "</option>";
                 $widget_form.= "<option value='puppies'>" . __('Puppies','trans-nlp') . "</option>";
+                $widget_form.= "<option value='custom'>" . __('Custom', 'trans-nlp') . "</option>";
                 break;
         }
         $widget_form.= "</select>";
+        // Custom Thumbnail URL
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('thumbnail_url')."'>" . __('Custom Thumbnail URL','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<input type='text' id='".$this->get_field_id('thumbnail_url')."' name='".$this->get_field_name('thumbnail_url')."' value='$thumbnail_url' />";
         // thumbnail_class
         $widget_form.= $br;
         $widget_form.= "<label for='".$this->get_field_id('thumbnail_class')."'>" . __('Thumbnail Class','trans-nlp') . "</label>";

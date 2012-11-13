@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.4.5
+Version: 3.4.6
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -146,6 +146,7 @@ require_once dirname( __FILE__ ) . '/network-latest-posts-widget.php';
  * -- @thumbnail_filler   : Placeholder to use if the post's thumbnail couldn't be found, options: placeholder, kittens, puppies (what?.. I can be funny sometimes)
  * -- @thumbnail_custom   : Pull thumbnails from custom fields
  * -- @thumbnail_field    : Specify the custom field for thumbnail URL
+ * -- @thumbnail_url      : Custom thumbnail URL
  * -- @custom_post_type   : Specify a custom post type: post, page or something-you-invented
  * -- @category           : Category or categories you want to display. Ex: cats,dogs means, retrieve posts containing the categories cats or dogs
  * -- @tag                : Same as categoy WordPress treats both taxonomies the same way; by the way, you can pass one or many (separated by commas)
@@ -186,6 +187,7 @@ function network_latest_posts( $parameters ) {
         'thumbnail_filler' => 'placeholder', // Replacement image for posts without thumbnail (placeholder, kittens, puppies)
         'thumbnail_custom' => FALSE,         // Pull thumbnails from custom fields
         'thumbnail_field'  => NULL,          // Custom field containing image url
+        'thumbnail_url'    => NULL,          // Custom thumbnail URL
         'custom_post_type' => 'post',        // Type of posts to display
         'category'         => NULL,          // Category(ies) to display
         'tag'              => NULL,          // Tag(s) to display
@@ -621,6 +623,13 @@ function network_latest_posts( $parameters ) {
                             case 'puppies':
                                 echo "<a href='".$all_permalinks[$field->guid]."'><img src='http://placedog.com/".$thumbnail_size[0]."/".$thumbnail_size[1]."' alt='".$field->post_title."' title='".$field->post_title."' /></a>";
                                 break;
+                            case 'custom':
+                                if( !empty( $thumbnail_url ) ) {
+                                    echo "<a href='".$all_permalinks[$field->guid]."'><img src='".$thumbnail_url."' alt='".$field->post_title."' title='".$field->post_title."' width='".$thumbnail_size[0]."' height='".$thumbnail_size[1]."' /></a>";
+                                } else {
+                                    echo "<a href='".$all_permalinks[$field->guid]."'><img src='http://placehold.it/".$thumbnail_wh."&text=".$field->post_title."' alt='".$field->post_title."' title='".$field->post_title."' /></a>";
+                                }
+                                break;
                             // Boring by default ;)
                             default:
                                 echo "<a href='".$all_permalinks[$field->guid]."'><img src='http://placehold.it/".$thumbnail_wh."&text=".$field->post_title."' alt='".$field->post_title."' title='".$field->post_title."' /></a>";
@@ -821,6 +830,13 @@ function network_latest_posts( $parameters ) {
                             // More fun Puppies thanks to PlaceDog
                             case 'puppies':
                                 echo "<a href='".$all_permalinks[$field->guid]."'><img src='http://placedog.com/".$thumbnail_size[0]."/".$thumbnail_size[1]."' alt='".$field->post_title."' title='".$field->post_title."' /></a>";
+                                break;
+                            case 'custom':
+                                if( !empty( $thumbnail_url ) ) {
+                                    echo "<a href='".$all_permalinks[$field->guid]."'><img src='".$thumbnail_url."' alt='".$field->post_title."' title='".$field->post_title."' /></a>";
+                                } else {
+                                    echo "<a href='".$all_permalinks[$field->guid]."'><img src='http://placehold.it/".$thumbnail_wh."&text=".$field->post_title."' alt='".$field->post_title."' title='".$field->post_title."' /></a>";
+                                }
                                 break;
                             // Boring by default ;)
                             default:
