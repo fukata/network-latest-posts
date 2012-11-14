@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Widget
-    Version 3.4.6
+    Version 3.5
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -50,6 +50,7 @@ class NLposts_Widget extends WP_Widget {
         'tag'              => NULL,          // Tag(s) to display
         'paginate'         => FALSE,         // Paginate results
         'posts_per_page'   => NULL,          // Number of posts per page (paginate must be activated)
+        'display_content'  => FALSE,         // Display post content instead of excerpt
         'excerpt_length'   => NULL,          // Excerpt's length
         'auto_excerpt'     => FALSE,         // Generate excerpt from content
         'excerpt_trail'    => 'text',        // Excerpt's trailing element: text, image
@@ -198,6 +199,7 @@ class NLposts_Widget extends WP_Widget {
         $instance['tag']              = strip_tags($new_instance['tag']);
         $instance['paginate']         = strip_tags($new_instance['paginate']);
         $instance['posts_per_page']   = (int)$new_instance['posts_per_page'];
+        $instance['display_content']  = strip_tags($new_instance['display_content']);
         $instance['excerpt_length']   = (int)$new_instance['excerpt_length'];
         $instance['auto_excerpt']     = strip_tags($new_instance['auto_excerpt']);
         $instance['full_meta']        = strip_tags($new_instance['full_meta']);
@@ -524,6 +526,20 @@ class NLposts_Widget extends WP_Widget {
         $widget_form.= "<label for='".$this->get_field_id('posts_per_page')."'>" . __('Posts per Page','trans-nlp') . "</label>";
         $widget_form.= $br;
         $widget_form.= "<input type='text' id='".$this->get_field_id('posts_per_page')."' name='".$this->get_field_name('posts_per_page')."' value='$posts_per_page' />";
+        // display_content
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('display_content')."'>" . __('Display Content','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<select id='".$this->get_field_id('display_content')."' name='".$this->get_field_name('display_content')."'>";
+        if( $display_content == 'true' ) {
+            $widget_form.= "<option value='true' selected='selected'>" . __('Yes','trans-nlp') . "</option>";
+            $widget_form.= "<option value='false'>" . __('No','trans-nlp') . "</option>";
+        } else {
+            $widget_form.= "<option value='true'>" . __('Yes','trans-nlp') . "</option>";
+            $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
+        }
+        $widget_form.= "</select>";
+        $widget_form.= $br;
         // excerpt_length
         $widget_form.= $br;
         $widget_form.= "<label for='".$this->get_field_id('excerpt_length')."'>" . __('Excerpt Length','trans-nlp') . "</label>";

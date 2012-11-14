@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Shortcode Form
-    Version 3.4
+    Version 3.5
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -30,9 +30,9 @@ function nlp_config_path()
         $path = dirname(dirname($base));
     } elseif (@file_exists(dirname(dirname(dirname($base)))."/wp-config.php")) {
         $path = dirname(dirname(dirname($base)));
-    } elseif (@file_exists(dirname(dirname(dirname(dirname($base)))."/wp-config.php"))) {
+    } elseif (@file_exists(dirname(dirname(dirname(dirname($base))))."/wp-config.php")) {
         $path = dirname(dirname(dirname(dirname($base))));
-    } elseif (@file_exists(dirname(dirname(dirname(dirname(dirname($base))))."/wp-config.php"))) {
+    } elseif (@file_exists(dirname(dirname(dirname(dirname(dirname($base)))))."/wp-config.php")) {
         $path = dirname(dirname(dirname(dirname(dirname($base)))));
     } else {
         $path = false;
@@ -48,6 +48,8 @@ $wp_root_path = nlp_config_path();
 // Load WordPress functions & NLposts_Widget class
 require_once("$wp_root_path/wp-load.php");
 require_once("../network-latest-posts-widget.php");
+//$thumbnail_w = '80';
+//$thumbnail_h = '80';
 // Widget object
 $widget_obj = new NLposts_Widget();
 // Default values
@@ -65,11 +67,13 @@ $defaults = array(
     'thumbnail_filler' => 'placeholder', // Replacement image for posts without thumbnail (placeholder, kittens, puppies)
     'thumbnail_custom' => FALSE,         // Pull thumbnails from custom fields
     'thumbnail_field'  => NULL,          // Custom field containing image url
+    'thumbnail_url'    => NULL,          // Custom thumbnail URL
     'custom_post_type' => 'post',        // Type of posts to display
     'category'         => NULL,          // Category(ies) to display
     'tag'              => NULL,          // Tag(s) to display
     'paginate'         => FALSE,         // Paginate results
     'posts_per_page'   => NULL,          // Number of posts per page (paginate needs to be active)
+    'display_content'  => FALSE,         // Display post content instead of excerpts (false by default)
     'excerpt_length'   => NULL,          // Excerpt's length
     'auto_excerpt'     => FALSE,         // Generate excerpt from content
     'excerpt_trail'    => 'text',        // Excerpt's trailing element: text, image
@@ -92,6 +96,10 @@ $settings = array();
 $settings = wp_parse_args( $settings, $defaults );
 // Extract elements as variables
 extract( $settings );
+$thumbnail_size = str_replace('x',',',$thumbnail_wh);
+$thumbnail_size = explode(',',$thumbnail_size);
+$thumbnail_w = $thumbnail_size[0];
+$thumbnail_h = $thumbnail_size[1];
 // Get blog ids
 global $wpdb;
 $blog_ids = $wpdb->get_results("SELECT blog_id FROM $wpdb->blogs WHERE
@@ -287,24 +295,39 @@ switch( $thumbnail_filler ) {
         $widget_form.= "<option value='placeholder' selected='selected'>" . __('Placeholder','trans-nlp') . "</option>";
         $widget_form.= "<option value='kittens'>" . __('Kittens','trans-nlp') . "</option>";
         $widget_form.= "<option value='puppies'>" . __('Puppies','trans-nlp') . "</option>";
+        $widget_form.= "<option value='custom'>" . __('Custom','trans-nlp') . "</option>";
         break;
     case 'kittens':
         $widget_form.= "<option value='placeholder'>" . __('Placeholder','trans-nlp') . "</option>";
         $widget_form.= "<option value='kittens' selected='selected'>" . __('Kittens','trans-nlp') . "</option>";
         $widget_form.= "<option value='puppies'>" . __('Puppies','trans-nlp') . "</option>";
+        $widget_form.= "<option value='custom'>" . __('Custom','trans-nlp') . "</option>";
         break;
     case 'puppies':
         $widget_form.= "<option value='placeholder'>" . __('Placeholder','trans-nlp') . "</option>";
         $widget_form.= "<option value='kittens'>" . __('Kittens','trans-nlp') . "</option>";
         $widget_form.= "<option value='puppies' selected='selected'>" . __('Puppies','trans-nlp') . "</option>";
+        $widget_form.= "<option value='custom'>" . __('Custom','trans-nlp') . "</option>";
+        break;
+    case 'custom':
+        $widget_form.= "<option value='placeholder'>" . __('Placeholder','trans-nlp') . "</option>";
+        $widget_form.= "<option value='kittens'>" . __('Kittens','trans-nlp') . "</option>";
+        $widget_form.= "<option value='puppies'>" . __('Puppies','trans-nlp') . "</option>";
+        $widget_form.= "<option value='custom' selected='selected'>" . __('Custom','trans-nlp') . "</option>";
         break;
     default:
         $widget_form.= "<option value='placeholder' selected='selected'>" . __('Placeholder','trans-nlp') . "</option>";
         $widget_form.= "<option value='kittens'>" . __('Kittens','trans-nlp') . "</option>";
         $widget_form.= "<option value='puppies'>" . __('Puppies','trans-nlp') . "</option>";
+        $widget_form.= "<option value='custom'>" . __('Custom','trans-nlp') . "</option>";
         break;
 }
 $widget_form.= "</select>";
+// thumbnail_url
+$widget_form.= $br;
+$widget_form.= "<label for='thumbnail_url'>" . __('Thumbnail Class','trans-nlp') . "</label>";
+$widget_form.= $br;
+$widget_form.= "<input type='text' id='thumbnail_url' name='thumbnail_url' value='$thumbnail_url' />";
 // thumbnail_class
 $widget_form.= $br;
 $widget_form.= "<label for='thumbnail_class'>" . __('Thumbnail Class','trans-nlp') . "</label>";
@@ -369,6 +392,20 @@ $widget_form.= $br;
 $widget_form.= "<label for='posts_per_page'>" . __('Posts per Page','trans-nlp') . "</label>";
 $widget_form.= $br;
 $widget_form.= "<input type='text' id='posts_per_page' name='posts_per_page' value='$posts_per_page' />";
+// display_content
+$widget_form.= $br;
+$widget_form.= "<label for='display_content'>" . __('Display Content','trans-nlp') . "</label>";
+$widget_form.= $br;
+$widget_form.= "<select id='display_content' name='display_content'>";
+if( $display_content == 'true' ) {
+    $widget_form.= "<option value='true' selected='selected'>" . __('Yes','trans-nlp') . "</option>";
+    $widget_form.= "<option value='false'>" . __('No','trans-nlp') . "</option>";
+} else {
+    $widget_form.= "<option value='true'>" . __('Yes','trans-nlp') . "</option>";
+    $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
+}
+$widget_form.= "</select>";
+$widget_form.= $br;
 // excerpt_length
 $widget_form.= $br;
 $widget_form.= "<label for='excerpt_length'>" . __('Excerpt Length','trans-nlp') . "</label>";
@@ -546,6 +583,7 @@ echo $widget_form;
         defaults['tag'] = null;
         defaults['paginate'] = 'false';
         defaults['posts_per_page'] = null;
+        defaults['display_content'] = 'false';
         defaults['excerpt_length'] = null;
         defaults['auto_excerpt'] = 'false';
         defaults['full_meta'] = 'false';

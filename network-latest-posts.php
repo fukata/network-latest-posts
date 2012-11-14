@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.4.6
+Version: 3.5
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -122,6 +122,9 @@ Author URI: http://laelite.info/
  * --- Spotted ignored strings by translation files, this problem was due to
  * --- a loading hierarchy problem
  *
+ * -- Gerard Bik
+ * -- Proposed display post content instead of excerpts
+ *
  * That's it, let the fun begin!
  *
  */
@@ -152,6 +155,7 @@ require_once dirname( __FILE__ ) . '/network-latest-posts-widget.php';
  * -- @tag                : Same as categoy WordPress treats both taxonomies the same way; by the way, you can pass one or many (separated by commas)
  * -- @paginate           : Display results by pages, if used then the parameter posts_per_page must be specified, otherwise pagination won't be displayed
  * -- @posts_per_page     : Set the number of posts to display by page (paginate must be activated)
+ * -- @display_content    : When true then post content will be displayed instead of excertps
  * -- @excerpt_length     : Set the excerpt's length in case you think it's too long for your needs Ex: 40 means, 40 words
  * -- @auto_excerpt       : If true then it will generate an excerpt from the post content, it's useful for those who forget to use the Excerpt field in the post edition page
  * -- @excerpt_trail      : Set the type of trail you want to append to the excerpts: text, image. The text will be _more_, the image is inside the plugin's img directory and it's called excerpt_trail.png
@@ -193,6 +197,7 @@ function network_latest_posts( $parameters ) {
         'tag'              => NULL,          // Tag(s) to display
         'paginate'         => FALSE,         // Paginate results
         'posts_per_page'   => NULL,          // Number of posts per page (paginate must be activated)
+        'display_content'  => FALSE,         // Display post content (when false, excerpts will be displayed)
         'excerpt_length'   => NULL,          // Excerpt's length
         'auto_excerpt'     => FALSE,         // Generate excerpt from content
         'excerpt_trail'    => 'text',        // Excerpt's trailing element: text, image
@@ -671,14 +676,20 @@ function network_latest_posts( $parameters ) {
                     if( $title_only === 'false' ) {
                         // Open excerpt wrapper
                         echo $html_tags['excerpt_o'];
-                        // Custom Excerpt
-                        if( $auto_excerpt != 'true' ) {
-                            // Print out the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
-                        // Extract excerpt from content
+                        // Display excerpts or content
+                        if( $display_content != 'true' ) {
+                            // Custom Excerpt
+                            if( $auto_excerpt != 'true' ) {
+                                // Print out the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Extract excerpt from content
+                            } else {
+                                // Get the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
+                            }
                         } else {
-                            // Get the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Display post content
+                            echo nl2br($field->post_content);
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -721,14 +732,20 @@ function network_latest_posts( $parameters ) {
                     if( $title_only === 'false' ) {
                         // Open excerpt wrapper
                         echo $html_tags['excerpt_o'];
-                        // Custom Excerpt
-                        if( $auto_excerpt != 'true' ) {
-                            // Print out the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
-                        // Extract excerpt from content
+                        // Display excerpts or content
+                        if( $display_content != 'true' ) {
+                            // Custom Excerpt
+                            if( $auto_excerpt != 'true' ) {
+                                // Print out the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Extract excerpt from content
+                            } else {
+                                // Get the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
+                            }
                         } else {
-                            // Get the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Display post content
+                            echo nl2br($field->post_content);
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -879,14 +896,20 @@ function network_latest_posts( $parameters ) {
                     if( $title_only === 'false' ) {
                         // Open excerpt wrapper
                         echo $html_tags['excerpt_o'];
-                        // Custom Excerpt
-                        if( $auto_excerpt != 'true' ) {
-                            // Print out the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
-                        // Extract excerpt from content
+                        // Display excerpts or content
+                        if( $display_content != 'true' ) {
+                            // Custom Excerpt
+                            if( $auto_excerpt != 'true' ) {
+                                // Print out the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Extract excerpt from content
+                            } else {
+                                // Get the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
+                            }
                         } else {
-                            // Get the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Display post content
+                            echo nl2br($field->post_content);
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -929,14 +952,20 @@ function network_latest_posts( $parameters ) {
                     if( $title_only === 'false' ) {
                         // Open excerpt wrapper
                         echo $html_tags['excerpt_o'];
-                        // Custom Excerpt
-                        if( $auto_excerpt != 'true' ) {
-                            // Print out the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
-                        // Extract excerpt from content
+                        // Display excerpts or content
+                        if( $display_content != 'true' ) {
+                            // Custom Excerpt
+                            if( $auto_excerpt != 'true' ) {
+                                // Print out the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Extract excerpt from content
+                            } else {
+                                // Get the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
+                            }
                         } else {
-                            // Get the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Display post content
+                            echo nl2br($field->post_content);
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];

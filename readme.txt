@@ -4,7 +4,7 @@ Donate link: http://laelite.info
 Tags: recent posts, shortcode, widget, network, latest posts
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 3.4.6
+Stable tag: 3.5
 
 This plugin allows you to pull all the recent posts from the blogs in your WordPress network and display them in your main site (or internal sites)
 
@@ -87,6 +87,7 @@ are passed. For more examples please visit the Network Latest Post website.
           tag=NULL
           paginate=FALSE
           posts_per_page=NULL
+          display_content=FALSE
           excerpt_length=NULL
           auto_excerpt=FALSE
           excerpt_trail=text
@@ -123,6 +124,7 @@ are passed. For more examples please visit the Network Latest Post website.
 * @tag                : Same as categoy WordPress treats both taxonomies the same way; by the way, you can pass one or many (separated by commas)
 * @paginate           : Display results by pages, if used then the parameter posts_per_page must be specified, otherwise pagination won't be displayed
 * @posts_per_page     : Set the number of posts to display by page (paginate must be activated)
+* @display_content    : Display post content instead of excerpt (false by default)
 * @excerpt_length     : Set the excerpt's length in case you think it's too long for your needs Ex: 40 means, 40 words (55 by default)
 * @auto_excerpt       : If true then it will generate an excerpt from the post content, it's useful for those who forget to use the Excerpt field in the post edition page
 * @excerpt_trail      : Set the type of trail you want to append to the excerpts: text, image. The text will be _more_, the image is inside the plugin's img directory and it's called excerpt_trail.png
@@ -140,6 +142,9 @@ are passed. For more examples please visit the Network Latest Post website.
 * @post_ignore        : Post ID(s) to ignore (default null) comma separated values ex: 1 or 1,2,3 > ignore posts ID 1 or 1,2,3 (post ID 1 = Hello World)
 
 == Changelog ==
+
+= 3.5 =
+* Added parameter display_content which allows you to display posts content instead of excerpts, minor bug fixes
 
 = 3.4.6 =
 * Added parameter thumbnail_url which you can use to specify a custom thumbnail filler, this parameter must be a URL address
