@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.5
+Version: 3.5.1
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -124,6 +124,9 @@ Author URI: http://laelite.info/
  *
  * -- Gerard Bik
  * -- Proposed display post content instead of excerpts
+ *
+ * -- ThorHammer
+ * --- Spotted a warning when NLPosts couldn't find posts.
  *
  * That's it, let the fun begin!
  *
@@ -468,6 +471,12 @@ function network_latest_posts( $parameters ) {
             // Back the current blog
             restore_current_blog();
         }
+        // If no content was found
+        if( empty($all_posts) ) {
+            // Nothing to do here, let people know and get out of here
+            echo "<div class='alert'><p>".__("Sorry, I couldn't find any recent posts matching your parameters.","trans-nlp")."</p></div>";
+            return;
+        }
         // Sort by date (regardless blog IDs)
         if( $sort_by_date == 'true' ) {
             // Sorting order (newer / older)
@@ -476,37 +485,37 @@ function network_latest_posts( $parameters ) {
                     // From newest to oldest
                     case "newer":
                         // Sort the array
-                        krsort($all_posts);
+                        @krsort($all_posts);
                         // Limit the number of posts
                         if( !empty($sorting_limit) ) {
-                            $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                            $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
                         }
                         break;
                     // From oldest to newest
                     case "older":
                         // Sort the array
-                        ksort($all_posts);
+                        @ksort($all_posts);
                         // Limit the number of posts
                         if( !empty($sorting_limit) ) {
-                            $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                            $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
                         }
                         break;
                     // Newest to oldest by default
                     default:
                         // Sort the array
-                        krsort($all_posts);
+                        @krsort($all_posts);
                         // Limit the number of posts
                         if( !empty($sorting_limit) ) {
-                            $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                            $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
                         }
                         break;
                 }
             } else {
                 // Sort the array
-                krsort($all_posts);
+                @krsort($all_posts);
                 // Limit the number of posts
                 if( !empty($sorting_limit) ) {
-                    $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                    $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
                 }
             }
         }
@@ -518,44 +527,39 @@ function network_latest_posts( $parameters ) {
                     // Ascendant
                     case "asc":
                         // Sort the array
-                        ksort($all_posts);
+                        @ksort($all_posts);
                         // Limit the number of posts
                         if( !empty($sorting_limit) ) {
-                            $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                            $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
                         }
                         break;
                     // Descendant
                     case "desc":
                         // Sort the array
-                        krsort($all_posts);
+                        @krsort($all_posts);
                         // Limit the number of posts
                         if( !empty($sorting_limit) ) {
-                            $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                            $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
                         }
                         break;
                     // Newest to oldest by default
                     default:
                         // Sort the array
-                        krsort($all_posts);
+                        @krsort($all_posts);
                         // Limit the number of posts
                         if( !empty($sorting_limit) ) {
-                            $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                            $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
                         }
                         break;
                 }
             } else {
                 // Sort the array
-                ksort($all_posts);
+                @ksort($all_posts);
                 // Limit the number of posts
                 if( !empty($sorting_limit) ) {
-                    $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                    $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
                 }
             }
-        }
-        // If no content was found
-        if( empty($all_posts) ) {
-            // Close the door and get out of here
-            return;
         }
         // Open content box
         echo $html_tags['content_o'];

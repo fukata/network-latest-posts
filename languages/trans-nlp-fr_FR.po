@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Network Latest Posts v3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-14 19:56+0100\n"
+"POT-Creation-Date: 2012-11-20 21:18+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jose Luis Sayago Rojas <jose.sayago@laelite.info>\n"
 "Language-Team: L'Elite <opensource@laelite.info>\n"
@@ -391,30 +391,35 @@ msgstr "Classe CSS pour la balise que contient les listes (frapper)"
 msgid "Custom CSS Class for the block wrapper"
 msgstr "Classe CSS pour la balise que contient les blocs (wrapper)"
 
-#: ../network-latest-posts.php:671 ../network-latest-posts.php:727
-#: ../network-latest-posts.php:891 ../network-latest-posts.php:947
+#: ../network-latest-posts.php:474
+msgid "Sorry, I couldn't find any recent posts matching your parameters."
+msgstr ""
+"Désolé, je n'ai pas trouvé des articles correspondant aux paramètres saisis."
+
+#: ../network-latest-posts.php:672 ../network-latest-posts.php:728
+#: ../network-latest-posts.php:892 ../network-latest-posts.php:948
 msgid "Published on"
 msgstr "Publi&eacute; sur"
 
-#: ../network-latest-posts.php:671 ../network-latest-posts.php:727
-#: ../network-latest-posts.php:891 ../network-latest-posts.php:947
+#: ../network-latest-posts.php:672 ../network-latest-posts.php:728
+#: ../network-latest-posts.php:892 ../network-latest-posts.php:948
 msgid "by"
 msgstr "par"
 
-#: ../network-latest-posts.php:767
+#: ../network-latest-posts.php:768
 msgid "&laquo;"
 msgstr "&laquo;"
 
-#: ../network-latest-posts.php:768
+#: ../network-latest-posts.php:769
 msgid "&raquo;"
 msgstr "&raquo;"
 
-#: ../network-latest-posts.php:1077 ../network-latest-posts.php:1081
-#: ../network-latest-posts.php:1085
+#: ../network-latest-posts.php:1078 ../network-latest-posts.php:1082
+#: ../network-latest-posts.php:1086
 msgid "more"
 msgstr "lire le reste"
 
-#: ../network-latest-posts.php:1217 ../network-latest-posts.php:1218
+#: ../network-latest-posts.php:1218 ../network-latest-posts.php:1219
 msgid "Network Latest Posts"
 msgstr "Derniers Articles du R&eacute;seau"
 
