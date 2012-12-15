@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.5.3
+Version: 3.5.4
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -127,6 +127,9 @@ Author URI: http://laelite.info/
  *
  * -- ThorHammer
  * --- Spotted a warning when NLPosts couldn't find posts.
+ *
+ * -- Claas Augner
+ * **** Patch to correctly format dates for localization.
  *
  * That's it, let the fun begin!
  *
@@ -659,8 +662,7 @@ function network_latest_posts( $parameters ) {
                         // Set metainfo
                         $author = get_user_by('id',$field->post_author);
                         $format = (string)${'date_format_'.$all_blogkeys[$field->guid]};
-                        $dateobj = new DateTime(trim($field->post_date));
-                        $datepost = $dateobj->format("$format");
+                        $datepost = date_i18n($format, strtotime(trim( $field->post_date) ) );
                         $blog_name = '<a href="'.${'blog_url_'.$all_blogkeys[$field->guid]}.'">'.${'blog_name_'.$all_blogkeys[$field->guid]}."</a>";
                         // The network's root (main blog) is called 'blog',
                         // so we have to set this up because the url ignores the root's subdirectory
@@ -715,8 +717,7 @@ function network_latest_posts( $parameters ) {
                         // Set metainfo
                         $author = get_user_by('id',$field->post_author);
                         $format = (string)${'date_format_'.$all_blogkeys[$field->guid]};
-                        $dateobj = new DateTime(trim($field->post_date));
-                        $datepost = $dateobj->format("$format");
+                        $datepost = date_i18n($format, strtotime(trim( $field->post_date) ) );
                         $blog_name = '<a href="'.${'blog_url_'.$all_blogkeys[$field->guid]}.'">'.${'blog_name_'.$all_blogkeys[$field->guid]}."</a>";
                         // The network's root (main blog) is called 'blog',
                         // so we have to set this up because the url ignores the root's subdirectory
@@ -879,8 +880,7 @@ function network_latest_posts( $parameters ) {
                         // Set metainfo
                         $author = get_user_by('id',$field->post_author);
                         $format = (string)${'date_format_'.$all_blogkeys[$field->guid]};
-                        $dateobj = new DateTime(trim($field->post_date));
-                        $datepost = $dateobj->format("$format");
+                        $datepost = date_i18n($format, strtotime(trim( $field->post_date) ) );
                         $blog_name = '<a href="'.${'blog_url_'.$all_blogkeys[$field->guid]}.'">'.${'blog_name_'.$all_blogkeys[$field->guid]}."</a>";
                         // The network's root (main blog) is called 'blog',
                         // so we have to set this up because the url ignores the root's subdirectory
@@ -935,8 +935,7 @@ function network_latest_posts( $parameters ) {
                         // Set metainfo
                         $author = get_user_by('id',$field->post_author);
                         $format = (string)${'date_format_'.$all_blogkeys[$field->guid]};
-                        $dateobj = new DateTime(trim($field->post_date));
-                        $datepost = $dateobj->format("$format");
+                        $datepost = date_i18n($format, strtotime(trim( $field->post_date) ) );
                         $blog_name = '<a href="'.${'blog_url_'.$all_blogkeys[$field->guid]}.'">'.${'blog_name_'.$all_blogkeys[$field->guid]}."</a>";
                         // The network's root (main blog) is called 'blog',
                         // so we have to set this up because the url ignores the root's subdirectory
