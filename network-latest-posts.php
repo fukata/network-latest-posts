@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.5.2
+Version: 3.5.3
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -693,7 +693,7 @@ function network_latest_posts( $parameters ) {
                             }
                         } else {
                             // Display post content
-                            echo do_shortcode($field->post_content);
+                            echo nl2br( do_shortcode( $field->post_content ) );
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -749,7 +749,7 @@ function network_latest_posts( $parameters ) {
                             }
                         } else {
                             // Display post content
-                            echo do_shortcode($field->post_content);
+                            echo nl2br( do_shortcode( $field->post_content ) );
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -913,7 +913,7 @@ function network_latest_posts( $parameters ) {
                             }
                         } else {
                             // Display post content
-                            echo do_shortcode($field->post_content);
+                            echo nl2br( do_shortcode( $field->post_content ) );
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -969,7 +969,7 @@ function network_latest_posts( $parameters ) {
                             }
                         } else {
                             // Display post content
-                            echo do_shortcode($field->post_content);
+                            echo nl2br( do_shortcode( $field->post_content ) );
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
