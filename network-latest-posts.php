@@ -902,12 +902,13 @@ function network_latest_posts( $parameters ) {
                     echo $html_tags['thumbnail_io'];
                     // Switch to the blog
                     switch_to_blog($all_blogkeys[$field->guid]);
+                    $GLOBALS['post'] = $field;
                     // Put the dimensions into an array
                     $thumbnail_size = str_replace('x',',',$thumbnail_wh);
                     $thumbnail_size = explode(',',$thumbnail_size);
                     if( $thumbnail_custom != 'true' && $thumbnail_field == NULL ) {
                         // Get the thumbnail
-                        $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
+                        $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size[0],array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
                     } else {
                         $thumbnail_custom_field = get_post_meta($field->ID, $thumbnail_field, true);
                         if( !empty( $thumbnail_custom_field ) ) {
