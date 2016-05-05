@@ -919,6 +919,7 @@ function network_latest_posts( $parameters ) {
                             $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
                         }
                     }
+                    echo '<div class="nsposts-block-thumbnail-wrapper">';
                     // If there is a thumbnail
                     if( !empty($thumb_html) ) {
                         // Display the thumbnail
@@ -971,6 +972,8 @@ function network_latest_posts( $parameters ) {
                         // Close meta box
                         echo $html_tags['meta_c'];
                     }
+                    echo '</div>'; // nsposts-block-thumbnail-wrapper
+
                     // Wrap Caption
                     echo $html_tags['caption_o'];
                     // Open title box
