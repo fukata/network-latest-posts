@@ -954,14 +954,6 @@ function network_latest_posts( $parameters ) {
                     }
                     // Back the current blog
                     restore_current_blog();
-                    // Wrap Caption
-                    echo $html_tags['caption_o'];
-                    // Open title box
-                    echo $html_tags['title_o'];
-                    // Print the title
-                    echo "<a href='".$all_permalinks[$field->guid]."'>".$field->post_title."</a>";
-                    // Close the title box
-                    echo $html_tags['title_c'];
                     if( $full_meta === 'true' ) {
                         // Open meta box
                         echo $html_tags['meta_o'];
@@ -970,15 +962,6 @@ function network_latest_posts( $parameters ) {
                         $format = (string)${'date_format_'.$all_blogkeys[$field->guid]};
                         $datepost = date_i18n($format, strtotime(trim( $field->post_date) ) );
                         $blog_name = ${'blog_name_'.$all_blogkeys[$field->guid]};
-                        // The network's root (main blog) is called 'blog',
-                        // so we have to set this up because the url ignores the root's subdirectory
-                        //if( $all_blogkeys[$field->guid] == 1 ) {
-                        //    // Author's page for the main blog
-                        //    $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/blog/author/'.$author->user_login;
-                        //} else {
-                        //    // Author's page for other blogs
-                        //    $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/author/'.$author->user_login;
-                        //}
                         if( $display_date == 'true' ) {
                             // Print metainfo
                             echo $blog_name . ' - ' . $datepost;
@@ -988,6 +971,14 @@ function network_latest_posts( $parameters ) {
                         // Close meta box
                         echo $html_tags['meta_c'];
                     }
+                    // Wrap Caption
+                    echo $html_tags['caption_o'];
+                    // Open title box
+                    echo $html_tags['title_o'];
+                    // Print the title
+                    echo "<a href='".$all_permalinks[$field->guid]."'>".$field->post_title."</a>";
+                    // Close the title box
+                    echo $html_tags['title_c'];
                     // Print the content
                     if( $title_only === 'false' ) {
                         // Open excerpt wrapper
