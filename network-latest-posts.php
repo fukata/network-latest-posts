@@ -969,19 +969,19 @@ function network_latest_posts( $parameters ) {
                         $author = get_user_by('id',$field->post_author);
                         $format = (string)${'date_format_'.$all_blogkeys[$field->guid]};
                         $datepost = date_i18n($format, strtotime(trim( $field->post_date) ) );
-                        $blog_name = '<a href="'.${'blog_url_'.$all_blogkeys[$field->guid]}.'">'.${'blog_name_'.$all_blogkeys[$field->guid]}."</a>";
+                        $blog_name = ${'blog_name_'.$all_blogkeys[$field->guid]};
                         // The network's root (main blog) is called 'blog',
                         // so we have to set this up because the url ignores the root's subdirectory
-                        if( $all_blogkeys[$field->guid] == 1 ) {
-                            // Author's page for the main blog
-                            $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/blog/author/'.$author->user_login;
-                        } else {
-                            // Author's page for other blogs
-                            $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/author/'.$author->user_login;
-                        }
+                        //if( $all_blogkeys[$field->guid] == 1 ) {
+                        //    // Author's page for the main blog
+                        //    $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/blog/author/'.$author->user_login;
+                        //} else {
+                        //    // Author's page for other blogs
+                        //    $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/author/'.$author->user_login;
+                        //}
                         if( $display_date == 'true' ) {
                             // Print metainfo
-                            echo $blog_name . ' - ' . __('Published on','trans-nlp') . ' ' . $datepost . ' ' . __('by','trans-nlp') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
+                            echo $blog_name . ' - ' . $datepost;
                         } else {
                             echo $blog_name . ' - ' . __('Published','trans-nlp') . ' ' . __('by','trans-nlp') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
                         }
