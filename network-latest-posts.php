@@ -919,7 +919,7 @@ function network_latest_posts( $parameters ) {
                             $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
                         }
                     }
-                    echo '<div class="nsposts-block-thumbnail-wrapper">';
+                    echo '<div class="nlposts-block-thumbnail-wrapper">';
                     // If there is a thumbnail
                     if( !empty($thumb_html) ) {
                         // Display the thumbnail
