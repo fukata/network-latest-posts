@@ -888,8 +888,10 @@ function network_latest_posts( $parameters ) {
             echo $html_tags['content_c'];
         // Without pagination
         } else {
+            $_max_length = count($all_posts) > $number_posts ? $number_posts : count($all_posts);
             // Print out the posts
-            foreach( $all_posts as $field ) {
+            for($i=0; $i<$_max_length;$i++) {
+              $field = $all_posts[$i];
                 // Open item box
                 $item_o = $html_tags['item_o'];
                 $item_o = str_replace("'>"," nlposts-siteid-".$all_blogkeys[$field->guid]."'>", $item_o);
