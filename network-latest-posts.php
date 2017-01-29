@@ -1208,7 +1208,7 @@ function nlp_display_type($display_type, $instance, $wrapper_list_css, $wrapper_
                     'wtitle_c' => "</h2>",
                     'item_o' => "<li class='nlposts-ulist-litem'>",
                     'item_c' => "</li>",
-                    'content_o' => "<div class='nlposts-container nlposts-ulist-container $nlp_instance'>",
+                    'content_o' => "<div class='nlposts-container nlposts-ulist-container $nlp_instance clearfix'>",
                     'content_c' => "</div>",
                     'meta_o' => "<span class='nlposts-ulist-meta'>",
                     'meta_c' => "</span>",
@@ -1334,7 +1334,7 @@ function network_latest_posts_init() {
     // Load plugins
     wp_enqueue_script('jquery');
 }
-/* 
+/*
  * Load Languages
  */
 function nlp_load_languages() {
